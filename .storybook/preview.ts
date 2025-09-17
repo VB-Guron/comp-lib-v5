@@ -2,7 +2,6 @@ import type { Preview } from "@storybook/react-webpack5";
 import { withThemeByClassName } from "@storybook/addon-themes";
 import "../src/styles/globals.css";
 
-
 const preview: Preview = {
   parameters: {
     controls: {
