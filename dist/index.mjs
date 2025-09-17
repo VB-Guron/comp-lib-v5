@@ -106,24 +106,15 @@ var Dropdown = React3.forwardRef(
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
     return /* @__PURE__ */ jsxs2("div", { className: cn("dropdown", className), ref: dropdownRef, children: [
-      /* @__PURE__ */ jsx3(
-        "div",
-        {
-          className: "dropdown__trigger",
-          onClick: () => setIsOpen(!isOpen),
-          children: trigger
-        }
-      ),
+      /* @__PURE__ */ jsx3("div", { className: "dropdown__trigger", onClick: () => setIsOpen(!isOpen), children: trigger }),
       /* @__PURE__ */ jsx3("div", { className: cn("dropdown__menu", isOpen && "dropdown__menu--open"), children })
     ] });
   }
 );
 Dropdown.displayName = "Dropdown";
-var DropdownItem = React3.forwardRef(
-  ({ children, onClick }, ref) => {
-    return /* @__PURE__ */ jsx3("div", { className: "dropdown__item", onClick, ref, children });
-  }
-);
+var DropdownItem = React3.forwardRef(({ children, onClick }, ref) => {
+  return /* @__PURE__ */ jsx3("div", { className: "dropdown__item", onClick, ref, children });
+});
 DropdownItem.displayName = "DropdownItem";
 
 // src/components/common/navbar.tsx

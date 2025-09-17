@@ -10,7 +10,7 @@
     z-index: 50;
     opacity: 0;
     transition: opacity 0.3s ease-out;
-    
+
     &.modal-backdrop--open {
       opacity: 1;
     }
@@ -26,7 +26,7 @@
     overflow-y: auto;
     transform: scale(0.95);
     transition: transform 0.3s ease-out;
-    
+
     .modal-backdrop--open & {
       transform: scale(1);
     }
@@ -35,7 +35,7 @@
   &-header {
     padding: 1.5rem 1.5rem 1rem 1.5rem;
     border-bottom: 1px solid #e5e7eb;
-    
+
     h2 {
       font-size: 1.25rem;
       font-weight: 600;
