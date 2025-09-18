@@ -13,7 +13,7 @@ module.exports = {
       colors: {
         border: {
           DEFAULT: "var(--border)",
-          light: "var(--light-border)",
+          light: "var(--border-light)",
         },
         input: "var(--input)",
         ring: "var(--ring)",
