@@ -1,6 +1,11 @@
 import * as class_variance_authority_dist_types from 'class-variance-authority/dist/types';
 import * as React from 'react';
 import { VariantProps } from 'class-variance-authority';
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import * as react_hook_form from 'react-hook-form';
+import { FieldValues, FieldPath, ControllerProps } from 'react-hook-form';
+import { Slot } from '@radix-ui/react-slot';
+import { ThemeProvider as ThemeProvider$1 } from 'next-themes';
 import { ClassValue } from 'clsx';
 
 declare const buttonVariants: (props?: ({
@@ -11,6 +16,30 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, Var
     asChild?: boolean;
 }
 declare const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>;
+
+declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues = TFieldValues>(props: react_hook_form.FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React.JSX.Element;
+declare const FormField: <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({ ...props }: ControllerProps<TFieldValues, TName>) => react_jsx_runtime.JSX.Element;
+declare function FormItem({ className, ...props }: React.ComponentProps<"div">): react_jsx_runtime.JSX.Element;
+declare function FormControl({ ...props }: React.ComponentProps<typeof Slot>): react_jsx_runtime.JSX.Element;
+declare function FormMessage({ className, ...props }: React.ComponentProps<"p">): react_jsx_runtime.JSX.Element | null;
+
+declare const inputVariants: (props?: ({
+    variant?: "default" | "ghost" | "fieldset" | "filled" | "underline" | null | undefined;
+    inputSize?: "default" | "sm" | "lg" | null | undefined;
+} & class_variance_authority_dist_types.ClassProp) | undefined) => string;
+interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">, VariantProps<typeof inputVariants> {
+    /** For fieldset variant: format value as number with 2 decimals */
+    formatNumber?: boolean;
+    /** For fieldset variant: legend/label text */
+    legend?: string;
+    /** Fieldset color variant: default, primary, secondary, success, danger */
+    fieldsetColorVariant?: "default" | "primary" | "secondary" | "success" | "danger";
+}
+declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLInputElement>>;
+
+declare function ThemeProvider({ children, ...props }: React.ComponentProps<typeof ThemeProvider$1>): react_jsx_runtime.JSX.Element;
+
+declare function ModeToggle(): react_jsx_runtime.JSX.Element;
 
 interface ModalProps {
     isOpen: boolean;
@@ -61,4 +90,4 @@ declare const NavbarAvatar: React.ForwardRefExoticComponent<NavbarAvatarProps & 
 
 declare function cn(...inputs: ClassValue[]): string;
 
-export { Button, Dropdown, DropdownItem, Modal, Navbar, NavbarAvatar, type NavbarAvatarProps, type NavbarLink, type NavbarProps, buttonVariants, cn };
+export { Button, Dropdown, DropdownItem, Form, FormControl, FormField, FormItem, FormMessage, Input, Modal, ModeToggle, Navbar, NavbarAvatar, type NavbarAvatarProps, type NavbarLink, type NavbarProps, ThemeProvider, buttonVariants, cn };
