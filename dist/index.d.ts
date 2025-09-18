@@ -5,7 +5,7 @@ import { ClassValue } from 'clsx';
 
 declare const buttonVariants: (props?: ({
     variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
-    size?: "default" | "sm" | "lg" | "icon" | null | undefined;
+    size?: "default" | "sm" | "lg" | "icon" | "noPadding" | null | undefined;
 } & class_variance_authority_dist_types.ClassProp) | undefined) => string;
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
     asChild?: boolean;
