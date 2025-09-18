@@ -1,3 +1,4 @@
+"use client";
 // Tailwind/CSS components
 export { Button, buttonVariants } from "./components/ui/button";
 
