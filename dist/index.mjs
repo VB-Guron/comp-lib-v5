@@ -66,6 +66,22 @@ import {
 // src/components/ui/label.tsx
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { jsx as jsx2 } from "react/jsx-runtime";
+function Label({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    LabelPrimitive.Root,
+    {
+      "data-slot": "label",
+      className: cn(
+        "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
+        className
+      ),
+      ...props
+    }
+  );
+}
 
 // src/components/ui/form.tsx
 import { jsx as jsx3 } from "react/jsx-runtime";
@@ -111,6 +127,22 @@ function FormItem({ className, ...props }) {
     }
   ) });
 }
+function FormLabel({
+  className,
+  ...props
+}) {
+  const { error, formItemId } = useFormField();
+  return /* @__PURE__ */ jsx3(
+    Label,
+    {
+      "data-slot": "form-label",
+      "data-error": !!error,
+      className: cn("data-[error=true]:text-destructive", className),
+      htmlFor: formItemId,
+      ...props
+    }
+  );
+}
 function FormControl({ ...props }) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
   return /* @__PURE__ */ jsx3(
@@ -120,6 +152,18 @@ function FormControl({ ...props }) {
       id: formItemId,
       "aria-describedby": !error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`,
       "aria-invalid": !!error,
+      ...props
+    }
+  );
+}
+function FormDescription({ className, ...props }) {
+  const { formDescriptionId } = useFormField();
+  return /* @__PURE__ */ jsx3(
+    "p",
+    {
+      "data-slot": "form-description",
+      id: formDescriptionId,
+      className: cn("text-muted-foreground text-sm", className),
       ...props
     }
   );
@@ -201,12 +245,12 @@ function formatFieldsetValue({
 }
 var fieldsetColorVariants = {
   default: {
-    fieldset: "border-red-800 bg-background dark:border-[#568293]",
-    legend: "text-[#cccccc] dark:text-[#568293]",
+    fieldset: "border-input",
+    legend: "text-input",
     input: "text-foreground"
   },
   primary: {
-    fieldset: "border-primary bg-primary/10",
+    fieldset: "border-primary bg-primary/10 dark:border-yello-700",
     legend: "text-primary",
     input: "text-primary"
   },
@@ -234,6 +278,7 @@ function renderFieldsetInput({
   value,
   inputRef,
   fieldsetColorVariant = "default",
+  disabled,
   ...props
 }) {
   const colorSet = fieldsetColorVariants[fieldsetColorVariant] || fieldsetColorVariants.default;
@@ -241,8 +286,9 @@ function renderFieldsetInput({
     "fieldset",
     {
       className: cn(
-        "rounded-sm border p-0 px-2 pb-1",
-        colorSet.fieldset,
+        "rounded-sm p-0 px-2 pb-1",
+        disabled ? "border-none" : "border",
+        !disabled && colorSet.fieldset,
         className
       ),
       "input-type": type || "text",
@@ -273,6 +319,7 @@ function renderFieldsetInput({
             },
             ref: inputRef,
             value,
+            disabled,
             ...props
           }
         )
@@ -411,205 +458,791 @@ function ModeToggle() {
   ] });
 }
 
-// src/components/ui/modal.tsx
-import * as React4 from "react";
-import { createPortal } from "react-dom";
-import { jsx as jsx8, jsxs as jsxs4 } from "react/jsx-runtime";
-var Modal = React4.forwardRef(
-  ({ isOpen, onClose, title, children, footer }, ref) => {
-    React4.useEffect(() => {
-      if (isOpen) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "unset";
-      }
-      return () => {
-        document.body.style.overflow = "unset";
-      };
-    }, [isOpen]);
-    if (!isOpen) return null;
-    const handleBackdropClick = (e) => {
-      if (e.target === e.currentTarget) {
-        onClose();
-      }
-    };
-    const modal = /* @__PURE__ */ jsx8(
-      "div",
-      {
-        className: cn("modal-backdrop", isOpen && "modal-backdrop--open"),
-        onClick: handleBackdropClick,
-        children: /* @__PURE__ */ jsxs4("div", { className: "modal-content", ref, children: [
-          title && /* @__PURE__ */ jsx8("div", { className: "modal-header", children: /* @__PURE__ */ jsx8("h2", { children: title }) }),
-          /* @__PURE__ */ jsx8("div", { className: "modal-body", children }),
-          footer && /* @__PURE__ */ jsx8("div", { className: "modal-footer", children: footer })
-        ] })
-      }
-    );
-    return createPortal(modal, document.body);
-  }
-);
-Modal.displayName = "Modal";
-
-// src/components/ui/dropdown.tsx
-import * as React5 from "react";
-import { jsx as jsx9, jsxs as jsxs5 } from "react/jsx-runtime";
-var Dropdown = React5.forwardRef(
-  ({ trigger, children, className }, ref) => {
-    const [isOpen, setIsOpen] = React5.useState(false);
-    const dropdownRef = React5.useRef(null);
-    React5.useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsOpen(false);
-        }
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-    return /* @__PURE__ */ jsxs5("div", { className: cn("dropdown", className), ref: dropdownRef, children: [
-      /* @__PURE__ */ jsx9("div", { className: "dropdown__trigger", onClick: () => setIsOpen(!isOpen), children: trigger }),
-      /* @__PURE__ */ jsx9("div", { className: cn("dropdown__menu", isOpen && "dropdown__menu--open"), children })
-    ] });
-  }
-);
-Dropdown.displayName = "Dropdown";
-var DropdownItem = React5.forwardRef(({ children, onClick }, ref) => {
-  return /* @__PURE__ */ jsx9("div", { className: "dropdown__item", onClick, ref, children });
-});
-DropdownItem.displayName = "DropdownItem";
-
-// src/components/common/navbar.tsx
-import * as React6 from "react";
-import { Menu, X, User } from "lucide-react";
-import { jsx as jsx10, jsxs as jsxs6 } from "react/jsx-runtime";
-var Navbar = React6.forwardRef(
-  ({ brand, links = [], actions, transparent = false, className, onLinkClick }, ref) => {
-    const [isScrolled, setIsScrolled] = React6.useState(false);
-    const [isMobileOpen, setIsMobileOpen] = React6.useState(false);
-    React6.useEffect(() => {
-      const handleScroll = () => {
-        setIsScrolled(window.scrollY > 10);
-      };
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-    const handleLinkClick = (href) => {
-      setIsMobileOpen(false);
-      onLinkClick?.(href);
-    };
-    return /* @__PURE__ */ jsxs6(
-      "nav",
-      {
-        className: cn(
-          "navbar",
-          transparent && "navbar--transparent",
-          isScrolled && transparent && "navbar--scrolled",
-          className
-        ),
-        ref,
-        children: [
-          /* @__PURE__ */ jsxs6("div", { className: "navbar__container", children: [
-            brand && /* @__PURE__ */ jsxs6("a", { href: brand.href || "/", className: "navbar__brand", children: [
-              brand.logo && /* @__PURE__ */ jsx10("img", { src: brand.logo, alt: brand.name }),
-              /* @__PURE__ */ jsx10("span", { children: brand.name })
-            ] }),
-            /* @__PURE__ */ jsx10("div", { className: "navbar__nav", children: links.map((link) => /* @__PURE__ */ jsx10(
-              "a",
+// src/components/common/Modal/modal.tsx
+import { Fragment, jsx as jsx8, jsxs as jsxs4 } from "react/jsx-runtime";
+var Modal = ({
+  header = "Header",
+  children,
+  show = false,
+  size = "medium",
+  ...rest
+}) => {
+  const modalSize = { "modal-size": size };
+  return /* @__PURE__ */ jsx8(Fragment, { children: show ? /* @__PURE__ */ jsx8("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ jsxs4(
+    "div",
+    {
+      className: cn("modal-container", "bg-background"),
+      ...rest,
+      ...modalSize,
+      children: [
+        /* @__PURE__ */ jsx8(
+          "div",
+          {
+            className: cn("modal-header-container", "border border-blue-800"),
+            children: /* @__PURE__ */ jsx8(
+              "span",
               {
-                href: link.href,
                 className: cn(
-                  "navbar__link",
-                  link.active && "navbar__link--active"
+                  "modal-header",
+                  "text-foreground border border-red-700 underline underline-offset-8"
                 ),
-                onClick: (e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.href);
-                },
-                children: link.label
-              },
-              link.href
-            )) }),
-            /* @__PURE__ */ jsxs6("div", { className: "navbar__actions", children: [
-              actions,
-              /* @__PURE__ */ jsx10(
-                "button",
-                {
-                  className: "navbar__mobile-toggle",
-                  onClick: () => setIsMobileOpen(!isMobileOpen),
-                  "aria-label": "Toggle mobile menu",
-                  children: isMobileOpen ? /* @__PURE__ */ jsx10(X, {}) : /* @__PURE__ */ jsx10(Menu, {})
-                }
-              )
-            ] })
-          ] }),
-          /* @__PURE__ */ jsx10(
-            "div",
+                children: header
+              }
+            )
+          }
+        ),
+        /* @__PURE__ */ jsx8("div", { className: cn("content-container"), children })
+      ]
+    }
+  ) }) : null });
+};
+var modal_default = Modal;
+
+// src/components/upgraded/dropdown-form.tsx
+import { Controller as Controller2, useFormContext as useFormContext2 } from "react-hook-form";
+
+// src/components/ui/combobox.tsx
+import * as React4 from "react";
+import { Check, ChevronsUpDown } from "lucide-react";
+
+// src/components/ui/command.tsx
+import { Command as CommandPrimitive } from "cmdk";
+import { SearchIcon } from "lucide-react";
+
+// src/components/ui/dialog.tsx
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { XIcon } from "lucide-react";
+import { jsx as jsx9, jsxs as jsxs5 } from "react/jsx-runtime";
+
+// src/components/ui/command.tsx
+import { jsx as jsx10, jsxs as jsxs6 } from "react/jsx-runtime";
+function Command({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx10(
+    CommandPrimitive,
+    {
+      "data-slot": "command",
+      className: cn(
+        "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md",
+        className
+      ),
+      ...props
+    }
+  );
+}
+function CommandInput({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxs6(
+    "div",
+    {
+      "data-slot": "command-input-wrapper",
+      className: "flex h-9 items-center gap-2 border-b px-3",
+      children: [
+        /* @__PURE__ */ jsx10(SearchIcon, { className: "size-4 shrink-0 opacity-50" }),
+        /* @__PURE__ */ jsx10(
+          CommandPrimitive.Input,
+          {
+            "data-slot": "command-input",
+            className: cn(
+              "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+              className
+            ),
+            ...props
+          }
+        )
+      ]
+    }
+  );
+}
+function CommandList({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx10(
+    CommandPrimitive.List,
+    {
+      "data-slot": "command-list",
+      className: cn(
+        "max-h-[200px] scroll-py-1 overflow-x-hidden overflow-y-auto",
+        className
+      ),
+      ...props
+    }
+  );
+}
+function CommandEmpty({
+  ...props
+}) {
+  return /* @__PURE__ */ jsx10(
+    CommandPrimitive.Empty,
+    {
+      "data-slot": "command-empty",
+      className: "py-6 text-center text-sm",
+      ...props
+    }
+  );
+}
+function CommandGroup({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx10(
+    CommandPrimitive.Group,
+    {
+      "data-slot": "command-group",
+      className: cn(
+        "text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium",
+        className
+      ),
+      ...props
+    }
+  );
+}
+function CommandItem({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx10(
+    CommandPrimitive.Item,
+    {
+      "data-slot": "command-item",
+      className: cn(
+        "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        className
+      ),
+      ...props
+    }
+  );
+}
+
+// src/components/ui/popover.tsx
+import * as PopoverPrimitive from "@radix-ui/react-popover";
+import { jsx as jsx11 } from "react/jsx-runtime";
+function Popover({
+  ...props
+}) {
+  return /* @__PURE__ */ jsx11(PopoverPrimitive.Root, { "data-slot": "popover", ...props });
+}
+function PopoverTrigger({
+  ...props
+}) {
+  return /* @__PURE__ */ jsx11(PopoverPrimitive.Trigger, { "data-slot": "popover-trigger", ...props });
+}
+function PopoverContent({
+  className,
+  align = "center",
+  sideOffset = 4,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx11(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsx11(
+    PopoverPrimitive.Content,
+    {
+      "data-slot": "popover-content",
+      align,
+      sideOffset,
+      className: cn(
+        "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden",
+        className
+      ),
+      ...props
+    }
+  ) });
+}
+
+// src/components/ui/combobox.tsx
+import { jsx as jsx12, jsxs as jsxs7 } from "react/jsx-runtime";
+var fieldsetColorVariants2 = {
+  default: {
+    fieldset: "border-input bg-transparent",
+    legend: "text-input"
+  },
+  primary: {
+    fieldset: "border-primary bg-primary/10 dark:border-yello-700",
+    legend: "text-primary"
+  },
+  secondary: {
+    fieldset: "border-secondary bg-secondary/10",
+    legend: "text-secondary"
+  },
+  success: {
+    fieldset: "border-green-500 bg-green-50",
+    legend: "text-green-700"
+  },
+  danger: {
+    fieldset: "border-destructive bg-destructive/10",
+    legend: "text-destructive"
+  }
+};
+var Combobox = ({
+  options: optionsProp = [],
+  value,
+  onChange,
+  searchUrl,
+  placeholder = "Select...",
+  label,
+  variant = "fieldset",
+  fieldsetColorVariant = "default",
+  dropdownProps,
+  inputProps
+}) => {
+  const { value: _ignoreValue, ...safeInputProps } = inputProps || {};
+  const [open, setOpen] = React4.useState(false);
+  const [search, setSearch] = React4.useState("");
+  const [options, setOptions] = React4.useState(optionsProp);
+  const [loading, setLoading] = React4.useState(false);
+  const colorSet = fieldsetColorVariants2[fieldsetColorVariant] || fieldsetColorVariants2.default;
+  const fieldsetRef = React4.useRef(null);
+  const [dropdownWidth, setDropdownWidth] = React4.useState(
+    void 0
+  );
+  React4.useEffect(() => {
+    if (!searchUrl) return;
+    if (!search) {
+      setOptions([]);
+      return;
+    }
+    setLoading(true);
+    let timeout;
+    if (searchUrl === "https://api.example.com/search") {
+      const allOptions = [
+        { value: "apple", label: "Apple" },
+        { value: "banana", label: "Banana" },
+        { value: "orange", label: "Orange" }
+      ];
+      timeout = setTimeout(() => {
+        setOptions(
+          allOptions.filter(
+            (o) => o.label.toLowerCase().includes(search.toLowerCase())
+          )
+        );
+        setLoading(false);
+      }, 700);
+    } else {
+      fetch(`${searchUrl}?q=${encodeURIComponent(search)}`).then((res) => res.json()).then((data) => {
+        setOptions(data.items || []);
+        setLoading(false);
+      }).catch(() => setLoading(false));
+    }
+    return () => {
+      setLoading(false);
+      if (timeout) clearTimeout(timeout);
+    };
+  }, [search, searchUrl]);
+  React4.useEffect(() => {
+    if (searchUrl) return;
+    if (!search) {
+      setOptions(optionsProp);
+      return;
+    }
+    setOptions(
+      optionsProp.filter(
+        (o) => o.label.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search, optionsProp, searchUrl]);
+  React4.useLayoutEffect(() => {
+    if (fieldsetRef.current) {
+      setDropdownWidth(`${fieldsetRef.current.offsetWidth}px`);
+    }
+  }, [open]);
+  return /* @__PURE__ */ jsxs7(Popover, { open, onOpenChange: setOpen, children: [
+    /* @__PURE__ */ jsx12(PopoverTrigger, { asChild: true, children: /* @__PURE__ */ jsxs7(
+      "fieldset",
+      {
+        ref: fieldsetRef,
+        className: cn(
+          "cursor-pointer rounded-sm p-0 px-2 pb-1",
+          "border",
+          colorSet.fieldset
+        ),
+        children: [
+          label && /* @__PURE__ */ jsx12(
+            "legend",
             {
               className: cn(
-                "navbar__mobile-menu",
-                isMobileOpen && "navbar__mobile-menu--open"
+                "my-0 bg-transparent p-0 text-xs leading-none font-medium",
+                colorSet.legend
               ),
-              children: /* @__PURE__ */ jsx10("div", { className: "navbar__mobile-nav", children: links.map((link) => /* @__PURE__ */ jsx10(
-                "a",
-                {
-                  href: link.href,
-                  className: cn(
-                    "navbar__mobile-link",
-                    link.active && "navbar__mobile-link--active"
-                  ),
-                  onClick: (e) => {
-                    e.preventDefault();
-                    handleLinkClick(link.href);
-                  },
-                  children: link.label
-                },
-                link.href
-              )) })
+              children: label
             }
-          )
+          ),
+          /* @__PURE__ */ jsxs7("div", { className: "flex w-full items-center justify-between bg-transparent px-2 py-1", children: [
+            /* @__PURE__ */ jsx12("span", { children: value ? optionsProp.find((o) => o.value === value)?.label || value : placeholder }),
+            /* @__PURE__ */ jsx12(ChevronsUpDown, { className: "opacity-50", size: 15 })
+          ] })
         ]
       }
-    );
+    ) }),
+    /* @__PURE__ */ jsx12(
+      PopoverContent,
+      {
+        align: "start",
+        sideOffset: 0,
+        className: "border-input min-w-0 rounded-b-md border p-0 shadow",
+        style: {
+          minWidth: 0,
+          width: dropdownWidth,
+          left: 0,
+          right: "auto",
+          position: "absolute",
+          zIndex: 50
+        },
+        ...dropdownProps,
+        children: /* @__PURE__ */ jsxs7(Command, { className: "bg-background m-0 w-full border-0 p-0", children: [
+          /* @__PURE__ */ jsx12(
+            CommandInput,
+            {
+              placeholder,
+              className: "h-9 border-transparent bg-transparent",
+              value: search,
+              onValueChange: setSearch,
+              ...safeInputProps
+            }
+          ),
+          /* @__PURE__ */ jsx12(CommandList, { children: loading ? /* @__PURE__ */ jsx12("div", { className: "py-6 text-center text-sm", children: "Loading..." }) : options.length === 0 ? /* @__PURE__ */ jsx12(CommandEmpty, { children: "No results found." }) : /* @__PURE__ */ jsx12(CommandGroup, { children: options.map((option) => /* @__PURE__ */ jsxs7(
+            CommandItem,
+            {
+              value: option.value,
+              onSelect: () => {
+                onChange(option.value);
+                setOpen(false);
+              },
+              className: cn(
+                value === option.value && "bg-primary/10 text-primary"
+              ),
+              children: [
+                option.label,
+                value === option.value && /* @__PURE__ */ jsx12(Check, { className: "ml-auto opacity-100" })
+              ]
+            },
+            option.value
+          )) }) })
+        ] })
+      }
+    )
+  ] });
+};
+
+// src/components/upgraded/dropdown-form.tsx
+import { jsx as jsx13, jsxs as jsxs8 } from "react/jsx-runtime";
+var DropdownForm = ({
+  name,
+  label,
+  description,
+  ...comboboxProps
+}) => {
+  const { control } = useFormContext2();
+  return /* @__PURE__ */ jsx13(
+    Controller2,
+    {
+      name,
+      control,
+      render: ({ field, fieldState }) => /* @__PURE__ */ jsxs8(FormItem, { children: [
+        label && /* @__PURE__ */ jsx13(FormLabel, { children: label }),
+        /* @__PURE__ */ jsx13(FormControl, { children: /* @__PURE__ */ jsx13(
+          Combobox,
+          {
+            ...comboboxProps,
+            value: field.value,
+            onChange: field.onChange
+          }
+        ) }),
+        description && /* @__PURE__ */ jsx13(FormDescription, { children: description }),
+        /* @__PURE__ */ jsx13(FormMessage, { children: fieldState.error?.message })
+      ] })
+    }
+  );
+};
+
+// src/components/upgraded/fieldset-form-input.tsx
+import { useFormContext as useFormContext3, Controller as Controller3 } from "react-hook-form";
+import { jsx as jsx14, jsxs as jsxs9 } from "react/jsx-runtime";
+function UpgradedFieldsetFormInput({
+  name,
+  legend,
+  placeholder,
+  type,
+  fieldsetColorVariant = "default",
+  ...props
+}) {
+  const { control } = useFormContext3();
+  return /* @__PURE__ */ jsx14(
+    Controller3,
+    {
+      name,
+      control,
+      render: ({ field }) => /* @__PURE__ */ jsxs9(FormItem, { children: [
+        /* @__PURE__ */ jsx14(FormControl, { children: /* @__PURE__ */ jsx14(
+          Input,
+          {
+            ...field,
+            variant: "fieldset",
+            legend,
+            placeholder,
+            type,
+            fieldsetColorVariant,
+            ...props
+          }
+        ) }),
+        /* @__PURE__ */ jsx14(FormMessage, {})
+      ] })
+    }
+  );
+}
+
+// src/components/upgraded/fieldset-form-textarea.tsx
+import { useFormContext as useFormContext4, Controller as Controller4 } from "react-hook-form";
+
+// src/components/ui/textarea.tsx
+import * as React5 from "react";
+import { cva as cva3 } from "class-variance-authority";
+import { jsx as jsx15, jsxs as jsxs10 } from "react/jsx-runtime";
+var textareaVariants = cva3(
+  "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-20 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none",
+  {
+    variants: {
+      variant: {
+        default: "",
+        filled: "bg-muted border-0 shadow-inner focus-visible:ring-2 focus-visible:ring-ring/40",
+        underline: "border-0 border-b-2 rounded-none focus-visible:border-ring",
+        ghost: "border-0 bg-transparent shadow-none",
+        fieldset: ""
+        // handled in render
+      },
+      textareaSize: {
+        default: "min-h-16 px-3 py-2 text-base md:text-sm",
+        sm: "min-h-12 px-2 text-sm",
+        lg: "min-h-24 px-4 text-lg"
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+      textareaSize: "default"
+    }
   }
 );
-Navbar.displayName = "Navbar";
-var NavbarAvatar = React6.forwardRef(
-  ({ src, alt, fallback, onClick, className }, ref) => {
-    const [imageError, setImageError] = React6.useState(false);
-    return /* @__PURE__ */ jsx10(
-      "div",
-      {
-        className: cn("navbar-avatar", className),
-        onClick,
-        ref,
-        children: src && !imageError ? /* @__PURE__ */ jsx10(
-          "img",
+var fieldsetColorVariants3 = {
+  default: {
+    fieldset: "border-input",
+    legend: "text-input",
+    input: "text-foreground"
+  },
+  primary: {
+    fieldset: "border-primary bg-primary/10",
+    legend: "text-primary",
+    input: "text-primary"
+  },
+  secondary: {
+    fieldset: "border-secondary bg-secondary/10",
+    legend: "text-secondary",
+    input: "text-secondary"
+  },
+  success: {
+    fieldset: "border-green-500 bg-green-50",
+    legend: "text-green-700",
+    input: "text-green-700"
+  },
+  danger: {
+    fieldset: "border-destructive bg-destructive/10",
+    legend: "text-destructive",
+    input: "text-destructive"
+  }
+};
+function renderFieldsetTextarea({
+  className,
+  legend,
+  placeholder,
+  value,
+  inputRef,
+  fieldsetColorVariant = "default",
+  disabled,
+  ...props
+}) {
+  const colorSet = fieldsetColorVariants3[fieldsetColorVariant] || fieldsetColorVariants3.default;
+  return /* @__PURE__ */ jsxs10(
+    "fieldset",
+    {
+      className: cn(
+        "rounded-sm p-0 px-2 pb-1",
+        disabled ? "border-none" : "border",
+        !disabled && colorSet.fieldset,
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsx15(
+          "legend",
           {
-            src,
-            alt: alt || "Avatar",
-            onError: () => setImageError(true)
+            className: cn(
+              "text-input my-0 bg-transparent p-0 text-xs leading-none font-medium",
+              colorSet.legend
+            ),
+            children: legend || placeholder
           }
-        ) : /* @__PURE__ */ jsx10("div", { className: "navbar-avatar__fallback", children: fallback || /* @__PURE__ */ jsx10(User, { size: 16 }) })
+        ),
+        /* @__PURE__ */ jsx15(
+          "textarea",
+          {
+            className: cn(
+              "w-full rounded-none text-base placeholder-transparent outline-none disabled:bg-transparent",
+              colorSet.input,
+              disabled && "resize-none"
+            ),
+            style: { resize: "none", ...props.style || {} },
+            ref: inputRef,
+            value,
+            disabled,
+            ...props
+          }
+        )
+      ]
+    }
+  );
+}
+var Textarea = React5.forwardRef(
+  ({
+    className,
+    variant,
+    textareaSize,
+    legend,
+    fieldsetColorVariant,
+    disabled,
+    ...props
+  }, ref) => {
+    if (variant === "fieldset") {
+      return renderFieldsetTextarea({
+        className,
+        legend,
+        placeholder: props.placeholder,
+        value: props.value,
+        inputRef: ref,
+        fieldsetColorVariant,
+        disabled,
+        ...props
+      });
+    }
+    return /* @__PURE__ */ jsx15(
+      "textarea",
+      {
+        "data-slot": "textarea",
+        className: cn(textareaVariants({ variant, textareaSize }), className),
+        style: { resize: "none", ...props.style || {} },
+        ref,
+        disabled,
+        ...props
       }
     );
   }
 );
-NavbarAvatar.displayName = "NavbarAvatar";
+Textarea.displayName = "Textarea";
+
+// src/components/upgraded/fieldset-form-textarea.tsx
+import { jsx as jsx16, jsxs as jsxs11 } from "react/jsx-runtime";
+function UpgradedFieldsetFormTextarea({
+  name,
+  legend,
+  placeholder,
+  fieldsetColorVariant = "default",
+  ...props
+}) {
+  const { control } = useFormContext4();
+  return /* @__PURE__ */ jsx16(
+    Controller4,
+    {
+      name,
+      control,
+      render: ({ field }) => /* @__PURE__ */ jsxs11(FormItem, { children: [
+        /* @__PURE__ */ jsx16(FormControl, { children: /* @__PURE__ */ jsx16(
+          Textarea,
+          {
+            ...field,
+            variant: "fieldset",
+            legend,
+            placeholder,
+            fieldsetColorVariant,
+            ...props
+          }
+        ) }),
+        /* @__PURE__ */ jsx16(FormMessage, {})
+      ] })
+    }
+  );
+}
+
+// src/components/upgraded/toggle-form.tsx
+import { useFormContext as useFormContext5, Controller as Controller5 } from "react-hook-form";
+
+// src/components/ui/toggle.tsx
+import { useCallback, useEffect as useEffect2, useRef as useRef2, useState as useState2 } from "react";
+import { jsx as jsx17, jsxs as jsxs12 } from "react/jsx-runtime";
+var fieldsetColorVariants4 = {
+  default: {
+    fieldset: "border-input",
+    legend: "text-input"
+  },
+  primary: {
+    fieldset: "border-primary bg-primary/10",
+    legend: "text-primary"
+  },
+  secondary: {
+    fieldset: "border-secondary bg-secondary/10",
+    legend: "text-secondary"
+  },
+  success: {
+    fieldset: "border-green-500 bg-green-50",
+    legend: "text-green-700"
+  },
+  danger: {
+    fieldset: "border-destructive bg-destructive/10",
+    legend: "text-destructive"
+  }
+};
+var Toggle = (props) => {
+  const {
+    checked = false,
+    onChange = () => {
+    },
+    disabled = false,
+    name = "",
+    checkedValue = "YES",
+    notCheckedValue = "NO",
+    legend,
+    fieldsetColorVariant = "default"
+  } = props;
+  const toggleRef = useRef2(false);
+  const [isChecked, setIsChecked] = useState2(checked);
+  useEffect2(() => {
+    toggleRef.current = checked;
+    setIsChecked(checked);
+  }, [checked]);
+  const toggleYes = useCallback(() => {
+    if (disabled) return;
+    toggleRef.current = true;
+    setIsChecked(true);
+    onChange({ target: { name, value: true } });
+  }, [onChange, name, disabled]);
+  const toggleNo = useCallback(() => {
+    if (disabled) return;
+    toggleRef.current = false;
+    setIsChecked(false);
+    onChange({ target: { name, value: false } });
+  }, [onChange, name, disabled]);
+  const colorSet = fieldsetColorVariants4[fieldsetColorVariant] || fieldsetColorVariants4.default;
+  if (disabled) {
+    return /* @__PURE__ */ jsxs12("div", { className: "flex flex-col gap-1", children: [
+      legend && /* @__PURE__ */ jsx17(
+        "span",
+        {
+          className: `mb-1 block text-xs leading-none font-medium ${colorSet.legend}`,
+          children: legend
+        }
+      ),
+      /* @__PURE__ */ jsx17("span", { className: "text-foreground block text-xs font-semibold", children: isChecked ? checkedValue : notCheckedValue })
+    ] });
+  }
+  return /* @__PURE__ */ jsxs12("div", { className: "flex flex-col gap-1", children: [
+    legend && /* @__PURE__ */ jsx17(
+      "span",
+      {
+        className: `mb-1 block text-xs leading-none font-medium ${colorSet.legend}`,
+        children: legend
+      }
+    ),
+    /* @__PURE__ */ jsxs12("div", { className: "relative flex w-40 overflow-hidden rounded-sm", children: [
+      /* @__PURE__ */ jsx17(
+        "span",
+        {
+          onClick: toggleYes,
+          className: `border-input relative z-10 min-w-20 cursor-pointer rounded-l-sm border py-1 text-center text-xs font-semibold`,
+          children: /* @__PURE__ */ jsx17(
+            "span",
+            {
+              className: `relative z-10 ${isChecked ? "opacity-0" : "text-gray-300"} transition-opacity duration-300`,
+              children: checkedValue
+            }
+          )
+        }
+      ),
+      /* @__PURE__ */ jsx17(
+        "span",
+        {
+          onClick: toggleNo,
+          className: `border-input relative z-10 min-w-20 cursor-pointer rounded-r-sm border border-l-0 py-1 text-center text-xs font-semibold`,
+          children: /* @__PURE__ */ jsx17(
+            "span",
+            {
+              className: `relative z-10 ${!isChecked ? "opacity-0" : "text-gray-300"} transition-opacity duration-300`,
+              children: notCheckedValue
+            }
+          )
+        }
+      ),
+      /* @__PURE__ */ jsx17(
+        "div",
+        {
+          className: `bg-primary absolute top-0 z-30 h-full min-w-20 transition-all duration-500 ease-out ${isChecked ? "left-0 rounded-l-sm" : "left-20 rounded-r-sm"} `,
+          children: /* @__PURE__ */ jsx17("span", { className: "absolute z-40 flex h-full w-full items-center justify-center text-xs font-semibold text-white", children: isChecked ? checkedValue : notCheckedValue })
+        }
+      )
+    ] })
+  ] });
+};
+
+// src/components/upgraded/toggle-form.tsx
+import { jsx as jsx18, jsxs as jsxs13 } from "react/jsx-runtime";
+function ToggleForm({
+  name,
+  legend,
+  fieldsetColorVariant = "default",
+  checkedValue,
+  notCheckedValue,
+  ...props
+}) {
+  const { control } = useFormContext5();
+  const finalCheckedValue = checkedValue ?? "YES";
+  const finalNotCheckedValue = notCheckedValue ?? "NO";
+  return /* @__PURE__ */ jsx18(
+    Controller5,
+    {
+      name,
+      control,
+      render: ({ field }) => /* @__PURE__ */ jsxs13(FormItem, { children: [
+        /* @__PURE__ */ jsx18(FormControl, { children: /* @__PURE__ */ jsx18(
+          Toggle,
+          {
+            ...props,
+            name,
+            checked: !!field.value,
+            onChange: (e) => field.onChange(e.target.value),
+            legend,
+            fieldsetColorVariant,
+            checkedValue: finalCheckedValue,
+            notCheckedValue: finalNotCheckedValue
+          }
+        ) }),
+        /* @__PURE__ */ jsx18(FormMessage, {})
+      ] })
+    }
+  );
+}
 export {
   Button,
-  Dropdown,
-  DropdownItem,
+  DropdownForm,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
   Input,
-  Modal,
+  modal_default as Modal,
   ModeToggle,
-  Navbar,
-  NavbarAvatar,
   ThemeProvider,
+  ToggleForm,
+  UpgradedFieldsetFormInput,
+  UpgradedFieldsetFormTextarea,
   buttonVariants,
   cn
 };

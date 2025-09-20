@@ -1,5 +1,6 @@
 import * as class_variance_authority_dist_types from 'class-variance-authority/dist/types';
-import * as React from 'react';
+import * as React$1 from 'react';
+import { HTMLAttributes } from 'react';
 import { VariantProps } from 'class-variance-authority';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as react_hook_form from 'react-hook-form';
@@ -12,22 +13,22 @@ declare const buttonVariants: (props?: ({
     variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | "noPadding" | null | undefined;
 } & class_variance_authority_dist_types.ClassProp) | undefined) => string;
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
     asChild?: boolean;
 }
-declare const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>;
+declare const Button: React$1.ForwardRefExoticComponent<ButtonProps & React$1.RefAttributes<HTMLButtonElement>>;
 
-declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues = TFieldValues>(props: react_hook_form.FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React.JSX.Element;
+declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues = TFieldValues>(props: react_hook_form.FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React$1.JSX.Element;
 declare const FormField: <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({ ...props }: ControllerProps<TFieldValues, TName>) => react_jsx_runtime.JSX.Element;
-declare function FormItem({ className, ...props }: React.ComponentProps<"div">): react_jsx_runtime.JSX.Element;
-declare function FormControl({ ...props }: React.ComponentProps<typeof Slot>): react_jsx_runtime.JSX.Element;
-declare function FormMessage({ className, ...props }: React.ComponentProps<"p">): react_jsx_runtime.JSX.Element | null;
+declare function FormItem({ className, ...props }: React$1.ComponentProps<"div">): react_jsx_runtime.JSX.Element;
+declare function FormControl({ ...props }: React$1.ComponentProps<typeof Slot>): react_jsx_runtime.JSX.Element;
+declare function FormMessage({ className, ...props }: React$1.ComponentProps<"p">): react_jsx_runtime.JSX.Element | null;
 
 declare const inputVariants: (props?: ({
     variant?: "default" | "ghost" | "fieldset" | "filled" | "underline" | null | undefined;
     inputSize?: "default" | "sm" | "lg" | null | undefined;
 } & class_variance_authority_dist_types.ClassProp) | undefined) => string;
-interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">, VariantProps<typeof inputVariants> {
+interface InputProps extends Omit<React$1.InputHTMLAttributes<HTMLInputElement>, "size">, VariantProps<typeof inputVariants> {
     /** For fieldset variant: format value as number with 2 decimals */
     formatNumber?: boolean;
     /** For fieldset variant: legend/label text */
@@ -35,59 +36,99 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "
     /** Fieldset color variant: default, primary, secondary, success, danger */
     fieldsetColorVariant?: "default" | "primary" | "secondary" | "success" | "danger";
 }
-declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLInputElement>>;
+declare const Input: React$1.ForwardRefExoticComponent<InputProps & React$1.RefAttributes<HTMLInputElement>>;
 
-declare function ThemeProvider({ children, ...props }: React.ComponentProps<typeof ThemeProvider$1>): react_jsx_runtime.JSX.Element;
+declare function ThemeProvider({ children, ...props }: React$1.ComponentProps<typeof ThemeProvider$1>): react_jsx_runtime.JSX.Element;
 
 declare function ModeToggle(): react_jsx_runtime.JSX.Element;
 
-interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    title?: string;
-    children: React.ReactNode;
-    footer?: React.ReactNode;
+type ModalSize = "small" | "medium" | "medium2" | "large" | "xlarge";
+interface ModalProps extends HTMLAttributes<HTMLDialogElement> {
+    header?: string;
+    show?: boolean;
+    children?: React.ReactNode;
+    size?: ModalSize;
 }
-declare const Modal: React.ForwardRefExoticComponent<ModalProps & React.RefAttributes<HTMLDivElement>>;
+declare const Modal: ({ header, children, show, size, ...rest }: ModalProps) => react_jsx_runtime.JSX.Element;
 
-interface DropdownProps {
-    trigger: React.ReactNode;
-    children: React.ReactNode;
-    className?: string;
-}
-declare const Dropdown: React.ForwardRefExoticComponent<DropdownProps & React.RefAttributes<HTMLDivElement>>;
-declare const DropdownItem: React.ForwardRefExoticComponent<{
-    children: React.ReactNode;
-    onClick?: () => void;
-} & React.RefAttributes<HTMLDivElement>>;
-
-interface NavbarLink {
-    href: string;
+type ComboboxOption = {
+    value: string;
     label: string;
-    active?: boolean;
+};
+interface ComboboxProps {
+    options?: ComboboxOption[];
+    value: string;
+    onChange: (value: string) => void;
+    searchUrl?: string;
+    placeholder?: string;
+    label?: string;
+    variant?: "fieldset";
+    fieldsetColorVariant?: "default" | "primary" | "secondary" | "success" | "danger";
+    dropdownProps?: React$1.HTMLAttributes<HTMLDivElement>;
+    inputProps?: React$1.InputHTMLAttributes<HTMLInputElement>;
 }
-interface NavbarProps {
-    brand?: {
+
+interface DropdownFormProps extends Omit<ComboboxProps, "value" | "onChange"> {
+    name: string;
+    label?: string;
+    description?: React$1.ReactNode;
+}
+/**
+ * DropdownForm: Combobox integrated with react-hook-form and form fieldset components.
+ * Handles value and onChange via react-hook-form Controller.
+ */
+declare const DropdownForm: React$1.FC<DropdownFormProps>;
+
+interface UpgradedFieldsetFormInputProps extends Omit<InputProps, "name" | "variant"> {
+    name: string;
+    legend?: string;
+    placeholder?: string;
+    type?: string;
+    fieldsetColorVariant?: "default" | "primary" | "secondary" | "success" | "danger";
+}
+declare function UpgradedFieldsetFormInput({ name, legend, placeholder, type, fieldsetColorVariant, ...props }: UpgradedFieldsetFormInputProps): react_jsx_runtime.JSX.Element;
+
+declare const textareaVariants: (props?: ({
+    variant?: "default" | "ghost" | "fieldset" | "filled" | "underline" | null | undefined;
+    textareaSize?: "default" | "sm" | "lg" | null | undefined;
+} & class_variance_authority_dist_types.ClassProp) | undefined) => string;
+interface TextareaProps extends Omit<React$1.TextareaHTMLAttributes<HTMLTextAreaElement>, "size">, VariantProps<typeof textareaVariants> {
+    legend?: string;
+    fieldsetColorVariant?: "default" | "primary" | "secondary" | "success" | "danger";
+}
+
+interface UpgradedFieldsetFormTextareaProps extends Omit<TextareaProps, "name" | "variant"> {
+    name: string;
+    legend?: string;
+    placeholder?: string;
+    fieldsetColorVariant?: "default" | "primary" | "secondary" | "success" | "danger";
+}
+declare function UpgradedFieldsetFormTextarea({ name, legend, placeholder, fieldsetColorVariant, ...props }: UpgradedFieldsetFormTextareaProps): react_jsx_runtime.JSX.Element;
+
+type ToggleChangedProps = {
+    target: {
+        value: boolean;
         name: string;
-        href?: string;
-        logo?: string;
     };
-    links?: NavbarLink[];
-    actions?: React.ReactNode;
-    transparent?: boolean;
-    className?: string;
-    onLinkClick?: (href: string) => void;
+};
+type ToggleProps = {
+    onChange?: (checked: ToggleChangedProps) => void;
+    checked?: boolean;
+    disabled?: boolean;
+    name?: string;
+    checkedValue?: string;
+    notCheckedValue?: string;
+    legend?: string;
+    fieldsetColorVariant?: "default" | "primary" | "secondary" | "success" | "danger";
+};
+
+interface ToggleFormProps extends Omit<ToggleProps, "name" | "checked" | "onChange"> {
+    name: string;
+    legend?: string;
+    fieldsetColorVariant?: "default" | "primary" | "secondary" | "success" | "danger";
 }
-declare const Navbar: React.ForwardRefExoticComponent<NavbarProps & React.RefAttributes<HTMLElement>>;
-interface NavbarAvatarProps {
-    src?: string;
-    alt?: string;
-    fallback?: string;
-    onClick?: () => void;
-    className?: string;
-}
-declare const NavbarAvatar: React.ForwardRefExoticComponent<NavbarAvatarProps & React.RefAttributes<HTMLDivElement>>;
+declare function ToggleForm({ name, legend, fieldsetColorVariant, checkedValue, notCheckedValue, ...props }: ToggleFormProps): react_jsx_runtime.JSX.Element;
 
 declare function cn(...inputs: ClassValue[]): string;
 
-export { Button, Dropdown, DropdownItem, Form, FormControl, FormField, FormItem, FormMessage, Input, Modal, ModeToggle, Navbar, NavbarAvatar, type NavbarAvatarProps, type NavbarLink, type NavbarProps, ThemeProvider, buttonVariants, cn };
+export { Button, DropdownForm, Form, FormControl, FormField, FormItem, FormMessage, Input, Modal, ModeToggle, ThemeProvider, ToggleForm, UpgradedFieldsetFormInput, UpgradedFieldsetFormTextarea, buttonVariants, cn };
