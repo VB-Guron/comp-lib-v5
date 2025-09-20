@@ -81,12 +81,12 @@ function formatFieldsetValue({
 // Fieldset color variants using Tailwind color classes
 const fieldsetColorVariants = {
   default: {
-    fieldset: "border-red-800 bg-background dark:border-[#568293]",
-    legend: "text-[#cccccc] dark:text-[#568293]",
+    fieldset: "border-input",
+    legend: "text-input",
     input: "text-foreground",
   },
   primary: {
-    fieldset: "border-primary bg-primary/10",
+    fieldset: "border-primary bg-primary/10 dark:border-yello-700",
     legend: "text-primary",
     input: "text-primary",
   },
@@ -115,6 +115,7 @@ function renderFieldsetInput({
   value,
   inputRef,
   fieldsetColorVariant = "default",
+  disabled,
   ...props
 }: {
   className?: string;
@@ -129,6 +130,7 @@ function renderFieldsetInput({
     | "secondary"
     | "success"
     | "danger";
+  disabled?: boolean;
   [key: string]: any;
 }) {
   const colorSet =
@@ -137,8 +139,9 @@ function renderFieldsetInput({
   return (
     <fieldset
       className={cn(
-        "rounded-sm border p-0 px-2 pb-1",
-        colorSet.fieldset,
+        "rounded-sm p-0 px-2 pb-1",
+        disabled ? "border-none" : "border",
+        !disabled && colorSet.fieldset,
         className
       )}
       input-type={type || "text"}
@@ -165,6 +168,7 @@ function renderFieldsetInput({
         }}
         ref={inputRef}
         value={value}
+        disabled={disabled}
         {...props}
       />
     </fieldset>

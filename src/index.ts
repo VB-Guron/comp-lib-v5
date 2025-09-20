@@ -17,18 +17,19 @@ export { ThemeProvider } from "./components/theme-provider";
 export { ModeToggle } from "./components/ui/mode-toggle";
 
 // SCSS components (ui)
-export { Modal } from "./components/ui/modal";
-export { Dropdown, DropdownItem } from "./components/ui/dropdown";
+//export { Modal } from "./components/ui/modal";
+//export { Dropdown, DropdownItem } from "./components/ui/dropdown";
 
 // SCSS components (common)
-export { Navbar, NavbarAvatar } from "./components/common/navbar";
+export { default as Modal } from "./components/common/Modal/modal";
+
+// Upgraded form components
+export { DropdownForm } from "./components/upgraded/dropdown-form";
+export { UpgradedFieldsetFormInput } from "./components/upgraded/fieldset-form-input";
+export { UpgradedFieldsetFormTextarea } from "./components/upgraded/fieldset-form-textarea";
+export { ToggleForm } from "./components/upgraded/toggle-form";
 
 // Utilities
 export { cn } from "./lib/utils";
 
 // Types
-export type {
-  NavbarLink,
-  NavbarProps,
-  NavbarAvatarProps,
-} from "./components/common/navbar";

@@ -79,7 +79,7 @@
   --destructive-foreground: oklch(0.9851 0 0);
   --border: var(--primary);
   --border-light: var(--secondary);
-  --input: var(--border);
+  --input: var(--secondary);
   --ring: oklch(0.4498 0.0802 220.2753);
   --chart-1: oklch(0.4878 0.2432 264.4045);
   --chart-2: oklch(0.7019 0.1577 160.4375);
