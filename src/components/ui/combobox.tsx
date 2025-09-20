@@ -19,7 +19,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 export type ComboboxOption = { value: string; label: string };
 
 // Fieldset color variants (reuse from input/textarea)
-const fieldsetColorVariants = {
+export const comboboxColorVariants = {
   default: {
     fieldset: "border-input bg-transparent",
     legend: "text-input",
@@ -79,8 +79,8 @@ export const Combobox: React.FC<ComboboxProps> = ({
   const [options, setOptions] = React.useState<ComboboxOption[]>(optionsProp);
   const [loading, setLoading] = React.useState(false);
   const colorSet =
-    fieldsetColorVariants[fieldsetColorVariant] ||
-    fieldsetColorVariants.default;
+    comboboxColorVariants[fieldsetColorVariant] ||
+    comboboxColorVariants.default;
   const fieldsetRef = React.useRef<HTMLFieldSetElement>(null);
   const [dropdownWidth, setDropdownWidth] = React.useState<string | undefined>(
     undefined

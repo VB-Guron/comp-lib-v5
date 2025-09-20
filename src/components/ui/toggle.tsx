@@ -21,7 +21,7 @@ export type ToggleProps = {
     | "danger";
 };
 
-const fieldsetColorVariants = {
+export const toggleColorVariants = {
   default: {
     fieldset: "border-input",
     legend: "text-input",
@@ -79,8 +79,8 @@ export const Toggle = (props: ToggleProps) => {
   }, [onChange, name, disabled]);
 
   const colorSet =
-    fieldsetColorVariants[fieldsetColorVariant] ||
-    fieldsetColorVariants.default;
+    toggleColorVariants[fieldsetColorVariant] ||
+    toggleColorVariants.default;
   if (disabled) {
     return (
       <div className="flex flex-col gap-1">
