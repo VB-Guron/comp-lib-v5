@@ -101,7 +101,6 @@ export const NavigationBar = (props: NavigationBarProps) => {
       style={{
         zIndex: 50,
         width: "100vw",
-        backgroundColor: "var(--background, #ffffff)",
       }}
     >
       <div className="nav-bar">

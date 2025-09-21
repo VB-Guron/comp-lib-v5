@@ -2236,8 +2236,7 @@ var NavigationBar = (props) => {
       className: `${className || ""}`,
       style: {
         zIndex: 50,
-        width: "100vw",
-        backgroundColor: "var(--background, #ffffff)"
+        width: "100vw"
       },
       children: [
         /* @__PURE__ */ jsxs18("div", { className: "nav-bar", children: [
