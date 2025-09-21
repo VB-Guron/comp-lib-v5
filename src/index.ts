@@ -80,17 +80,9 @@ export {
   sampleEmployeePermissions,
 } from "./components/ui/navigation-bar/sample-data";
 
-// Assets - commented out to fix DTS build, but still accessible via NavigationBar component
-// export {
-//   payplusAssets,
-//   payplusLogo,
-//   payplusLogoDark,
-//   navigationIcons,
-//   homeIcon,
-//   fileIcon,
-//   payrollIcon,
-//   timekeepingIcon,
-//   assetsIcon,
-//   systemIcon,
-//   birthdayIcon
-// } from "./assets";
+// Images and Assets Configuration
+export {
+  images,
+  payplusAssets,
+  navigationIcons
+} from "./config/images";

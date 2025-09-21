@@ -1,5 +1,5 @@
 import { NavRoute, User, CompanyLogo } from "./types";
-import { navigationIcons } from "../../../assets";
+import { navigationIcons } from "../../../config/images";
 
 // Sample company logo (optional - PayPlus logos are used by default)
 export const sampleLogo: CompanyLogo = {

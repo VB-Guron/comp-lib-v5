@@ -5,7 +5,7 @@ import { NavigationBarProps } from "./types";
 import { NavAreaUpdated } from "./nav-area-updated";
 import { SideNav } from "./side-nav";
 import { SubAcc } from "./sub-acc";
-import { payplusAssets } from "../../../assets";
+import { payplusAssets } from "../../../config/images";
 import "./navigation-bar.scss";
 
 export const NavigationBar = (props: NavigationBarProps) => {

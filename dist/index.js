@@ -70,6 +70,9 @@ __export(index_exports, {
   buttonVariants: () => buttonVariants,
   cn: () => cn,
   comboboxColorVariants: () => comboboxColorVariants,
+  images: () => images,
+  navigationIcons: () => navigationIcons,
+  payplusAssets: () => payplusAssets,
   sampleAdminPermissions: () => sampleAdminPermissions,
   sampleAdminRoutes: () => sampleAdminRoutes,
   sampleAdminUser: () => sampleAdminUser,
@@ -2203,49 +2206,43 @@ var SubAcc = (props) => {
   ] });
 };
 
-// src/assets/images/payplus-logo.png
-var payplus_logo_default = "./payplus-logo-A2YWB25I.png";
-
-// src/assets/images/payplus-logo-dark.png
-var payplus_logo_dark_default = "./payplus-logo-dark-Y2VX3M5R.png";
-
-// src/assets/icons/home.svg
-var home_default = "./home-GYF2OX5G.svg";
-
-// src/assets/icons/file.svg
-var file_default = "./file-C65X33IB.svg";
-
-// src/assets/icons/payroll.svg
-var payroll_default = "./payroll-MASCE2FG.svg";
-
-// src/assets/icons/timekeeping.svg
-var timekeeping_default = "./timekeeping-TV4FSF7P.svg";
-
-// src/assets/icons/assets.svg
-var assets_default = "./assets-5WG32LML.svg";
-
-// src/assets/icons/system.svg
-var system_default = "./system-FSEJPXN6.svg";
-
-// src/assets/icons/cupcake.svg
-var cupcake_default = "./cupcake-VD7Z4YOW.svg";
-
-// src/assets/index.ts
+// src/config/images.ts
+var images = {
+  // PayPlus logos
+  logo: `/images/logo.png`,
+  logoDarkMode: `/images/logo_darkmode.png`,
+  // Background images
+  loginBackground: `/images/loginBackground.png`,
+  notFoundBackground: `/images/notFoundBackground.png`,
+  unauthorizedBackground: `/images/unauthorizedBackground.png`,
+  // Notification icons
+  notif_default: "/images/notif_default.svg",
+  notif_error: "/images/notif_error.svg",
+  notif_success: "/images/notif_success.svg",
+  // Navigation icons
+  home: "/icons/home.svg",
+  file: "/icons/file.svg",
+  payroll: "/icons/payroll.svg",
+  timekeeping: "/icons/timekeeping.svg",
+  assets: "/icons/assets.svg",
+  system: "/icons/system.svg",
+  birthday: "/icons/cupcake.svg"
+};
 var payplusAssets = {
   logo: {
-    src: payplus_logo_default,
-    darkMode: payplus_logo_dark_default,
+    src: images.logo,
+    darkMode: images.logoDarkMode,
     alt: "PayPlus Logo"
   }
 };
 var navigationIcons = {
-  home: home_default,
-  file: file_default,
-  payroll: payroll_default,
-  timekeeping: timekeeping_default,
-  assets: assets_default,
-  system: system_default,
-  birthday: cupcake_default
+  home: images.home,
+  file: images.file,
+  payroll: images.payroll,
+  timekeeping: images.timekeeping,
+  assets: images.assets,
+  system: images.system,
+  birthday: images.birthday
 };
 
 // src/components/ui/navigation-bar/navigation-bar.tsx
@@ -2791,6 +2788,9 @@ var sampleEmployeePermissions = [
   buttonVariants,
   cn,
   comboboxColorVariants,
+  images,
+  navigationIcons,
+  payplusAssets,
   sampleAdminPermissions,
   sampleAdminRoutes,
   sampleAdminUser,

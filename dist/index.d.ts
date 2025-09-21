@@ -323,4 +323,38 @@ declare const sampleEmployeeRoutes: NavRoute[];
 declare const sampleAdminPermissions: number[];
 declare const sampleEmployeePermissions: number[];
 
-export { Button, Combobox, Command, CommandGroup, CommandItem, CommandList, type CompanyLogo, Dialog, DialogContent, DialogTrigger, DropdownForm, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxFormField, GenericCheckboxGroup, Input, Label, Modal, ModeToggle, type NavAreaProps, NavAreaUpdated, type NavRoute, NavigationBar, type NavigationBarProps, Popover, PopoverContent, PopoverTrigger, Search, SideNav, type SideNavProps, SubAcc, type SubAccProps, Table, Textarea, ThemeProvider, Toggle, ToggleForm, UpgradedFieldsetFormInput, UpgradedFieldsetFormTextarea, type User, buttonVariants, cn, comboboxColorVariants, sampleAdminPermissions, sampleAdminRoutes, sampleAdminUser, sampleEmployeePermissions, sampleEmployeeRoutes, sampleEmployeeUser, sampleLogo, sampleUser, toggleColorVariants, useOutsideComponentClicker };
+declare const images: {
+    logo: string;
+    logoDarkMode: string;
+    loginBackground: string;
+    notFoundBackground: string;
+    unauthorizedBackground: string;
+    notif_default: string;
+    notif_error: string;
+    notif_success: string;
+    home: string;
+    file: string;
+    payroll: string;
+    timekeeping: string;
+    assets: string;
+    system: string;
+    birthday: string;
+};
+declare const payplusAssets: {
+    logo: {
+        src: string;
+        darkMode: string;
+        alt: string;
+    };
+};
+declare const navigationIcons: {
+    home: string;
+    file: string;
+    payroll: string;
+    timekeeping: string;
+    assets: string;
+    system: string;
+    birthday: string;
+};
+
+export { Button, Combobox, Command, CommandGroup, CommandItem, CommandList, type CompanyLogo, Dialog, DialogContent, DialogTrigger, DropdownForm, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxFormField, GenericCheckboxGroup, Input, Label, Modal, ModeToggle, type NavAreaProps, NavAreaUpdated, type NavRoute, NavigationBar, type NavigationBarProps, Popover, PopoverContent, PopoverTrigger, Search, SideNav, type SideNavProps, SubAcc, type SubAccProps, Table, Textarea, ThemeProvider, Toggle, ToggleForm, UpgradedFieldsetFormInput, UpgradedFieldsetFormTextarea, type User, buttonVariants, cn, comboboxColorVariants, images, navigationIcons, payplusAssets, sampleAdminPermissions, sampleAdminRoutes, sampleAdminUser, sampleEmployeePermissions, sampleEmployeeRoutes, sampleEmployeeUser, sampleLogo, sampleUser, toggleColorVariants, useOutsideComponentClicker };
