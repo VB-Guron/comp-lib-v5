@@ -2274,8 +2274,18 @@ var NavigationBar = (props) => {
   (0, import_react8.useEffect)(() => {
     if (typeof document === "undefined") return;
     const checkDarkMode = () => {
-      const isDark = document.documentElement.classList.contains("dark") || document.body.classList.contains("dark") || window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setDarkMode(isDark);
+      const hasLightClass = document.documentElement.classList.contains("light") || document.body.classList.contains("light");
+      const hasDarkClass = document.documentElement.classList.contains("dark") || document.body.classList.contains("dark");
+      if (hasLightClass) {
+        setDarkMode(false);
+        return;
+      }
+      if (hasDarkClass) {
+        setDarkMode(true);
+        return;
+      }
+      const systemPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setDarkMode(systemPrefersDark);
     };
     checkDarkMode();
     const observer = new MutationObserver(() => {
