@@ -1,0 +1,135 @@
+.tableScroller {
+  width: 100%;
+  overflow-x: auto !important;
+}
+
+.table {
+  width: 100%;
+  text-align: center;
+  // color: #0e4c64;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: normal;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border-collapse: collapse;
+
+  & td {
+    font-size: 0.9rem;
+    font-weight: normal;
+    padding: 0.9rem;
+  }
+
+  & tbody {
+    & tr {
+      transition: cubic-bezier(0.23, 1, 0.32, 1);
+      // background-color: #ffffff;
+
+      // &:nth-child(2n + 1) {
+      //   background-color: #eeeeee;
+      // }
+    }
+  }
+
+  & th {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0.7rem;
+    // background-color: white;
+    // border-bottom: solid 1.5px var(--primary-color);
+    font-weight: bold;
+  }
+
+  &:has(tbody:empty)::after {
+    content: attr(data-empty-msg);
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: var(--lightgray);
+    font-size: 1.25rem;
+    position: absolute;
+    padding: 1rem 0;
+    left: 0;
+  }
+}
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 0;
+  // border-radius: 5px;
+  // outline: solid 1px #cccccc;
+  position: relative;
+  padding-bottom: 1rem;
+  //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.tableContainerHiddenButtons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 0;
+  border-radius: 5px;
+  outline: solid 1px #cccccc;
+  position: relative;
+  min-height: 6.5rem;
+  //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.buttonContainer {
+  box-sizing: border-box;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding-right: 1rem;
+  width: calc(100px + 2rem);
+  position: relative;
+  height: 40px;
+
+  & > :first-child {
+    left: 0;
+  }
+
+  & > :nth-child(2) {
+    right: 1rem;
+  }
+}
+
+.button {
+  width: 50px;
+  height: 40px;
+  color: #0e4c64;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  background-color: #47798c18;
+  text-transform: capitalize;
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:active {
+    background-color: #0e4c64;
+    color: white;
+  }
+}
+
+.loading {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+}

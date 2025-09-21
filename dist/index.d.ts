@@ -200,6 +200,101 @@ interface ToggleFormProps extends Omit<ToggleProps, "name" | "checked" | "onChan
 }
 declare function ToggleForm({ name, legend, fieldsetColorVariant, checkedValue, notCheckedValue, ...props }: ToggleFormProps): react_jsx_runtime.JSX.Element;
 
+interface GenericCheckboxFormFieldProps<T extends SelectableItem> {
+    data?: T[];
+    name: string;
+    valueName?: string;
+    title?: string;
+    className?: string;
+}
+declare const GenericCheckboxFormField: <T extends SelectableItem>({ data, name, valueName, title, className, }: GenericCheckboxFormFieldProps<T>) => react_jsx_runtime.JSX.Element;
+
+interface NavRoute$1 {
+    label: string;
+    image?: string;
+    to?: string;
+    permissionId?: number;
+    subnav?: NavRoute$1[];
+}
+interface CompanyLogo$1 {
+    src: string;
+    darkMode?: string;
+    alt: string;
+}
+interface User$1 {
+    data: {
+        isAdmin: boolean;
+        name?: string;
+        email?: string;
+    };
+}
+interface NavigationBarProps$1 {
+    routes: NavRoute$1[];
+    permissions?: number[];
+    isAdmin?: boolean;
+    logo: CompanyLogo$1;
+    user?: User$1;
+    className?: string;
+}
+interface NavAreaProps$1 {
+    routes: NavRoute$1[];
+    permissions: number[];
+}
+interface SideNavProps {
+    routes: NavRoute$1[];
+    permissions?: number[];
+}
+interface SubAccProps {
+    isAdmin?: boolean;
+    onSignOut?: () => void;
+    onChangePassword?: () => void;
+    onResetPassword?: () => void;
+}
+
+declare const NavigationBar: (props: NavigationBarProps$1) => react_jsx_runtime.JSX.Element;
+
+declare const NavArea: (props: NavAreaProps$1) => react_jsx_runtime.JSX.Element;
+
+declare const SideNav: (props: SideNavProps) => react_jsx_runtime.JSX.Element;
+
+declare const SubAcc: (props: SubAccProps) => react_jsx_runtime.JSX.Element;
+
+interface NavRoute {
+    label: string;
+    image?: string;
+    to?: string;
+    permissionId?: number;
+    subnav?: NavRoute[];
+}
+interface CompanyLogo {
+    src: string;
+    darkMode?: string;
+    alt: string;
+}
+interface User {
+    data: {
+        isAdmin: boolean;
+        name?: string;
+        email?: string;
+    };
+}
+interface NavigationBarProps {
+    routes: NavRoute[];
+    permissions?: number[];
+    isAdmin?: boolean;
+    logo: CompanyLogo;
+    user?: User;
+    className?: string;
+}
+interface NavAreaProps {
+    routes: NavRoute[];
+    permissions: number[];
+}
+
+declare const NavigationBarScss: (props: NavigationBarProps) => react_jsx_runtime.JSX.Element;
+
+declare const NavAreaUpdated: (props: NavAreaProps) => react_jsx_runtime.JSX.Element;
+
 declare function ThemeProvider({ children, ...props }: React$1.ComponentProps<typeof ThemeProvider$1>): react_jsx_runtime.JSX.Element;
 
 declare function ModeToggle(): react_jsx_runtime.JSX.Element;
@@ -215,4 +310,12 @@ declare const Modal: ({ header, children, show, size, ...rest }: ModalProps) => 
 
 declare function cn(...inputs: ClassValue[]): string;
 
-export { Button, Combobox, Command, CommandGroup, CommandItem, CommandList, Dialog, DialogContent, DialogTrigger, DropdownForm, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxGroup, Input, Label, Modal, ModeToggle, Popover, PopoverContent, PopoverTrigger, Textarea, ThemeProvider, Toggle, ToggleForm, UpgradedFieldsetFormInput, UpgradedFieldsetFormTextarea, buttonVariants, cn, comboboxColorVariants, toggleColorVariants };
+declare const sampleLogo: CompanyLogo$1;
+declare const sampleUser: User$1;
+declare const sampleEmployeeUser: User$1;
+declare const sampleAdminRoutes: NavRoute$1[];
+declare const sampleEmployeeRoutes: NavRoute$1[];
+declare const sampleAdminPermissions: number[];
+declare const sampleEmployeePermissions: number[];
+
+export { Button, Combobox, Command, CommandGroup, CommandItem, CommandList, type CompanyLogo$1 as CompanyLogo, Dialog, DialogContent, DialogTrigger, DropdownForm, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxFormField, GenericCheckboxGroup, Input, Label, Modal, ModeToggle, NavArea, NavAreaUpdated, type NavRoute$1 as NavRoute, NavigationBar, type NavigationBarProps$1 as NavigationBarProps, NavigationBarScss, Popover, PopoverContent, PopoverTrigger, SideNav, SubAcc, Textarea, ThemeProvider, Toggle, ToggleForm, UpgradedFieldsetFormInput, UpgradedFieldsetFormTextarea, type User$1 as User, buttonVariants, cn, comboboxColorVariants, sampleAdminPermissions, sampleAdminRoutes, sampleEmployeePermissions, sampleEmployeeRoutes, sampleEmployeeUser, sampleLogo, sampleUser, toggleColorVariants };

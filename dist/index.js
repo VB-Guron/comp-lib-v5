@@ -46,14 +46,21 @@ __export(index_exports, {
   FormField: () => FormField,
   FormItem: () => FormItem,
   FormMessage: () => FormMessage,
+  GenericCheckboxFormField: () => GenericCheckboxFormField,
   GenericCheckboxGroup: () => GenericCheckboxGroup,
   Input: () => Input,
   Label: () => Label,
   Modal: () => modal_default,
   ModeToggle: () => ModeToggle,
+  NavArea: () => NavArea,
+  NavAreaUpdated: () => NavAreaUpdated,
+  NavigationBar: () => NavigationBar,
+  NavigationBarScss: () => NavigationBarScss,
   Popover: () => Popover,
   PopoverContent: () => PopoverContent,
   PopoverTrigger: () => PopoverTrigger,
+  SideNav: () => SideNav,
+  SubAcc: () => SubAcc,
   Textarea: () => Textarea,
   ThemeProvider: () => ThemeProvider,
   Toggle: () => Toggle,
@@ -63,6 +70,13 @@ __export(index_exports, {
   buttonVariants: () => buttonVariants,
   cn: () => cn,
   comboboxColorVariants: () => comboboxColorVariants,
+  sampleAdminPermissions: () => sampleAdminPermissions,
+  sampleAdminRoutes: () => sampleAdminRoutes,
+  sampleEmployeePermissions: () => sampleEmployeePermissions,
+  sampleEmployeeRoutes: () => sampleEmployeeRoutes,
+  sampleEmployeeUser: () => sampleEmployeeUser,
+  sampleLogo: () => sampleLogo,
+  sampleUser: () => sampleUser,
   toggleColorVariants: () => toggleColorVariants
 });
 module.exports = __toCommonJS(index_exports);
@@ -739,6 +753,7 @@ var CheckboxItem = ({
     )
   );
 };
+var checkboxgroup_default = GenericCheckboxGroup;
 
 // src/components/ui/input.tsx
 var React3 = __toESM(require("react"));
@@ -1446,14 +1461,1008 @@ function ToggleForm({
   );
 }
 
+// src/components/upgraded/checkboxgroup-form.tsx
+var import_react_hook_form6 = require("react-hook-form");
+var import_react3 = require("react");
+var import_jsx_runtime16 = require("react/jsx-runtime");
+var GenericCheckboxFormField = ({
+  data,
+  name,
+  valueName = "itemId",
+  title = "Select All",
+  className = ""
+}) => {
+  const { control } = (0, import_react_hook_form6.useFormContext)();
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+    FormField,
+    {
+      control,
+      name,
+      render: ({ field }) => {
+        const handleFormChange = (e) => {
+          const { action, value } = e.target;
+          const currentValue = field.value || [];
+          switch (action) {
+            case "addAll":
+              const allItems = value.map((item) => ({
+                [valueName]: item.id
+              }));
+              field.onChange(allItems);
+              break;
+            case "removeAll":
+              field.onChange([]);
+              break;
+            case "add":
+              const existingIndex = currentValue.findIndex(
+                (existing) => existing[valueName]?.toString() === value[valueName]?.toString()
+              );
+              if (existingIndex === -1) {
+                field.onChange([...currentValue, value]);
+              }
+              break;
+            case "sub":
+              const updatedValue = currentValue.filter(
+                (existing) => existing[valueName]?.toString() !== value[valueName]?.toString()
+              );
+              field.onChange(updatedValue);
+              break;
+            default:
+              console.warn("Unknown action:", action);
+          }
+        };
+        return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
+          FormItem,
+          {
+            className: cn(
+              "ml-4 flex h-auto w-auto flex-wrap content-center gap-3 overflow-y-auto xl:h-auto xl:w-[100%] xl:content-start",
+              className
+            ),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+                checkboxgroup_default,
+                {
+                  data,
+                  value: field.value || [],
+                  OnFormChange: handleFormChange,
+                  name,
+                  valueName,
+                  title
+                }
+              ) }),
+              /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FormMessage, {})
+            ]
+          }
+        );
+      }
+    }
+  );
+};
+
+// src/components/ui/navigation-bar/navigation-bar.tsx
+var import_react7 = require("react");
+var import_fa3 = require("react-icons/fa");
+
+// src/components/ui/navigation-bar/hooks.ts
+var import_react4 = require("react");
+var useOutsideComponentClicker = ({ ref, onClickedOutside }) => {
+  (0, import_react4.useEffect)(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        onClickedOutside();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, onClickedOutside]);
+};
+var useLoginData = () => {
+  return {
+    user: {
+      data: {
+        isAdmin: true,
+        name: "John Doe",
+        email: "john@example.com"
+      }
+    }
+  };
+};
+
+// src/components/ui/navigation-bar/nav-area.tsx
+var import_react5 = require("react");
+var import_fa = require("react-icons/fa");
+var import_jsx_runtime17 = require("react/jsx-runtime");
+var NavArea = (props) => {
+  const { routes, permissions } = props;
+  const [selected, setSelected] = (0, import_react5.useState)(-1);
+  const ref = (0, import_react5.useRef)(null);
+  useOutsideComponentClicker({
+    ref,
+    onClickedOutside: () => {
+      setSelected(() => -1);
+    }
+  });
+  const showSubRoute = (routes2) => {
+    return true;
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { ref, className: "hidden lg:flex justify-end gap-2 flex-grow z-50 relative", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+    if (true) {
+      if (subnav) {
+        if (!showSubRoute(subnav)) return null;
+      }
+      return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+          NavLink,
+          {
+            selected: selected === i,
+            to,
+            image: image || "",
+            label,
+            onSelect: () => setSelected((prev) => prev === i ? -1 : i),
+            unselect: () => setSelected(() => -1)
+          },
+          i
+        ),
+        i === selected && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+          SubNav,
+          {
+            routes: routes[selected]?.subnav,
+            permissions
+          }
+        )
+      ] }, i);
+    }
+  }) });
+};
+var NavLink = ({
+  selected,
+  to,
+  image,
+  label,
+  onSelect,
+  unselect
+}) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+    "a",
+    {
+      className: cn(
+        "flex gap-2 items-center cursor-pointer py-3 px-4 rounded-t text-decoration-none group",
+        selected ? "bg-primary text-primary-foreground" : "hover:bg-primary hover:text-primary-foreground"
+      ),
+      href: to,
+      onClick: () => {
+        if (to) return;
+        onSelect();
+      },
+      children: [
+        image && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+          "img",
+          {
+            className: cn(
+              "w-4 h-4 transition-all",
+              selected || "group-hover:brightness-0 group-hover:invert"
+            ),
+            src: image,
+            alt: "navIcon"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "font-semibold text-base lg:text-sm whitespace-nowrap", children: label })
+      ]
+    }
+  );
+};
+var SubNav = ({
+  routes,
+  permissions = []
+}) => {
+  const [selected, setSelected] = (0, import_react5.useState)(-1);
+  const onSelect = (i) => {
+    setSelected((prev) => prev === i ? -1 : i);
+  };
+  if (!routes || routes.length === 0) return null;
+  const showSubRoute = (routes2) => {
+    return true;
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "absolute flex flex-col gap-0 bg-white shadow-lg rounded-bl rounded-br z-50", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
+    if (subnav) {
+      if (true) {
+        return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex border-l-4 border-gray-300 hover:border-primary min-w-40", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "py-2 px-2 flex flex-col items-center font-semibold text-sm cursor-pointer text-primary", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { children: label }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "absolute left-full hidden group-hover:flex", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex flex-col relative min-w-40 shadow-lg", children: [
+            subnav.map(({ label: label2, to: to2, subnav: subSubnav, permissionId: permissionId2 }, y) => {
+              if (!subSubnav) {
+                if (true) {
+                  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+                    "a",
+                    {
+                      href: to2,
+                      className: "bg-white py-2 px-2 flex flex-col items-start text-sm font-semibold min-w-24 z-10 hover:text-white hover:bg-primary",
+                      children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { children: label2 })
+                    },
+                    y
+                  );
+                }
+              } else if (subSubnav) {
+                if (!showSubRoute(subSubnav)) return null;
+                return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+                  "div",
+                  {
+                    onClick: () => onSelect(y),
+                    className: "min-w-8",
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+                        "div",
+                        {
+                          className: cn(
+                            "bg-white py-2 px-2 flex justify-between items-center font-semibold text-sm border-none cursor-pointer hover:text-white hover:bg-primary",
+                            selected === y && "border-b-2 border-primary"
+                          ),
+                          children: [
+                            /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { children: label2 }),
+                            selected === y ? /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(import_fa.FaAngleDown, {}) : /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(import_fa.FaAngleLeft, {})
+                          ]
+                        }
+                      ),
+                      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: cn(
+                        "transition-all duration-300",
+                        selected === y ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+                      ), children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "bg-gray-50 flex flex-col", children: subSubnav.map(({ label: label3, to: to3, permissionId: permissionId3 }, z) => {
+                        if (true) {
+                          return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("a", { href: to3, className: "py-2 pl-4 font-semibold text-sm text-black hover:text-primary hover:underline", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { children: label3 }) }, z);
+                        }
+                      }) }) })
+                    ]
+                  },
+                  y
+                );
+              }
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "absolute left-full h-full", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "w-4 h-8 relative overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "bg-white absolute w-8 h-6 right-2 top-0 transform rotate-45" }) }) })
+          ] }) })
+        ] }, i);
+      }
+    } else {
+      return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("a", { href: to, className: "flex border-l-4 border-gray-300 hover:border-primary", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "py-2 px-2", children: label }) }, i);
+    }
+  }) });
+};
+
+// src/components/ui/navigation-bar/side-nav.tsx
+var import_react6 = require("react");
+var import_fa2 = require("react-icons/fa");
+var import_jsx_runtime18 = require("react/jsx-runtime");
+var SideNav = (props) => {
+  const { routes, permissions = [] } = props;
+  const [selected, setSelected] = (0, import_react6.useState)(-1);
+  const ref = (0, import_react6.useRef)(null);
+  useOutsideComponentClicker({
+    ref,
+    onClickedOutside: () => {
+      setSelected(() => -1);
+    }
+  });
+  const showSubRoute = (routes2) => {
+    return true;
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "fixed bg-black/40 backdrop-blur-sm -mx-4 z-40 w-full h-full flex justify-end lg:hidden", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+    "div",
+    {
+      ref,
+      className: "relative top-0 h-full right-0 flex flex-col bg-white z-40 min-w-64 w-1/3 animate-in slide-in-from-right overflow-y-auto box-border pb-24",
+      children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+        if (true) {
+          if (subnav && !showSubRoute(subnav)) return null;
+          return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "flex flex-col", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+              SideNavLink,
+              {
+                selected: selected === i,
+                to,
+                image: image || "",
+                label,
+                onSelect: () => setSelected((prev) => prev === i ? -1 : i),
+                unselect: () => setSelected(() => -1)
+              },
+              i
+            ),
+            selected === i && subnav && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(SideSubNav, { routes: subnav, permissions })
+          ] }, i);
+        }
+      })
+    }
+  ) });
+};
+var SideNavLink = ({
+  selected,
+  to,
+  image,
+  label,
+  onSelect,
+  unselect
+}) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
+    "a",
+    {
+      className: cn(
+        "flex gap-2 items-center cursor-pointer py-3 px-4 text-decoration-none border-none",
+        selected ? "bg-primary text-white" : "hover:bg-primary hover:text-white"
+      ),
+      href: to,
+      onClick: () => {
+        if (to) return;
+        onSelect();
+      },
+      children: [
+        image && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+          "img",
+          {
+            className: cn(
+              "w-4 h-4",
+              selected ? "brightness-0 invert" : "filter-primary"
+            ),
+            src: image,
+            alt: "navIcon"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "text-primary font-semibold text-base md:text-sm", children: label })
+      ]
+    }
+  );
+};
+var SideSubNav = ({
+  routes,
+  permissions = []
+}) => {
+  const [selected, setSelected] = (0, import_react6.useState)(-1);
+  if (!routes || routes.length === 0) return null;
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "bg-blue-50/50 text-black relative flex flex-col box-border animate-in fade-in py-4 pr-0 gap-1", children: routes.map(({ label, to, subnav, permissionId }, i) => {
+    if (subnav) {
+      return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "flex flex-col", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
+          "div",
+          {
+            className: cn(
+              "pr-12 flex justify-between items-center py-2 px-2 font-semibold border-b border-black cursor-pointer hover:bg-primary hover:text-white",
+              selected === i && "bg-primary text-white"
+            ),
+            onClick: () => setSelected((prev) => prev === i ? -1 : i),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "text-base md:text-sm", children: label }),
+              /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+                import_fa2.FaAngleRight,
+                {
+                  className: cn(
+                    "transition-transform",
+                    selected === i && "rotate-90"
+                  )
+                }
+              )
+            ]
+          }
+        ),
+        selected === i && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "flex flex-col gap-0 bg-gray-200 animate-in fade-in", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
+          if (true) {
+            return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+              "a",
+              {
+                href: to2,
+                className: "py-2 pl-4 pr-2 cursor-pointer text-gray-700 hover:text-white hover:bg-primary text-base md:text-sm",
+                children: label2
+              },
+              y
+            );
+          }
+        }) })
+      ] }, i);
+    } else {
+      return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+        "a",
+        {
+          href: to,
+          className: "py-2 px-2 flex items-center hover:bg-primary hover:text-white cursor-pointer font-semibold border-b border-black text-base md:text-sm",
+          children: label
+        },
+        i
+      );
+    }
+  }) });
+};
+
+// src/components/ui/navigation-bar/sub-acc.tsx
+var import_jsx_runtime19 = require("react/jsx-runtime");
+var SubAcc = (props) => {
+  const {
+    isAdmin = false,
+    onSignOut = () => console.log("Sign out clicked"),
+    onChangePassword = () => console.log("Change password clicked"),
+    onResetPassword = () => console.log("Reset password clicked")
+  } = props;
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("ul", { className: "opacity-0 pointer-events-none transform translate-y-2 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:pointer-events-auto group-hover:transform group-hover:translate-y-0 flex bg-primary color-white text-sm py-2 flex-col absolute top-full -mt-2 right-0 list-none m-0 z-50 shadow-lg", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("li", { className: "whitespace-nowrap hover:cursor-pointer hover:text-blue-300", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      "button",
+      {
+        className: "flex py-2 px-5 bg-transparent border-none text-white cursor-pointer w-full text-left",
+        onClick: onChangePassword,
+        children: "Change Password"
+      }
+    ) }),
+    isAdmin && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("li", { className: "whitespace-nowrap hover:cursor-pointer hover:text-blue-300", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      "button",
+      {
+        className: "flex py-2 px-5 bg-transparent border-none text-white cursor-pointer w-full text-left",
+        onClick: onResetPassword,
+        children: "Reset Password"
+      }
+    ) }),
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("li", { className: "whitespace-nowrap hover:cursor-pointer hover:text-blue-300", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      "button",
+      {
+        className: "flex py-2 px-5 bg-transparent border-none text-white cursor-pointer w-full text-left",
+        onClick: onSignOut,
+        children: "Sign Out"
+      }
+    ) })
+  ] });
+};
+
+// src/components/ui/navigation-bar/navigation-bar.tsx
+var import_jsx_runtime20 = require("react/jsx-runtime");
+var NavigationBar = (props) => {
+  const { user: mockUser } = useLoginData();
+  const {
+    routes,
+    permissions = [],
+    isAdmin = false,
+    logo,
+    user = mockUser,
+    className
+  } = props;
+  const [selectedHamburger, setSelectedHamburger] = (0, import_react7.useState)(false);
+  const [, setDarkMode] = (0, import_react7.useState)(false);
+  (0, import_react7.useEffect)(() => {
+    const listener = () => {
+      if (window.innerWidth < 1024) return;
+      setSelectedHamburger(false);
+    };
+    window.addEventListener("resize", listener);
+    return () => {
+      window.removeEventListener("resize", listener);
+    };
+  }, []);
+  (0, import_react7.useEffect)(() => {
+    const bodyClassListener = () => {
+      setDarkMode(document.body.classList.contains("dark"));
+    };
+    document.body.addEventListener("transitionend", bodyClassListener);
+    return () => {
+      document.body.removeEventListener("transitionend", bodyClassListener);
+    };
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("nav", { className: cn("bg-primary !z-50 w-screen", className), children: [
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "sticky top-0 z-50 mx-0 flex h-16 w-full items-center justify-between gap-4 px-4", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "bg-background relative aspect-video w-40", children: logo.darkMode ? /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(import_jsx_runtime20.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+          "img",
+          {
+            className: "hidden w-full object-contain dark:block",
+            src: logo.darkMode,
+            alt: logo.alt,
+            loading: "eager"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+          "img",
+          {
+            className: "block w-full object-contain dark:hidden",
+            src: logo.src,
+            alt: logo.alt,
+            loading: "eager"
+          }
+        )
+      ] }) : /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+        "img",
+        {
+          className: "w-full object-contain",
+          src: logo.src,
+          alt: logo.alt,
+          loading: "eager"
+        }
+      ) }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(NavArea, { routes, permissions }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "flex flex-grow items-center justify-end lg:hidden", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+        "div",
+        {
+          className: cn(
+            "text-primary bg-background box-border flex h-8 w-9 cursor-pointer items-center justify-center rounded px-1 py-2 text-2xl",
+            selectedHamburger && "bg-primary-foreground text-white"
+          ),
+          onClick: () => setSelectedHamburger((prev) => {
+            return !prev;
+          }),
+          children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_fa3.FaBars, {})
+        }
+      ) }),
+      !user?.data.isAdmin && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "bg-primary/10 flex h-8 w-8 items-center justify-center rounded", children: "\u{1F4C5}" }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "group relative z-50", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "hover:border-primary relative z-50 flex cursor-pointer items-center gap-2 border-b-2 border-transparent px-3 py-2 hover:pb-1", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gray-400 font-bold text-white", children: user?.data.name?.charAt(0) || "U" }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_fa3.FaChevronDown, { size: "0.75rem" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(SubAcc, { isAdmin })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "bg-primary/10 flex h-8 w-8 cursor-pointer items-center justify-center rounded", children: "\u{1F319}" })
+    ] }),
+    selectedHamburger && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(SideNav, { routes, permissions })
+  ] });
+};
+
+// src/components/ui/navigation-bar-scss/navigation-bar.tsx
+var import_react11 = require("react");
+var import_fa6 = require("react-icons/fa");
+
+// src/components/ui/navigation-bar-scss/hooks.ts
+var import_react8 = require("react");
+var useOutsideComponentClicker3 = ({ ref, onClickedOutside }) => {
+  (0, import_react8.useEffect)(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        onClickedOutside();
+      }
+    };
+    const timeoutId = setTimeout(() => {
+      document.addEventListener("mousedown", handleClickOutside);
+    }, 100);
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, onClickedOutside]);
+};
+var useLoginData2 = () => {
+  return {
+    user: {
+      data: {
+        isAdmin: true,
+        name: "Storybook User",
+        email: "storybook@example.com"
+      }
+    }
+  };
+};
+
+// src/components/ui/navigation-bar-scss/nav-area-updated.tsx
+var import_react9 = require("react");
+var import_fa4 = require("react-icons/fa");
+var import_jsx_runtime21 = require("react/jsx-runtime");
+var NavAreaUpdated = (props) => {
+  const { routes, permissions } = props;
+  const [selected, setSelected] = (0, import_react9.useState)(-1);
+  const ref = (0, import_react9.useRef)(null);
+  useOutsideComponentClicker3({
+    ref,
+    onClickedOutside: () => {
+      setSelected(() => -1);
+    }
+  });
+  const showSubRoute = (routes2) => {
+    return true;
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { ref, className: "nav-area", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+    if (true) {
+      if (subnav) {
+        if (!showSubRoute(subnav)) return null;
+      }
+      return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+          NavLink2,
+          {
+            selected: selected === i,
+            to,
+            image: image || "",
+            label,
+            onSelect: () => setSelected((prev) => prev === i ? -1 : i),
+            unselect: () => setSelected(() => -1)
+          },
+          i
+        ),
+        i === selected ? /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+          SubNav2,
+          {
+            routes: routes[selected]?.subnav,
+            permissions
+          }
+        ) : null
+      ] }, i);
+    }
+  }) });
+};
+var NavLink2 = ({
+  selected,
+  to,
+  image,
+  label,
+  onSelect,
+  unselect
+}) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
+    "a",
+    {
+      className: selected ? "nav-item-container-active" : "nav-item-container",
+      href: to,
+      onClick: (e) => {
+        if (to) {
+          e.preventDefault();
+          alert(`Navigating to: ${to}`);
+          return;
+        }
+        onSelect();
+      },
+      children: [
+        image && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+          "img",
+          {
+            src: image,
+            alt: "navIcon"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label })
+      ]
+    }
+  );
+};
+var SubNav2 = ({
+  routes,
+  permissions = []
+}) => {
+  const [selected, setSelected] = (0, import_react9.useState)(-1);
+  const onSelect = (i) => {
+    setSelected((prev) => prev === i ? -1 : i);
+  };
+  if (!routes || routes.length === 0) return null;
+  const showSubRoute = (routes2) => {
+    return true;
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "subnav", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
+    if (subnav) {
+      if (true) {
+        return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "level1-sub-nav", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "level1-header", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "level2-sub-nav", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "level2-header", children: [
+            subnav.map(({ label: label2, to: to2, subnav: subnav2, permissionId: permissionId2 }, y) => {
+              if (!subnav2) {
+                if (true) {
+                  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+                    "a",
+                    {
+                      href: to2,
+                      onClick: (e) => {
+                        e.preventDefault();
+                        alert(`Navigating to: ${to2}`);
+                      },
+                      children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label2 })
+                    },
+                    y
+                  );
+                }
+              } else if (subnav2) {
+                if (!showSubRoute(subnav2)) return null;
+                return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
+                  "div",
+                  {
+                    onClick: () => onSelect(y),
+                    className: "level3-container",
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
+                        "div",
+                        {
+                          className: selected === y ? "level3-header-shown" : "level3-header",
+                          children: [
+                            /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label2 }),
+                            selected === y ? /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(import_fa4.FaAngleDown, {}) : /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(import_fa4.FaAngleLeft, {})
+                          ]
+                        }
+                      ),
+                      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+                        "div",
+                        {
+                          className: selected === y ? "level3-content-shown" : "level3-content",
+                          children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { children: subnav2.map(
+                            ({ label: label3, to: to3, permissionId: permissionId3 }, z) => {
+                              if (true) {
+                                return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
+                                  "a",
+                                  {
+                                    href: to3,
+                                    onClick: (e) => {
+                                      e.preventDefault();
+                                      alert(`Navigating to: ${to3}`);
+                                    },
+                                    children: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { children: [
+                                      label3,
+                                      " "
+                                    ] })
+                                  },
+                                  z
+                                );
+                              }
+                            }
+                          ) })
+                        }
+                      )
+                    ]
+                  },
+                  y
+                );
+              }
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "arrow-container", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "arrow-right" }) })
+          ] }) })
+        ] }, i);
+      }
+    } else {
+      return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("a", { href: to, className: "level1-sub-nav", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label }) }, i);
+    }
+  }) });
+};
+
+// src/components/ui/navigation-bar-scss/side-nav.tsx
+var import_react10 = require("react");
+var import_fa5 = require("react-icons/fa");
+var import_jsx_runtime22 = require("react/jsx-runtime");
+var SideNav2 = (props) => {
+  const { routes, permissions = [] } = props;
+  const [selected, setSelected] = (0, import_react10.useState)(-1);
+  const ref = (0, import_react10.useRef)(null);
+  useOutsideComponentClicker3({
+    ref,
+    onClickedOutside: () => {
+      setSelected(() => -1);
+    }
+  });
+  const showSubRoute = (routes2) => {
+    return true;
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "side-nav-filter", id: "SideNavFilter", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { ref, className: "side-nav", id: "SideArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+    if (true) {
+      if (subnav && !showSubRoute(subnav)) return null;
+      return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { style: { display: "flex", flexDirection: "column" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+          SideNavLink2,
+          {
+            selected: selected === i,
+            to,
+            image: image || "",
+            label,
+            onSelect: () => setSelected((prev) => prev === i ? -1 : i),
+            unselect: () => setSelected(() => -1)
+          },
+          i
+        ),
+        selected === i && subnav && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SideSubNav2, { routes: subnav, permissions })
+      ] }, i);
+    }
+  }) }) });
+};
+var SideNavLink2 = ({
+  selected,
+  to,
+  image,
+  label,
+  onSelect,
+  unselect
+}) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
+    "a",
+    {
+      className: selected ? "side-nav-item-container-active" : "side-nav-item-container",
+      href: to,
+      onClick: (e) => {
+        if (to) {
+          e.preventDefault();
+          alert(`Navigating to: ${to}`);
+          return;
+        }
+        onSelect();
+      },
+      children: [
+        image && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+          "img",
+          {
+            src: image,
+            alt: "navIcon"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { children: label })
+      ]
+    }
+  );
+};
+var SideSubNav2 = ({
+  routes,
+  permissions = []
+}) => {
+  const [selected, setSelected] = (0, import_react10.useState)(-1);
+  if (!routes || routes.length === 0) return null;
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "side-sub-nav", children: routes.map(({ label, to, subnav, permissionId }, i) => {
+    if (subnav) {
+      return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: selected === i ? "side-sub-sub-container-selected" : "side-sub-sub-container", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
+          "div",
+          {
+            className: "side-sub-sub-nav-heading-link",
+            onClick: () => setSelected((prev) => prev === i ? -1 : i),
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "side-sub-nav-heading", children: label }),
+              /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_fa5.FaAngleRight, {})
+            ]
+          }
+        ),
+        selected === i && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "side-sub-sub-links-container", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
+          if (true) {
+            return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+              "a",
+              {
+                href: to2,
+                onClick: (e) => {
+                  e.preventDefault();
+                  alert(`Navigating to: ${to2}`);
+                },
+                children: label2
+              },
+              y
+            );
+          }
+        }) })
+      ] }, i);
+    } else {
+      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+        "a",
+        {
+          href: to,
+          className: "side-sub-nav-heading-link",
+          children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "side-sub-nav-heading", children: label })
+        },
+        i
+      );
+    }
+  }) });
+};
+
+// src/components/ui/navigation-bar-scss/sub-acc.tsx
+var import_jsx_runtime23 = require("react/jsx-runtime");
+var SubAcc2 = (props) => {
+  const {
+    isAdmin = false,
+    onSignOut = () => alert("Sign out clicked - replace with your auth logout function"),
+    onChangePassword = () => alert("Change password clicked - replace with your change password function"),
+    onResetPassword = () => alert("Reset password clicked - replace with your reset password function")
+  } = props;
+  return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("ul", { className: "sub-acc", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("li", { className: "account-label", children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("button", { onClick: onChangePassword, children: "Change Password" }) }),
+    isAdmin && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("li", { className: "account-label", children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("button", { onClick: onResetPassword, children: "Reset Password" }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("li", { className: "account-label", children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("button", { onClick: onSignOut, children: "Sign Out" }) })
+  ] });
+};
+
+// src/components/ui/navigation-bar-scss/navigation-bar.tsx
+var import_jsx_runtime24 = require("react/jsx-runtime");
+var NavigationBarScss = (props) => {
+  const { user: mockUser } = useLoginData2();
+  const { routes, permissions = [], isAdmin = false, logo, user = mockUser, className } = props;
+  const [selectedHamburger, setSelectedHamburger] = (0, import_react11.useState)(false);
+  const [, setDarkMode] = (0, import_react11.useState)(false);
+  (0, import_react11.useEffect)(() => {
+    if (typeof window === "undefined") return;
+    const listener = () => {
+      if (window.innerWidth < 1024) {
+        setSelectedHamburger(false);
+      }
+    };
+    window.addEventListener("resize", listener);
+    return () => {
+      window.removeEventListener("resize", listener);
+    };
+  }, []);
+  (0, import_react11.useEffect)(() => {
+    if (typeof document === "undefined") return;
+    const bodyClassListener = () => {
+      setDarkMode(document.body.classList.contains("dark"));
+    };
+    document.body.addEventListener("transitionend", bodyClassListener);
+    return () => {
+      document.body.removeEventListener("transitionend", bodyClassListener);
+    };
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("nav", { className: `${className || ""}`, style: { zIndex: 50, width: "100vw", backgroundColor: "var(--background, #ffffff)" }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "nav-bar", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { className: "logo-container", children: logo.darkMode ? /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)(import_jsx_runtime24.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
+          "img",
+          {
+            className: "image-on-nav",
+            style: { display: "none" },
+            src: logo.darkMode,
+            alt: logo.alt,
+            loading: "eager"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
+          "img",
+          {
+            className: "image-on-nav",
+            src: logo.src,
+            alt: logo.alt,
+            loading: "eager"
+          }
+        )
+      ] }) : /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
+        "img",
+        {
+          className: "image-on-nav",
+          src: logo.src,
+          alt: logo.alt,
+          loading: "eager"
+        }
+      ) }),
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(NavAreaUpdated, { routes, permissions }),
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { className: "hamburger-container", children: /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(
+        "div",
+        {
+          className: selectedHamburger ? "hamburger-selected" : "hamburger",
+          onClick: () => setSelectedHamburger((prev) => {
+            return !prev;
+          }),
+          children: /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(import_fa6.FaBars, {})
+        }
+      ) }),
+      !user?.data.isAdmin && /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { style: {
+        width: "2rem",
+        height: "2rem",
+        borderRadius: "4px",
+        backgroundColor: "rgba(0, 102, 204, 0.1)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }, children: "\u{1F4C5}" }),
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "account-wrapper", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("div", { className: "account-area", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { className: "account-dp-container", children: /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { style: {
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "white",
+            fontWeight: "bold"
+          }, children: user?.data.name?.charAt(0) || "U" }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(import_fa6.FaChevronDown, { size: "0.75rem" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(SubAcc2, { isAdmin })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("div", { style: {
+        width: "2rem",
+        height: "2rem",
+        borderRadius: "4px",
+        backgroundColor: "rgba(0, 102, 204, 0.1)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer"
+      }, children: "\u{1F319}" })
+    ] }),
+    selectedHamburger && /* @__PURE__ */ (0, import_jsx_runtime24.jsx)(SideNav2, { routes, permissions })
+  ] });
+};
+
 // src/components/theme-provider.tsx
 var import_next_themes = require("next-themes");
-var import_jsx_runtime16 = require("react/jsx-runtime");
+var import_jsx_runtime25 = require("react/jsx-runtime");
 function ThemeProvider({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(import_next_themes.ThemeProvider, { ...props, children });
+  return /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(import_next_themes.ThemeProvider, { ...props, children });
 }
 
 // src/components/ui/mode-toggle.tsx
@@ -1463,16 +2472,16 @@ var import_next_themes2 = require("next-themes");
 // src/components/ui/dropdown-menu.tsx
 var DropdownMenuPrimitive = __toESM(require("@radix-ui/react-dropdown-menu"));
 var import_lucide_react4 = require("lucide-react");
-var import_jsx_runtime17 = require("react/jsx-runtime");
+var import_jsx_runtime26 = require("react/jsx-runtime");
 function DropdownMenu({
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(DropdownMenuPrimitive.Root, { "data-slot": "dropdown-menu", ...props });
+  return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(DropdownMenuPrimitive.Root, { "data-slot": "dropdown-menu", ...props });
 }
 function DropdownMenuTrigger({
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
     DropdownMenuPrimitive.Trigger,
     {
       "data-slot": "dropdown-menu-trigger",
@@ -1485,7 +2494,7 @@ function DropdownMenuContent({
   sideOffset = 4,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
     DropdownMenuPrimitive.Content,
     {
       "data-slot": "dropdown-menu-content",
@@ -1504,7 +2513,7 @@ function DropdownMenuItem({
   variant = "default",
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
     DropdownMenuPrimitive.Item,
     {
       "data-slot": "dropdown-menu-item",
@@ -1520,25 +2529,25 @@ function DropdownMenuItem({
 }
 
 // src/components/ui/mode-toggle.tsx
-var import_jsx_runtime18 = require("react/jsx-runtime");
+var import_jsx_runtime27 = require("react/jsx-runtime");
 function ModeToggle() {
   const { setTheme } = (0, import_next_themes2.useTheme)();
-  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(DropdownMenu, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(Button, { variant: "outline", size: "icon", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_lucide_react5.Sun, { className: "h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" }),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_lucide_react5.Moon, { className: "absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" }),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "sr-only", children: "Toggle theme" })
+  return /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)(DropdownMenu, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)(Button, { variant: "outline", size: "icon", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(import_lucide_react5.Sun, { className: "h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" }),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(import_lucide_react5.Moon, { className: "absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" }),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("span", { className: "sr-only", children: "Toggle theme" })
     ] }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(DropdownMenuContent, { align: "end", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(DropdownMenuItem, { onClick: () => setTheme("light"), children: "Light" }),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(DropdownMenuItem, { onClick: () => setTheme("dark"), children: "Dark" }),
-      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(DropdownMenuItem, { onClick: () => setTheme("system"), children: "System" })
+    /* @__PURE__ */ (0, import_jsx_runtime27.jsxs)(DropdownMenuContent, { align: "end", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(DropdownMenuItem, { onClick: () => setTheme("light"), children: "Light" }),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(DropdownMenuItem, { onClick: () => setTheme("dark"), children: "Dark" }),
+      /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(DropdownMenuItem, { onClick: () => setTheme("system"), children: "System" })
     ] })
   ] });
 }
 
 // src/components/common/Modal/modal.tsx
-var import_jsx_runtime19 = require("react/jsx-runtime");
+var import_jsx_runtime28 = require("react/jsx-runtime");
 var Modal = ({
   header = "Header",
   children,
@@ -1547,18 +2556,18 @@ var Modal = ({
   ...rest
 }) => {
   const modalSize = { "modal-size": size };
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_jsx_runtime19.Fragment, { children: show ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(import_jsx_runtime28.Fragment, { children: show ? /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(
     "div",
     {
       className: cn("modal-container", "bg-background"),
       ...rest,
       ...modalSize,
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
           "div",
           {
             className: cn("modal-header-container", "border border-blue-800"),
-            children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+            children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
               "span",
               {
                 className: cn(
@@ -1570,12 +2579,266 @@ var Modal = ({
             )
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: cn("content-container"), children })
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: cn("content-container"), children })
       ]
     }
   ) }) : null });
 };
 var modal_default = Modal;
+
+// src/components/ui/navigation-bar/sample-data.ts
+var sampleLogo = {
+  src: "https://via.placeholder.com/160x60/0066cc/ffffff?text=COMPANY",
+  darkMode: "https://via.placeholder.com/160x60/ffffff/000000?text=COMPANY",
+  alt: "Company Logo"
+};
+var sampleUser = {
+  data: {
+    isAdmin: true,
+    name: "John Doe",
+    email: "john.doe@company.com"
+  }
+};
+var sampleEmployeeUser = {
+  data: {
+    isAdmin: false,
+    name: "Jane Smith",
+    email: "jane.smith@company.com"
+  }
+};
+var sampleAdminRoutes = [
+  {
+    label: "Home",
+    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F3E0}",
+    to: "/admin/home"
+  },
+  {
+    label: "File Maintenance",
+    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F4C1}",
+    subnav: [
+      {
+        label: "Human Resource",
+        subnav: [
+          {
+            label: "Company",
+            to: "/admin/maintenance/hr/companies",
+            permissionId: 100
+          },
+          {
+            label: "Branch",
+            to: "/admin/maintenance/hr/branches",
+            permissionId: 200
+          },
+          {
+            label: "Department",
+            to: "/admin/maintenance/hr/departments",
+            permissionId: 300
+          },
+          {
+            label: "Employee",
+            to: "/admin/maintenance/hr/employees",
+            permissionId: 1200
+          }
+        ]
+      },
+      {
+        label: "Payroll",
+        subnav: [
+          {
+            label: "Government",
+            subnav: [
+              {
+                label: "Annual Tax Table",
+                to: "/admin/maintenance/payroll/government/annualtaxes",
+                permissionId: 1300
+              },
+              {
+                label: "SSS Table",
+                permissionId: 1500,
+                to: "/admin/maintenance/payroll/government/sss"
+              },
+              {
+                label: "Philhealth Table",
+                permissionId: 1600,
+                to: "/admin/maintenance/payroll/government/philhealth"
+              }
+            ]
+          },
+          {
+            label: "Bank",
+            to: "/admin/maintenance/payroll/banks",
+            permissionId: 2e3
+          },
+          {
+            label: "Deduction",
+            to: "/admin/maintenance/payroll/deductions",
+            permissionId: 2100
+          }
+        ]
+      }
+    ]
+  },
+  {
+    label: "Timekeeping",
+    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u23F0",
+    subnav: [
+      {
+        label: "Time Entry",
+        subnav: [
+          {
+            label: "Log Override",
+            to: "/admin/timekeeping/applications/logoverride",
+            permissionId: 4200
+          },
+          {
+            label: "Overtime",
+            to: "/admin/timekeeping/applications/overtime",
+            permissionId: 4300
+          },
+          {
+            label: "Leave",
+            to: "/admin/timekeeping/applications/leave",
+            permissionId: 4400
+          }
+        ]
+      },
+      {
+        label: "Processing",
+        subnav: [
+          {
+            label: "Cut-Off Consolidation",
+            to: "/admin/timekeeping/processing/consolidation",
+            permissionId: 5100
+          }
+        ]
+      }
+    ]
+  },
+  {
+    label: "System",
+    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u2699\uFE0F",
+    subnav: [
+      {
+        label: "User",
+        subnav: [
+          {
+            label: "Maintenance",
+            to: "/admin/system/usermaintenance",
+            permissionId: 7100
+          },
+          {
+            label: "Levels",
+            to: "/admin/system/userlevels",
+            permissionId: 7200
+          }
+        ]
+      },
+      {
+        label: "Reports",
+        subnav: [
+          {
+            label: "Generate Reports",
+            to: "/admin/system/reports",
+            permissionId: 7300
+          }
+        ]
+      }
+    ]
+  }
+];
+var sampleEmployeeRoutes = [
+  {
+    label: "Home",
+    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F3E0}",
+    to: "/employee/home"
+  },
+  {
+    label: "Records & Profiles",
+    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F4CB}",
+    subnav: [
+      {
+        label: "Personal Time Records",
+        to: "/employee/reports/personaltimerecords"
+      },
+      {
+        label: "Employee Time Records",
+        to: "/employee/reports/employeetimerecords"
+      },
+      {
+        label: "Payslip",
+        to: "/employee/reports/payslip"
+      },
+      {
+        label: "Personal Profile",
+        to: "/employee/profile"
+      }
+    ]
+  },
+  {
+    label: "Applications",
+    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F4DD}",
+    subnav: [
+      {
+        label: "Personal",
+        subnav: [
+          {
+            label: "Log Override",
+            to: "/employee/timekeeping/applications/logoverride"
+          },
+          {
+            label: "Overtime",
+            to: "/employee/timekeeping/applications/overtime"
+          },
+          {
+            label: "Leave",
+            to: "/employee/timekeeping/applications/leave"
+          }
+        ]
+      },
+      {
+        label: "Approver",
+        subnav: [
+          {
+            label: "Log Override",
+            to: "/employee/approver/timekeeping/applications/logoverride"
+          },
+          {
+            label: "Overtime",
+            to: "/employee/approver/timekeeping/applications/overtime"
+          },
+          {
+            label: "Leave",
+            to: "/employee/approver/timekeeping/applications/leave"
+          }
+        ]
+      }
+    ]
+  }
+];
+var sampleAdminPermissions = [
+  100,
+  200,
+  300,
+  1200,
+  1300,
+  1500,
+  1600,
+  2e3,
+  2100,
+  4200,
+  4300,
+  4400,
+  5100,
+  7100,
+  7200,
+  7300
+];
+var sampleEmployeePermissions = [
+  4200,
+  4300,
+  4400
+  // Only basic time entry permissions
+];
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   Button,
@@ -1593,14 +2856,21 @@ var modal_default = Modal;
   FormField,
   FormItem,
   FormMessage,
+  GenericCheckboxFormField,
   GenericCheckboxGroup,
   Input,
   Label,
   Modal,
   ModeToggle,
+  NavArea,
+  NavAreaUpdated,
+  NavigationBar,
+  NavigationBarScss,
   Popover,
   PopoverContent,
   PopoverTrigger,
+  SideNav,
+  SubAcc,
   Textarea,
   ThemeProvider,
   Toggle,
@@ -1610,6 +2880,13 @@ var modal_default = Modal;
   buttonVariants,
   cn,
   comboboxColorVariants,
+  sampleAdminPermissions,
+  sampleAdminRoutes,
+  sampleEmployeePermissions,
+  sampleEmployeeRoutes,
+  sampleEmployeeUser,
+  sampleLogo,
+  sampleUser,
   toggleColorVariants
 });
 //# sourceMappingURL=index.js.map
