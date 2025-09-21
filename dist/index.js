@@ -2273,12 +2273,28 @@ var NavigationBar = (props) => {
   }, []);
   (0, import_react8.useEffect)(() => {
     if (typeof document === "undefined") return;
-    const bodyClassListener = () => {
-      setDarkMode(document.body.classList.contains("dark"));
+    const checkDarkMode = () => {
+      const isDark = document.documentElement.classList.contains("dark") || document.body.classList.contains("dark") || window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setDarkMode(isDark);
     };
-    document.body.addEventListener("transitionend", bodyClassListener);
+    checkDarkMode();
+    const observer = new MutationObserver(() => {
+      checkDarkMode();
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaListener = () => checkDarkMode();
+    mediaQuery.addEventListener("change", mediaListener);
     return () => {
-      document.body.removeEventListener("transitionend", bodyClassListener);
+      observer.disconnect();
+      mediaQuery.removeEventListener("change", mediaListener);
     };
   }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
@@ -2292,20 +2308,11 @@ var NavigationBar = (props) => {
       },
       children: [
         /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "nav-bar", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "logo-container", children: darkMode ? /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_jsx_runtime22.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "logo-container", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
             "img",
             {
               className: "image-on-nav",
-              style: { display: "none" },
-              src: logo.darkMode,
-              alt: logo.alt,
-              loading: "eager"
-            }
-          ) }) : /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-            "img",
-            {
-              className: "image-on-nav",
-              src: logo.src,
+              src: darkMode && logo.darkMode ? logo.darkMode : logo.src,
               alt: logo.alt,
               loading: "eager"
             }

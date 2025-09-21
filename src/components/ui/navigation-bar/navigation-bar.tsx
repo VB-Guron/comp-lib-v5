@@ -43,14 +43,41 @@ export const NavigationBar = (props: NavigationBarProps) => {
     // Safe document check for Storybook and other environments
     if (typeof document === "undefined") return;
 
-    const bodyClassListener = () => {
-      setDarkMode(document.body.classList.contains("dark"));
+    // Check initial dark mode state
+    const checkDarkMode = () => {
+      const isDark =
+        document.documentElement.classList.contains("dark") ||
+        document.body.classList.contains("dark") ||
+        (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      setDarkMode(isDark);
     };
 
-    document.body.addEventListener("transitionend", bodyClassListener);
+    // Check initial state
+    checkDarkMode();
+
+    // Create observer for class changes
+    const observer = new MutationObserver(() => {
+      checkDarkMode();
+    });
+
+    // Observe changes to html and body class attributes
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    // Listen for theme changes via media query
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaListener = () => checkDarkMode();
+    mediaQuery.addEventListener("change", mediaListener);
 
     return () => {
-      document.body.removeEventListener("transitionend", bodyClassListener);
+      observer.disconnect();
+      mediaQuery.removeEventListener("change", mediaListener);
     };
   }, []);
 
@@ -65,24 +92,12 @@ export const NavigationBar = (props: NavigationBarProps) => {
     >
       <div className="nav-bar">
         <div className="logo-container">
-          {darkMode ? (
-            <>
-              <img
-                className="image-on-nav"
-                style={{ display: "none" }}
-                src={logo.darkMode}
-                alt={logo.alt}
-                loading="eager"
-              />
-            </>
-          ) : (
-            <img
-              className="image-on-nav"
-              src={logo.src}
-              alt={logo.alt}
-              loading="eager"
-            />
-          )}
+          <img
+            className="image-on-nav"
+            src={darkMode && logo.darkMode ? logo.darkMode : logo.src}
+            alt={logo.alt}
+            loading="eager"
+          />
         </div>
 
         {/* Desktop Navigation */}

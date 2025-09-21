@@ -2169,7 +2169,7 @@ var navigationIcons = {
 };
 
 // src/components/ui/navigation-bar/navigation-bar.tsx
-import { Fragment, jsx as jsx22, jsxs as jsxs18 } from "react/jsx-runtime";
+import { jsx as jsx22, jsxs as jsxs18 } from "react/jsx-runtime";
 var NavigationBar = (props) => {
   const defaultLogo = payplusAssets.logo;
   const {
@@ -2196,12 +2196,28 @@ var NavigationBar = (props) => {
   }, []);
   useEffect5(() => {
     if (typeof document === "undefined") return;
-    const bodyClassListener = () => {
-      setDarkMode(document.body.classList.contains("dark"));
+    const checkDarkMode = () => {
+      const isDark = document.documentElement.classList.contains("dark") || document.body.classList.contains("dark") || window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setDarkMode(isDark);
     };
-    document.body.addEventListener("transitionend", bodyClassListener);
+    checkDarkMode();
+    const observer = new MutationObserver(() => {
+      checkDarkMode();
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaListener = () => checkDarkMode();
+    mediaQuery.addEventListener("change", mediaListener);
     return () => {
-      document.body.removeEventListener("transitionend", bodyClassListener);
+      observer.disconnect();
+      mediaQuery.removeEventListener("change", mediaListener);
     };
   }, []);
   return /* @__PURE__ */ jsxs18(
@@ -2215,20 +2231,11 @@ var NavigationBar = (props) => {
       },
       children: [
         /* @__PURE__ */ jsxs18("div", { className: "nav-bar", children: [
-          /* @__PURE__ */ jsx22("div", { className: "logo-container", children: darkMode ? /* @__PURE__ */ jsx22(Fragment, { children: /* @__PURE__ */ jsx22(
+          /* @__PURE__ */ jsx22("div", { className: "logo-container", children: /* @__PURE__ */ jsx22(
             "img",
             {
               className: "image-on-nav",
-              style: { display: "none" },
-              src: logo.darkMode,
-              alt: logo.alt,
-              loading: "eager"
-            }
-          ) }) : /* @__PURE__ */ jsx22(
-            "img",
-            {
-              className: "image-on-nav",
-              src: logo.src,
+              src: darkMode && logo.darkMode ? logo.darkMode : logo.src,
               alt: logo.alt,
               loading: "eager"
             }
@@ -2395,7 +2402,7 @@ function ModeToggle() {
 }
 
 // src/components/common/Modal/modal.tsx
-import { Fragment as Fragment2, jsx as jsx26, jsxs as jsxs21 } from "react/jsx-runtime";
+import { Fragment, jsx as jsx26, jsxs as jsxs21 } from "react/jsx-runtime";
 var Modal = ({
   header = "Header",
   children,
@@ -2404,7 +2411,7 @@ var Modal = ({
   ...rest
 }) => {
   const modalSize = { "modal-size": size };
-  return /* @__PURE__ */ jsx26(Fragment2, { children: show ? /* @__PURE__ */ jsx26("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ jsxs21(
+  return /* @__PURE__ */ jsx26(Fragment, { children: show ? /* @__PURE__ */ jsx26("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ jsxs21(
     "div",
     {
       className: cn("modal-container", "bg-background"),
