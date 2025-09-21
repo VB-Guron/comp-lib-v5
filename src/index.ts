@@ -80,8 +80,7 @@ export {
   sampleEmployeePermissions,
 } from "./components/ui/navigation-bar/sample-data";
 
-// Assets - temporarily disabled to fix DTS generation
-// TODO: Find better solution for asset exports
+// Assets - commented out to fix DTS build, but still accessible via NavigationBar component
 // export {
 //   payplusAssets,
 //   payplusLogo,

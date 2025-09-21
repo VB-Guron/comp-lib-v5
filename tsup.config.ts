@@ -22,7 +22,4 @@ export default defineConfig({
       ".webp": "file",
     };
   },
-  rollupOptions: {
-    external: [/\.(png|jpe?g|gif|svg|webp)$/],
-  },
 });
