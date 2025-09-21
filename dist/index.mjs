@@ -1466,6 +1466,10 @@ var GenericCheckboxFormField = ({
 import { useEffect as useEffect4, useState as useState7 } from "react";
 import { FaChevronDown, FaBars } from "react-icons/fa";
 
+// src/components/ui/navigation-bar/nav-area-updated.tsx
+import { useRef as useRef3, useState as useState5 } from "react";
+import { FaAngleDown, FaAngleLeft } from "react-icons/fa";
+
 // src/components/ui/navigation-bar/hooks.ts
 import { useEffect as useEffect3 } from "react";
 var useOutsideComponentClicker = ({ ref, onClickedOutside }) => {
@@ -1475,32 +1479,22 @@ var useOutsideComponentClicker = ({ ref, onClickedOutside }) => {
         onClickedOutside();
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    const timeoutId = setTimeout(() => {
+      document.addEventListener("mousedown", handleClickOutside);
+    }, 100);
     return () => {
+      clearTimeout(timeoutId);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [ref, onClickedOutside]);
 };
-var useLoginData = () => {
-  return {
-    user: {
-      data: {
-        isAdmin: true,
-        name: "John Doe",
-        email: "john@example.com"
-      }
-    }
-  };
-};
 
-// src/components/ui/navigation-bar/nav-area.tsx
-import { useRef as useRef4, useState as useState5 } from "react";
-import { FaAngleDown, FaAngleLeft } from "react-icons/fa";
+// src/components/ui/navigation-bar/nav-area-updated.tsx
 import { jsx as jsx17, jsxs as jsxs13 } from "react/jsx-runtime";
-var NavArea = (props) => {
+var NavAreaUpdated = (props) => {
   const { routes, permissions } = props;
   const [selected, setSelected] = useState5(-1);
-  const ref = useRef4(null);
+  const ref = useRef3(null);
   useOutsideComponentClicker({
     ref,
     onClickedOutside: () => {
@@ -1510,7 +1504,7 @@ var NavArea = (props) => {
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ jsx17("div", { ref, className: "hidden lg:flex justify-end gap-2 flex-grow z-50 relative", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+  return /* @__PURE__ */ jsx17("div", { ref, className: "nav-area", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
     if (true) {
       if (subnav) {
         if (!showSubRoute(subnav)) return null;
@@ -1528,13 +1522,13 @@ var NavArea = (props) => {
           },
           i
         ),
-        i === selected && /* @__PURE__ */ jsx17(
+        i === selected ? /* @__PURE__ */ jsx17(
           SubNav,
           {
             routes: routes[selected]?.subnav,
             permissions
           }
-        )
+        ) : null
       ] }, i);
     }
   }) });
@@ -1550,28 +1544,25 @@ var NavLink = ({
   return /* @__PURE__ */ jsxs13(
     "a",
     {
-      className: cn(
-        "flex gap-2 items-center cursor-pointer py-3 px-4 rounded-t text-decoration-none group",
-        selected ? "bg-primary text-primary-foreground" : "hover:bg-primary hover:text-primary-foreground"
-      ),
+      className: selected ? "nav-item-container-active" : "nav-item-container",
       href: to,
-      onClick: () => {
-        if (to) return;
+      onClick: (e) => {
+        if (to) {
+          e.preventDefault();
+          alert(`Navigating to: ${to}`);
+          return;
+        }
         onSelect();
       },
       children: [
         image && /* @__PURE__ */ jsx17(
           "img",
           {
-            className: cn(
-              "w-4 h-4 transition-all",
-              selected || "group-hover:brightness-0 group-hover:invert"
-            ),
             src: image,
             alt: "navIcon"
           }
         ),
-        /* @__PURE__ */ jsx17("span", { className: "font-semibold text-base lg:text-sm whitespace-nowrap", children: label })
+        /* @__PURE__ */ jsx17("span", { children: label })
       ]
     }
   );
@@ -1588,475 +1579,16 @@ var SubNav = ({
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ jsx17("div", { className: "absolute flex flex-col gap-0 bg-white shadow-lg rounded-bl rounded-br z-50", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
+  return /* @__PURE__ */ jsx17("div", { className: "subnav", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
     if (subnav) {
       if (true) {
-        return /* @__PURE__ */ jsxs13("div", { className: "flex border-l-4 border-gray-300 hover:border-primary min-w-40", children: [
-          /* @__PURE__ */ jsx17("div", { className: "py-2 px-2 flex flex-col items-center font-semibold text-sm cursor-pointer text-primary", children: /* @__PURE__ */ jsx17("span", { children: label }) }),
-          /* @__PURE__ */ jsx17("div", { className: "absolute left-full hidden group-hover:flex", children: /* @__PURE__ */ jsxs13("div", { className: "flex flex-col relative min-w-40 shadow-lg", children: [
-            subnav.map(({ label: label2, to: to2, subnav: subSubnav, permissionId: permissionId2 }, y) => {
-              if (!subSubnav) {
-                if (true) {
-                  return /* @__PURE__ */ jsx17(
-                    "a",
-                    {
-                      href: to2,
-                      className: "bg-white py-2 px-2 flex flex-col items-start text-sm font-semibold min-w-24 z-10 hover:text-white hover:bg-primary",
-                      children: /* @__PURE__ */ jsx17("span", { children: label2 })
-                    },
-                    y
-                  );
-                }
-              } else if (subSubnav) {
-                if (!showSubRoute(subSubnav)) return null;
-                return /* @__PURE__ */ jsxs13(
-                  "div",
-                  {
-                    onClick: () => onSelect(y),
-                    className: "min-w-8",
-                    children: [
-                      /* @__PURE__ */ jsxs13(
-                        "div",
-                        {
-                          className: cn(
-                            "bg-white py-2 px-2 flex justify-between items-center font-semibold text-sm border-none cursor-pointer hover:text-white hover:bg-primary",
-                            selected === y && "border-b-2 border-primary"
-                          ),
-                          children: [
-                            /* @__PURE__ */ jsx17("span", { children: label2 }),
-                            selected === y ? /* @__PURE__ */ jsx17(FaAngleDown, {}) : /* @__PURE__ */ jsx17(FaAngleLeft, {})
-                          ]
-                        }
-                      ),
-                      /* @__PURE__ */ jsx17("div", { className: cn(
-                        "transition-all duration-300",
-                        selected === y ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-                      ), children: /* @__PURE__ */ jsx17("div", { className: "bg-gray-50 flex flex-col", children: subSubnav.map(({ label: label3, to: to3, permissionId: permissionId3 }, z) => {
-                        if (true) {
-                          return /* @__PURE__ */ jsx17("a", { href: to3, className: "py-2 pl-4 font-semibold text-sm text-black hover:text-primary hover:underline", children: /* @__PURE__ */ jsx17("span", { children: label3 }) }, z);
-                        }
-                      }) }) })
-                    ]
-                  },
-                  y
-                );
-              }
-            }),
-            /* @__PURE__ */ jsx17("div", { className: "absolute left-full h-full", children: /* @__PURE__ */ jsx17("div", { className: "w-4 h-8 relative overflow-hidden", children: /* @__PURE__ */ jsx17("div", { className: "bg-white absolute w-8 h-6 right-2 top-0 transform rotate-45" }) }) })
-          ] }) })
-        ] }, i);
-      }
-    } else {
-      return /* @__PURE__ */ jsx17("a", { href: to, className: "flex border-l-4 border-gray-300 hover:border-primary", children: /* @__PURE__ */ jsx17("span", { className: "py-2 px-2", children: label }) }, i);
-    }
-  }) });
-};
-
-// src/components/ui/navigation-bar/side-nav.tsx
-import { useRef as useRef5, useState as useState6 } from "react";
-import { FaAngleRight } from "react-icons/fa";
-import { jsx as jsx18, jsxs as jsxs14 } from "react/jsx-runtime";
-var SideNav = (props) => {
-  const { routes, permissions = [] } = props;
-  const [selected, setSelected] = useState6(-1);
-  const ref = useRef5(null);
-  useOutsideComponentClicker({
-    ref,
-    onClickedOutside: () => {
-      setSelected(() => -1);
-    }
-  });
-  const showSubRoute = (routes2) => {
-    return true;
-  };
-  return /* @__PURE__ */ jsx18("div", { className: "fixed bg-black/40 backdrop-blur-sm -mx-4 z-40 w-full h-full flex justify-end lg:hidden", children: /* @__PURE__ */ jsx18(
-    "div",
-    {
-      ref,
-      className: "relative top-0 h-full right-0 flex flex-col bg-white z-40 min-w-64 w-1/3 animate-in slide-in-from-right overflow-y-auto box-border pb-24",
-      children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
-        if (true) {
-          if (subnav && !showSubRoute(subnav)) return null;
-          return /* @__PURE__ */ jsxs14("div", { className: "flex flex-col", children: [
-            /* @__PURE__ */ jsx18(
-              SideNavLink,
-              {
-                selected: selected === i,
-                to,
-                image: image || "",
-                label,
-                onSelect: () => setSelected((prev) => prev === i ? -1 : i),
-                unselect: () => setSelected(() => -1)
-              },
-              i
-            ),
-            selected === i && subnav && /* @__PURE__ */ jsx18(SideSubNav, { routes: subnav, permissions })
-          ] }, i);
-        }
-      })
-    }
-  ) });
-};
-var SideNavLink = ({
-  selected,
-  to,
-  image,
-  label,
-  onSelect,
-  unselect
-}) => {
-  return /* @__PURE__ */ jsxs14(
-    "a",
-    {
-      className: cn(
-        "flex gap-2 items-center cursor-pointer py-3 px-4 text-decoration-none border-none",
-        selected ? "bg-primary text-white" : "hover:bg-primary hover:text-white"
-      ),
-      href: to,
-      onClick: () => {
-        if (to) return;
-        onSelect();
-      },
-      children: [
-        image && /* @__PURE__ */ jsx18(
-          "img",
-          {
-            className: cn(
-              "w-4 h-4",
-              selected ? "brightness-0 invert" : "filter-primary"
-            ),
-            src: image,
-            alt: "navIcon"
-          }
-        ),
-        /* @__PURE__ */ jsx18("span", { className: "text-primary font-semibold text-base md:text-sm", children: label })
-      ]
-    }
-  );
-};
-var SideSubNav = ({
-  routes,
-  permissions = []
-}) => {
-  const [selected, setSelected] = useState6(-1);
-  if (!routes || routes.length === 0) return null;
-  return /* @__PURE__ */ jsx18("div", { className: "bg-blue-50/50 text-black relative flex flex-col box-border animate-in fade-in py-4 pr-0 gap-1", children: routes.map(({ label, to, subnav, permissionId }, i) => {
-    if (subnav) {
-      return /* @__PURE__ */ jsxs14("div", { className: "flex flex-col", children: [
-        /* @__PURE__ */ jsxs14(
-          "div",
-          {
-            className: cn(
-              "pr-12 flex justify-between items-center py-2 px-2 font-semibold border-b border-black cursor-pointer hover:bg-primary hover:text-white",
-              selected === i && "bg-primary text-white"
-            ),
-            onClick: () => setSelected((prev) => prev === i ? -1 : i),
-            children: [
-              /* @__PURE__ */ jsx18("span", { className: "text-base md:text-sm", children: label }),
-              /* @__PURE__ */ jsx18(
-                FaAngleRight,
-                {
-                  className: cn(
-                    "transition-transform",
-                    selected === i && "rotate-90"
-                  )
-                }
-              )
-            ]
-          }
-        ),
-        selected === i && /* @__PURE__ */ jsx18("div", { className: "flex flex-col gap-0 bg-gray-200 animate-in fade-in", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
-          if (true) {
-            return /* @__PURE__ */ jsx18(
-              "a",
-              {
-                href: to2,
-                className: "py-2 pl-4 pr-2 cursor-pointer text-gray-700 hover:text-white hover:bg-primary text-base md:text-sm",
-                children: label2
-              },
-              y
-            );
-          }
-        }) })
-      ] }, i);
-    } else {
-      return /* @__PURE__ */ jsx18(
-        "a",
-        {
-          href: to,
-          className: "py-2 px-2 flex items-center hover:bg-primary hover:text-white cursor-pointer font-semibold border-b border-black text-base md:text-sm",
-          children: label
-        },
-        i
-      );
-    }
-  }) });
-};
-
-// src/components/ui/navigation-bar/sub-acc.tsx
-import { jsx as jsx19, jsxs as jsxs15 } from "react/jsx-runtime";
-var SubAcc = (props) => {
-  const {
-    isAdmin = false,
-    onSignOut = () => console.log("Sign out clicked"),
-    onChangePassword = () => console.log("Change password clicked"),
-    onResetPassword = () => console.log("Reset password clicked")
-  } = props;
-  return /* @__PURE__ */ jsxs15("ul", { className: "opacity-0 pointer-events-none transform translate-y-2 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:pointer-events-auto group-hover:transform group-hover:translate-y-0 flex bg-primary color-white text-sm py-2 flex-col absolute top-full -mt-2 right-0 list-none m-0 z-50 shadow-lg", children: [
-    /* @__PURE__ */ jsx19("li", { className: "whitespace-nowrap hover:cursor-pointer hover:text-blue-300", children: /* @__PURE__ */ jsx19(
-      "button",
-      {
-        className: "flex py-2 px-5 bg-transparent border-none text-white cursor-pointer w-full text-left",
-        onClick: onChangePassword,
-        children: "Change Password"
-      }
-    ) }),
-    isAdmin && /* @__PURE__ */ jsx19("li", { className: "whitespace-nowrap hover:cursor-pointer hover:text-blue-300", children: /* @__PURE__ */ jsx19(
-      "button",
-      {
-        className: "flex py-2 px-5 bg-transparent border-none text-white cursor-pointer w-full text-left",
-        onClick: onResetPassword,
-        children: "Reset Password"
-      }
-    ) }),
-    /* @__PURE__ */ jsx19("li", { className: "whitespace-nowrap hover:cursor-pointer hover:text-blue-300", children: /* @__PURE__ */ jsx19(
-      "button",
-      {
-        className: "flex py-2 px-5 bg-transparent border-none text-white cursor-pointer w-full text-left",
-        onClick: onSignOut,
-        children: "Sign Out"
-      }
-    ) })
-  ] });
-};
-
-// src/components/ui/navigation-bar/navigation-bar.tsx
-import { Fragment, jsx as jsx20, jsxs as jsxs16 } from "react/jsx-runtime";
-var NavigationBar = (props) => {
-  const { user: mockUser } = useLoginData();
-  const {
-    routes,
-    permissions = [],
-    isAdmin = false,
-    logo,
-    user = mockUser,
-    className
-  } = props;
-  const [selectedHamburger, setSelectedHamburger] = useState7(false);
-  const [, setDarkMode] = useState7(false);
-  useEffect4(() => {
-    const listener = () => {
-      if (window.innerWidth < 1024) return;
-      setSelectedHamburger(false);
-    };
-    window.addEventListener("resize", listener);
-    return () => {
-      window.removeEventListener("resize", listener);
-    };
-  }, []);
-  useEffect4(() => {
-    const bodyClassListener = () => {
-      setDarkMode(document.body.classList.contains("dark"));
-    };
-    document.body.addEventListener("transitionend", bodyClassListener);
-    return () => {
-      document.body.removeEventListener("transitionend", bodyClassListener);
-    };
-  }, []);
-  return /* @__PURE__ */ jsxs16("nav", { className: cn("bg-primary !z-50 w-screen", className), children: [
-    /* @__PURE__ */ jsxs16("div", { className: "sticky top-0 z-50 mx-0 flex h-16 w-full items-center justify-between gap-4 px-4", children: [
-      /* @__PURE__ */ jsx20("div", { className: "bg-background relative aspect-video w-40", children: logo.darkMode ? /* @__PURE__ */ jsxs16(Fragment, { children: [
-        /* @__PURE__ */ jsx20(
-          "img",
-          {
-            className: "hidden w-full object-contain dark:block",
-            src: logo.darkMode,
-            alt: logo.alt,
-            loading: "eager"
-          }
-        ),
-        /* @__PURE__ */ jsx20(
-          "img",
-          {
-            className: "block w-full object-contain dark:hidden",
-            src: logo.src,
-            alt: logo.alt,
-            loading: "eager"
-          }
-        )
-      ] }) : /* @__PURE__ */ jsx20(
-        "img",
-        {
-          className: "w-full object-contain",
-          src: logo.src,
-          alt: logo.alt,
-          loading: "eager"
-        }
-      ) }),
-      /* @__PURE__ */ jsx20(NavArea, { routes, permissions }),
-      /* @__PURE__ */ jsx20("div", { className: "flex flex-grow items-center justify-end lg:hidden", children: /* @__PURE__ */ jsx20(
-        "div",
-        {
-          className: cn(
-            "text-primary bg-background box-border flex h-8 w-9 cursor-pointer items-center justify-center rounded px-1 py-2 text-2xl",
-            selectedHamburger && "bg-primary-foreground text-white"
-          ),
-          onClick: () => setSelectedHamburger((prev) => {
-            return !prev;
-          }),
-          children: /* @__PURE__ */ jsx20(FaBars, {})
-        }
-      ) }),
-      !user?.data.isAdmin && /* @__PURE__ */ jsx20("div", { className: "bg-primary/10 flex h-8 w-8 items-center justify-center rounded", children: "\u{1F4C5}" }),
-      /* @__PURE__ */ jsxs16("div", { className: "group relative z-50", children: [
-        /* @__PURE__ */ jsxs16("div", { className: "hover:border-primary relative z-50 flex cursor-pointer items-center gap-2 border-b-2 border-transparent px-3 py-2 hover:pb-1", children: [
-          /* @__PURE__ */ jsx20("div", { className: "flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gray-400 font-bold text-white", children: user?.data.name?.charAt(0) || "U" }),
-          /* @__PURE__ */ jsx20(FaChevronDown, { size: "0.75rem" })
-        ] }),
-        /* @__PURE__ */ jsx20(SubAcc, { isAdmin })
-      ] }),
-      /* @__PURE__ */ jsx20("div", { className: "bg-primary/10 flex h-8 w-8 cursor-pointer items-center justify-center rounded", children: "\u{1F319}" })
-    ] }),
-    selectedHamburger && /* @__PURE__ */ jsx20(SideNav, { routes, permissions })
-  ] });
-};
-
-// src/components/ui/navigation-bar-scss/navigation-bar.tsx
-import { useEffect as useEffect6, useState as useState10 } from "react";
-import { FaChevronDown as FaChevronDown2, FaBars as FaBars2 } from "react-icons/fa";
-
-// src/components/ui/navigation-bar-scss/hooks.ts
-import { useEffect as useEffect5 } from "react";
-var useOutsideComponentClicker3 = ({ ref, onClickedOutside }) => {
-  useEffect5(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        onClickedOutside();
-      }
-    };
-    const timeoutId = setTimeout(() => {
-      document.addEventListener("mousedown", handleClickOutside);
-    }, 100);
-    return () => {
-      clearTimeout(timeoutId);
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref, onClickedOutside]);
-};
-var useLoginData2 = () => {
-  return {
-    user: {
-      data: {
-        isAdmin: true,
-        name: "Storybook User",
-        email: "storybook@example.com"
-      }
-    }
-  };
-};
-
-// src/components/ui/navigation-bar-scss/nav-area-updated.tsx
-import { useRef as useRef6, useState as useState8 } from "react";
-import { FaAngleDown as FaAngleDown2, FaAngleLeft as FaAngleLeft2 } from "react-icons/fa";
-import { jsx as jsx21, jsxs as jsxs17 } from "react/jsx-runtime";
-var NavAreaUpdated = (props) => {
-  const { routes, permissions } = props;
-  const [selected, setSelected] = useState8(-1);
-  const ref = useRef6(null);
-  useOutsideComponentClicker3({
-    ref,
-    onClickedOutside: () => {
-      setSelected(() => -1);
-    }
-  });
-  const showSubRoute = (routes2) => {
-    return true;
-  };
-  return /* @__PURE__ */ jsx21("div", { ref, className: "nav-area", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
-    if (true) {
-      if (subnav) {
-        if (!showSubRoute(subnav)) return null;
-      }
-      return /* @__PURE__ */ jsxs17("div", { children: [
-        /* @__PURE__ */ jsx21(
-          NavLink2,
-          {
-            selected: selected === i,
-            to,
-            image: image || "",
-            label,
-            onSelect: () => setSelected((prev) => prev === i ? -1 : i),
-            unselect: () => setSelected(() => -1)
-          },
-          i
-        ),
-        i === selected ? /* @__PURE__ */ jsx21(
-          SubNav2,
-          {
-            routes: routes[selected]?.subnav,
-            permissions
-          }
-        ) : null
-      ] }, i);
-    }
-  }) });
-};
-var NavLink2 = ({
-  selected,
-  to,
-  image,
-  label,
-  onSelect,
-  unselect
-}) => {
-  return /* @__PURE__ */ jsxs17(
-    "a",
-    {
-      className: selected ? "nav-item-container-active" : "nav-item-container",
-      href: to,
-      onClick: (e) => {
-        if (to) {
-          e.preventDefault();
-          alert(`Navigating to: ${to}`);
-          return;
-        }
-        onSelect();
-      },
-      children: [
-        image && /* @__PURE__ */ jsx21(
-          "img",
-          {
-            src: image,
-            alt: "navIcon"
-          }
-        ),
-        /* @__PURE__ */ jsx21("span", { children: label })
-      ]
-    }
-  );
-};
-var SubNav2 = ({
-  routes,
-  permissions = []
-}) => {
-  const [selected, setSelected] = useState8(-1);
-  const onSelect = (i) => {
-    setSelected((prev) => prev === i ? -1 : i);
-  };
-  if (!routes || routes.length === 0) return null;
-  const showSubRoute = (routes2) => {
-    return true;
-  };
-  return /* @__PURE__ */ jsx21("div", { className: "subnav", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
-    if (subnav) {
-      if (true) {
-        return /* @__PURE__ */ jsxs17("div", { className: "level1-sub-nav", children: [
-          /* @__PURE__ */ jsx21("div", { className: "level1-header", children: /* @__PURE__ */ jsx21("span", { children: label }) }),
-          /* @__PURE__ */ jsx21("div", { className: "level2-sub-nav", children: /* @__PURE__ */ jsxs17("div", { className: "level2-header", children: [
+        return /* @__PURE__ */ jsxs13("div", { className: "level1-sub-nav", children: [
+          /* @__PURE__ */ jsx17("div", { className: "level1-header", children: /* @__PURE__ */ jsx17("span", { children: label }) }),
+          /* @__PURE__ */ jsx17("div", { className: "level2-sub-nav", children: /* @__PURE__ */ jsxs13("div", { className: "level2-header", children: [
             subnav.map(({ label: label2, to: to2, subnav: subnav2, permissionId: permissionId2 }, y) => {
               if (!subnav2) {
                 if (true) {
-                  return /* @__PURE__ */ jsx21(
+                  return /* @__PURE__ */ jsx17(
                     "a",
                     {
                       href: to2,
@@ -2064,37 +1596,37 @@ var SubNav2 = ({
                         e.preventDefault();
                         alert(`Navigating to: ${to2}`);
                       },
-                      children: /* @__PURE__ */ jsx21("span", { children: label2 })
+                      children: /* @__PURE__ */ jsx17("span", { children: label2 })
                     },
                     y
                   );
                 }
               } else if (subnav2) {
                 if (!showSubRoute(subnav2)) return null;
-                return /* @__PURE__ */ jsxs17(
+                return /* @__PURE__ */ jsxs13(
                   "div",
                   {
                     onClick: () => onSelect(y),
                     className: "level3-container",
                     children: [
-                      /* @__PURE__ */ jsxs17(
+                      /* @__PURE__ */ jsxs13(
                         "div",
                         {
                           className: selected === y ? "level3-header-shown" : "level3-header",
                           children: [
-                            /* @__PURE__ */ jsx21("span", { children: label2 }),
-                            selected === y ? /* @__PURE__ */ jsx21(FaAngleDown2, {}) : /* @__PURE__ */ jsx21(FaAngleLeft2, {})
+                            /* @__PURE__ */ jsx17("span", { children: label2 }),
+                            selected === y ? /* @__PURE__ */ jsx17(FaAngleDown, {}) : /* @__PURE__ */ jsx17(FaAngleLeft, {})
                           ]
                         }
                       ),
-                      /* @__PURE__ */ jsx21(
+                      /* @__PURE__ */ jsx17(
                         "div",
                         {
                           className: selected === y ? "level3-content-shown" : "level3-content",
-                          children: /* @__PURE__ */ jsx21("div", { children: subnav2.map(
+                          children: /* @__PURE__ */ jsx17("div", { children: subnav2.map(
                             ({ label: label3, to: to3, permissionId: permissionId3 }, z) => {
                               if (true) {
-                                return /* @__PURE__ */ jsx21(
+                                return /* @__PURE__ */ jsx17(
                                   "a",
                                   {
                                     href: to3,
@@ -2102,7 +1634,7 @@ var SubNav2 = ({
                                       e.preventDefault();
                                       alert(`Navigating to: ${to3}`);
                                     },
-                                    children: /* @__PURE__ */ jsxs17("span", { children: [
+                                    children: /* @__PURE__ */ jsxs13("span", { children: [
                                       label3,
                                       " "
                                     ] })
@@ -2120,25 +1652,25 @@ var SubNav2 = ({
                 );
               }
             }),
-            /* @__PURE__ */ jsx21("div", { className: "arrow-container", children: /* @__PURE__ */ jsx21("div", { className: "arrow-right" }) })
+            /* @__PURE__ */ jsx17("div", { className: "arrow-container", children: /* @__PURE__ */ jsx17("div", { className: "arrow-right" }) })
           ] }) })
         ] }, i);
       }
     } else {
-      return /* @__PURE__ */ jsx21("a", { href: to, className: "level1-sub-nav", children: /* @__PURE__ */ jsx21("span", { children: label }) }, i);
+      return /* @__PURE__ */ jsx17("a", { href: to, className: "level1-sub-nav", children: /* @__PURE__ */ jsx17("span", { children: label }) }, i);
     }
   }) });
 };
 
-// src/components/ui/navigation-bar-scss/side-nav.tsx
-import { useRef as useRef7, useState as useState9 } from "react";
-import { FaAngleRight as FaAngleRight2 } from "react-icons/fa";
-import { jsx as jsx22, jsxs as jsxs18 } from "react/jsx-runtime";
-var SideNav2 = (props) => {
+// src/components/ui/navigation-bar/side-nav.tsx
+import { useRef as useRef4, useState as useState6 } from "react";
+import { FaAngleRight } from "react-icons/fa";
+import { jsx as jsx18, jsxs as jsxs14 } from "react/jsx-runtime";
+var SideNav = (props) => {
   const { routes, permissions = [] } = props;
-  const [selected, setSelected] = useState9(-1);
-  const ref = useRef7(null);
-  useOutsideComponentClicker3({
+  const [selected, setSelected] = useState6(-1);
+  const ref = useRef4(null);
+  useOutsideComponentClicker({
     ref,
     onClickedOutside: () => {
       setSelected(() => -1);
@@ -2147,12 +1679,12 @@ var SideNav2 = (props) => {
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ jsx22("div", { className: "side-nav-filter", id: "SideNavFilter", children: /* @__PURE__ */ jsx22("div", { ref, className: "side-nav", id: "SideArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+  return /* @__PURE__ */ jsx18("div", { className: "side-nav-filter", id: "SideNavFilter", children: /* @__PURE__ */ jsx18("div", { ref, className: "side-nav", id: "SideArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
     if (true) {
       if (subnav && !showSubRoute(subnav)) return null;
-      return /* @__PURE__ */ jsxs18("div", { style: { display: "flex", flexDirection: "column" }, children: [
-        /* @__PURE__ */ jsx22(
-          SideNavLink2,
+      return /* @__PURE__ */ jsxs14("div", { style: { display: "flex", flexDirection: "column" }, children: [
+        /* @__PURE__ */ jsx18(
+          SideNavLink,
           {
             selected: selected === i,
             to,
@@ -2163,12 +1695,12 @@ var SideNav2 = (props) => {
           },
           i
         ),
-        selected === i && subnav && /* @__PURE__ */ jsx22(SideSubNav2, { routes: subnav, permissions })
+        selected === i && subnav && /* @__PURE__ */ jsx18(SideSubNav, { routes: subnav, permissions })
       ] }, i);
     }
   }) }) });
 };
-var SideNavLink2 = ({
+var SideNavLink = ({
   selected,
   to,
   image,
@@ -2176,7 +1708,7 @@ var SideNavLink2 = ({
   onSelect,
   unselect
 }) => {
-  return /* @__PURE__ */ jsxs18(
+  return /* @__PURE__ */ jsxs14(
     "a",
     {
       className: selected ? "side-nav-item-container-active" : "side-nav-item-container",
@@ -2190,41 +1722,41 @@ var SideNavLink2 = ({
         onSelect();
       },
       children: [
-        image && /* @__PURE__ */ jsx22(
+        image && /* @__PURE__ */ jsx18(
           "img",
           {
             src: image,
             alt: "navIcon"
           }
         ),
-        /* @__PURE__ */ jsx22("span", { children: label })
+        /* @__PURE__ */ jsx18("span", { children: label })
       ]
     }
   );
 };
-var SideSubNav2 = ({
+var SideSubNav = ({
   routes,
   permissions = []
 }) => {
-  const [selected, setSelected] = useState9(-1);
+  const [selected, setSelected] = useState6(-1);
   if (!routes || routes.length === 0) return null;
-  return /* @__PURE__ */ jsx22("div", { className: "side-sub-nav", children: routes.map(({ label, to, subnav, permissionId }, i) => {
+  return /* @__PURE__ */ jsx18("div", { className: "side-sub-nav", children: routes.map(({ label, to, subnav, permissionId }, i) => {
     if (subnav) {
-      return /* @__PURE__ */ jsxs18("div", { className: selected === i ? "side-sub-sub-container-selected" : "side-sub-sub-container", children: [
-        /* @__PURE__ */ jsxs18(
+      return /* @__PURE__ */ jsxs14("div", { className: selected === i ? "side-sub-sub-container-selected" : "side-sub-sub-container", children: [
+        /* @__PURE__ */ jsxs14(
           "div",
           {
             className: "side-sub-sub-nav-heading-link",
             onClick: () => setSelected((prev) => prev === i ? -1 : i),
             children: [
-              /* @__PURE__ */ jsx22("span", { className: "side-sub-nav-heading", children: label }),
-              /* @__PURE__ */ jsx22(FaAngleRight2, {})
+              /* @__PURE__ */ jsx18("span", { className: "side-sub-nav-heading", children: label }),
+              /* @__PURE__ */ jsx18(FaAngleRight, {})
             ]
           }
         ),
-        selected === i && /* @__PURE__ */ jsx22("div", { className: "side-sub-sub-links-container", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
+        selected === i && /* @__PURE__ */ jsx18("div", { className: "side-sub-sub-links-container", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
           if (true) {
-            return /* @__PURE__ */ jsx22(
+            return /* @__PURE__ */ jsx18(
               "a",
               {
                 href: to2,
@@ -2240,12 +1772,12 @@ var SideSubNav2 = ({
         }) })
       ] }, i);
     } else {
-      return /* @__PURE__ */ jsx22(
+      return /* @__PURE__ */ jsx18(
         "a",
         {
           href: to,
           className: "side-sub-nav-heading-link",
-          children: /* @__PURE__ */ jsx22("span", { className: "side-sub-nav-heading", children: label })
+          children: /* @__PURE__ */ jsx18("span", { className: "side-sub-nav-heading", children: label })
         },
         i
       );
@@ -2253,30 +1785,82 @@ var SideSubNav2 = ({
   }) });
 };
 
-// src/components/ui/navigation-bar-scss/sub-acc.tsx
-import { jsx as jsx23, jsxs as jsxs19 } from "react/jsx-runtime";
-var SubAcc2 = (props) => {
+// src/components/ui/navigation-bar/sub-acc.tsx
+import { jsx as jsx19, jsxs as jsxs15 } from "react/jsx-runtime";
+var SubAcc = (props) => {
   const {
     isAdmin = false,
     onSignOut = () => alert("Sign out clicked - replace with your auth logout function"),
     onChangePassword = () => alert("Change password clicked - replace with your change password function"),
     onResetPassword = () => alert("Reset password clicked - replace with your reset password function")
   } = props;
-  return /* @__PURE__ */ jsxs19("ul", { className: "sub-acc", children: [
-    /* @__PURE__ */ jsx23("li", { className: "account-label", children: /* @__PURE__ */ jsx23("button", { onClick: onChangePassword, children: "Change Password" }) }),
-    isAdmin && /* @__PURE__ */ jsx23("li", { className: "account-label", children: /* @__PURE__ */ jsx23("button", { onClick: onResetPassword, children: "Reset Password" }) }),
-    /* @__PURE__ */ jsx23("li", { className: "account-label", children: /* @__PURE__ */ jsx23("button", { onClick: onSignOut, children: "Sign Out" }) })
+  return /* @__PURE__ */ jsxs15("ul", { className: "sub-acc", children: [
+    /* @__PURE__ */ jsx19("li", { className: "account-label", children: /* @__PURE__ */ jsx19("button", { onClick: onChangePassword, children: "Change Password" }) }),
+    isAdmin && /* @__PURE__ */ jsx19("li", { className: "account-label", children: /* @__PURE__ */ jsx19("button", { onClick: onResetPassword, children: "Reset Password" }) }),
+    /* @__PURE__ */ jsx19("li", { className: "account-label", children: /* @__PURE__ */ jsx19("button", { onClick: onSignOut, children: "Sign Out" }) })
   ] });
 };
 
-// src/components/ui/navigation-bar-scss/navigation-bar.tsx
-import { Fragment as Fragment2, jsx as jsx24, jsxs as jsxs20 } from "react/jsx-runtime";
-var NavigationBarScss = (props) => {
-  const { user: mockUser } = useLoginData2();
-  const { routes, permissions = [], isAdmin = false, logo, user = mockUser, className } = props;
-  const [selectedHamburger, setSelectedHamburger] = useState10(false);
-  const [, setDarkMode] = useState10(false);
-  useEffect6(() => {
+// src/assets/images/payplus-logo.png
+var payplus_logo_default = "./payplus-logo-A2YWB25I.png";
+
+// src/assets/images/payplus-logo-dark.png
+var payplus_logo_dark_default = "./payplus-logo-dark-Y2VX3M5R.png";
+
+// src/assets/icons/home.svg
+var home_default = "./home-GYF2OX5G.svg";
+
+// src/assets/icons/file.svg
+var file_default = "./file-C65X33IB.svg";
+
+// src/assets/icons/payroll.svg
+var payroll_default = "./payroll-MASCE2FG.svg";
+
+// src/assets/icons/timekeeping.svg
+var timekeeping_default = "./timekeeping-TV4FSF7P.svg";
+
+// src/assets/icons/assets.svg
+var assets_default = "./assets-5WG32LML.svg";
+
+// src/assets/icons/system.svg
+var system_default = "./system-FSEJPXN6.svg";
+
+// src/assets/icons/cupcake.svg
+var cupcake_default = "./cupcake-VD7Z4YOW.svg";
+
+// src/assets/index.ts
+var payplusAssets = {
+  logo: {
+    src: payplus_logo_default,
+    darkMode: payplus_logo_dark_default,
+    alt: "PayPlus Logo"
+  }
+};
+var navigationIcons = {
+  home: home_default,
+  file: file_default,
+  payroll: payroll_default,
+  timekeeping: timekeeping_default,
+  assets: assets_default,
+  system: system_default,
+  birthday: cupcake_default
+};
+
+// src/components/ui/navigation-bar/navigation-bar.tsx
+import { Fragment, jsx as jsx20, jsxs as jsxs16 } from "react/jsx-runtime";
+var NavigationBar = (props) => {
+  const defaultLogo = payplusAssets.logo;
+  const {
+    routes,
+    permissions = [],
+    isAdmin = false,
+    logo = defaultLogo,
+    user,
+    className
+  } = props;
+  const [selectedHamburger, setSelectedHamburger] = useState7(false);
+  const [, setDarkMode] = useState7(false);
+  useEffect4(() => {
     if (typeof window === "undefined") return;
     const listener = () => {
       if (window.innerWidth < 1024) {
@@ -2288,7 +1872,7 @@ var NavigationBarScss = (props) => {
       window.removeEventListener("resize", listener);
     };
   }, []);
-  useEffect6(() => {
+  useEffect4(() => {
     if (typeof document === "undefined") return;
     const bodyClassListener = () => {
       setDarkMode(document.body.classList.contains("dark"));
@@ -2298,10 +1882,10 @@ var NavigationBarScss = (props) => {
       document.body.removeEventListener("transitionend", bodyClassListener);
     };
   }, []);
-  return /* @__PURE__ */ jsxs20("nav", { className: `${className || ""}`, style: { zIndex: 50, width: "100vw", backgroundColor: "var(--background, #ffffff)" }, children: [
-    /* @__PURE__ */ jsxs20("div", { className: "nav-bar", children: [
-      /* @__PURE__ */ jsx24("div", { className: "logo-container", children: logo.darkMode ? /* @__PURE__ */ jsxs20(Fragment2, { children: [
-        /* @__PURE__ */ jsx24(
+  return /* @__PURE__ */ jsxs16("nav", { className: `${className || ""}`, style: { zIndex: 50, width: "100vw", backgroundColor: "var(--background, #ffffff)" }, children: [
+    /* @__PURE__ */ jsxs16("div", { className: "nav-bar", children: [
+      /* @__PURE__ */ jsx20("div", { className: "logo-container", children: logo.darkMode ? /* @__PURE__ */ jsxs16(Fragment, { children: [
+        /* @__PURE__ */ jsx20(
           "img",
           {
             className: "image-on-nav",
@@ -2311,7 +1895,7 @@ var NavigationBarScss = (props) => {
             loading: "eager"
           }
         ),
-        /* @__PURE__ */ jsx24(
+        /* @__PURE__ */ jsx20(
           "img",
           {
             className: "image-on-nav",
@@ -2320,7 +1904,7 @@ var NavigationBarScss = (props) => {
             loading: "eager"
           }
         )
-      ] }) : /* @__PURE__ */ jsx24(
+      ] }) : /* @__PURE__ */ jsx20(
         "img",
         {
           className: "image-on-nav",
@@ -2329,18 +1913,18 @@ var NavigationBarScss = (props) => {
           loading: "eager"
         }
       ) }),
-      /* @__PURE__ */ jsx24(NavAreaUpdated, { routes, permissions }),
-      /* @__PURE__ */ jsx24("div", { className: "hamburger-container", children: /* @__PURE__ */ jsx24(
+      /* @__PURE__ */ jsx20(NavAreaUpdated, { routes, permissions }),
+      /* @__PURE__ */ jsx20("div", { className: "hamburger-container", children: /* @__PURE__ */ jsx20(
         "div",
         {
           className: selectedHamburger ? "hamburger-selected" : "hamburger",
           onClick: () => setSelectedHamburger((prev) => {
             return !prev;
           }),
-          children: /* @__PURE__ */ jsx24(FaBars2, {})
+          children: /* @__PURE__ */ jsx20(FaBars, {})
         }
       ) }),
-      !user?.data.isAdmin && /* @__PURE__ */ jsx24("div", { style: {
+      !user?.data.isAdmin && /* @__PURE__ */ jsx20("div", { style: {
         width: "2rem",
         height: "2rem",
         borderRadius: "4px",
@@ -2349,9 +1933,9 @@ var NavigationBarScss = (props) => {
         alignItems: "center",
         justifyContent: "center"
       }, children: "\u{1F4C5}" }),
-      /* @__PURE__ */ jsxs20("div", { className: "account-wrapper", children: [
-        /* @__PURE__ */ jsxs20("div", { className: "account-area", children: [
-          /* @__PURE__ */ jsx24("div", { className: "account-dp-container", children: /* @__PURE__ */ jsx24("div", { style: {
+      /* @__PURE__ */ jsxs16("div", { className: "account-wrapper", children: [
+        /* @__PURE__ */ jsxs16("div", { className: "account-area", children: [
+          /* @__PURE__ */ jsx20("div", { className: "account-dp-container", children: /* @__PURE__ */ jsx20("div", { style: {
             width: "100%",
             height: "100%",
             display: "flex",
@@ -2360,11 +1944,11 @@ var NavigationBarScss = (props) => {
             color: "white",
             fontWeight: "bold"
           }, children: user?.data.name?.charAt(0) || "U" }) }),
-          /* @__PURE__ */ jsx24(FaChevronDown2, { size: "0.75rem" })
+          /* @__PURE__ */ jsx20(FaChevronDown, { size: "0.75rem" })
         ] }),
-        /* @__PURE__ */ jsx24(SubAcc2, { isAdmin })
+        /* @__PURE__ */ jsx20(SubAcc, { isAdmin })
       ] }),
-      /* @__PURE__ */ jsx24("div", { style: {
+      /* @__PURE__ */ jsx20("div", { style: {
         width: "2rem",
         height: "2rem",
         borderRadius: "4px",
@@ -2375,18 +1959,18 @@ var NavigationBarScss = (props) => {
         cursor: "pointer"
       }, children: "\u{1F319}" })
     ] }),
-    selectedHamburger && /* @__PURE__ */ jsx24(SideNav2, { routes, permissions })
+    selectedHamburger && /* @__PURE__ */ jsx20(SideNav, { routes, permissions })
   ] });
 };
 
 // src/components/theme-provider.tsx
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { jsx as jsx25 } from "react/jsx-runtime";
+import { jsx as jsx21 } from "react/jsx-runtime";
 function ThemeProvider({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ jsx25(NextThemesProvider, { ...props, children });
+  return /* @__PURE__ */ jsx21(NextThemesProvider, { ...props, children });
 }
 
 // src/components/ui/mode-toggle.tsx
@@ -2396,16 +1980,16 @@ import { useTheme } from "next-themes";
 // src/components/ui/dropdown-menu.tsx
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
-import { jsx as jsx26, jsxs as jsxs21 } from "react/jsx-runtime";
+import { jsx as jsx22, jsxs as jsxs17 } from "react/jsx-runtime";
 function DropdownMenu({
   ...props
 }) {
-  return /* @__PURE__ */ jsx26(DropdownMenuPrimitive.Root, { "data-slot": "dropdown-menu", ...props });
+  return /* @__PURE__ */ jsx22(DropdownMenuPrimitive.Root, { "data-slot": "dropdown-menu", ...props });
 }
 function DropdownMenuTrigger({
   ...props
 }) {
-  return /* @__PURE__ */ jsx26(
+  return /* @__PURE__ */ jsx22(
     DropdownMenuPrimitive.Trigger,
     {
       "data-slot": "dropdown-menu-trigger",
@@ -2418,7 +2002,7 @@ function DropdownMenuContent({
   sideOffset = 4,
   ...props
 }) {
-  return /* @__PURE__ */ jsx26(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx26(
+  return /* @__PURE__ */ jsx22(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx22(
     DropdownMenuPrimitive.Content,
     {
       "data-slot": "dropdown-menu-content",
@@ -2437,7 +2021,7 @@ function DropdownMenuItem({
   variant = "default",
   ...props
 }) {
-  return /* @__PURE__ */ jsx26(
+  return /* @__PURE__ */ jsx22(
     DropdownMenuPrimitive.Item,
     {
       "data-slot": "dropdown-menu-item",
@@ -2453,25 +2037,25 @@ function DropdownMenuItem({
 }
 
 // src/components/ui/mode-toggle.tsx
-import { jsx as jsx27, jsxs as jsxs22 } from "react/jsx-runtime";
+import { jsx as jsx23, jsxs as jsxs18 } from "react/jsx-runtime";
 function ModeToggle() {
   const { setTheme } = useTheme();
-  return /* @__PURE__ */ jsxs22(DropdownMenu, { children: [
-    /* @__PURE__ */ jsx27(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs22(Button, { variant: "outline", size: "icon", children: [
-      /* @__PURE__ */ jsx27(Sun, { className: "h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" }),
-      /* @__PURE__ */ jsx27(Moon, { className: "absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" }),
-      /* @__PURE__ */ jsx27("span", { className: "sr-only", children: "Toggle theme" })
+  return /* @__PURE__ */ jsxs18(DropdownMenu, { children: [
+    /* @__PURE__ */ jsx23(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs18(Button, { variant: "outline", size: "icon", children: [
+      /* @__PURE__ */ jsx23(Sun, { className: "h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" }),
+      /* @__PURE__ */ jsx23(Moon, { className: "absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" }),
+      /* @__PURE__ */ jsx23("span", { className: "sr-only", children: "Toggle theme" })
     ] }) }),
-    /* @__PURE__ */ jsxs22(DropdownMenuContent, { align: "end", children: [
-      /* @__PURE__ */ jsx27(DropdownMenuItem, { onClick: () => setTheme("light"), children: "Light" }),
-      /* @__PURE__ */ jsx27(DropdownMenuItem, { onClick: () => setTheme("dark"), children: "Dark" }),
-      /* @__PURE__ */ jsx27(DropdownMenuItem, { onClick: () => setTheme("system"), children: "System" })
+    /* @__PURE__ */ jsxs18(DropdownMenuContent, { align: "end", children: [
+      /* @__PURE__ */ jsx23(DropdownMenuItem, { onClick: () => setTheme("light"), children: "Light" }),
+      /* @__PURE__ */ jsx23(DropdownMenuItem, { onClick: () => setTheme("dark"), children: "Dark" }),
+      /* @__PURE__ */ jsx23(DropdownMenuItem, { onClick: () => setTheme("system"), children: "System" })
     ] })
   ] });
 }
 
 // src/components/common/Modal/modal.tsx
-import { Fragment as Fragment3, jsx as jsx28, jsxs as jsxs23 } from "react/jsx-runtime";
+import { Fragment as Fragment2, jsx as jsx24, jsxs as jsxs19 } from "react/jsx-runtime";
 var Modal = ({
   header = "Header",
   children,
@@ -2480,18 +2064,18 @@ var Modal = ({
   ...rest
 }) => {
   const modalSize = { "modal-size": size };
-  return /* @__PURE__ */ jsx28(Fragment3, { children: show ? /* @__PURE__ */ jsx28("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ jsxs23(
+  return /* @__PURE__ */ jsx24(Fragment2, { children: show ? /* @__PURE__ */ jsx24("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ jsxs19(
     "div",
     {
       className: cn("modal-container", "bg-background"),
       ...rest,
       ...modalSize,
       children: [
-        /* @__PURE__ */ jsx28(
+        /* @__PURE__ */ jsx24(
           "div",
           {
             className: cn("modal-header-container", "border border-blue-800"),
-            children: /* @__PURE__ */ jsx28(
+            children: /* @__PURE__ */ jsx24(
               "span",
               {
                 className: cn(
@@ -2503,7 +2087,7 @@ var Modal = ({
             )
           }
         ),
-        /* @__PURE__ */ jsx28("div", { className: cn("content-container"), children })
+        /* @__PURE__ */ jsx24("div", { className: cn("content-container"), children })
       ]
     }
   ) }) : null });
@@ -2516,29 +2100,30 @@ var sampleLogo = {
   darkMode: "https://via.placeholder.com/160x60/ffffff/000000?text=COMPANY",
   alt: "Company Logo"
 };
-var sampleUser = {
+var sampleAdminUser = {
   data: {
     isAdmin: true,
-    name: "John Doe",
-    email: "john.doe@company.com"
+    name: "John Admin",
+    email: "john.admin@company.com"
   }
 };
 var sampleEmployeeUser = {
   data: {
     isAdmin: false,
-    name: "Jane Smith",
-    email: "jane.smith@company.com"
+    name: "Jane Employee",
+    email: "jane.employee@company.com"
   }
 };
+var sampleUser = sampleAdminUser;
 var sampleAdminRoutes = [
   {
     label: "Home",
-    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F3E0}",
+    image: navigationIcons.home,
     to: "/admin/home"
   },
   {
     label: "File Maintenance",
-    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F4C1}",
+    image: navigationIcons.file,
     subnav: [
       {
         label: "Human Resource",
@@ -2604,7 +2189,7 @@ var sampleAdminRoutes = [
   },
   {
     label: "Timekeeping",
-    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u23F0",
+    image: navigationIcons.timekeeping,
     subnav: [
       {
         label: "Time Entry",
@@ -2640,7 +2225,7 @@ var sampleAdminRoutes = [
   },
   {
     label: "System",
-    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u2699\uFE0F",
+    image: navigationIcons.system,
     subnav: [
       {
         label: "User",
@@ -2673,12 +2258,12 @@ var sampleAdminRoutes = [
 var sampleEmployeeRoutes = [
   {
     label: "Home",
-    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F3E0}",
+    image: navigationIcons.home,
     to: "/employee/home"
   },
   {
     label: "Records & Profiles",
-    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F4CB}",
+    image: navigationIcons.file,
     subnav: [
       {
         label: "Personal Time Records",
@@ -2700,7 +2285,7 @@ var sampleEmployeeRoutes = [
   },
   {
     label: "Applications",
-    image: "https://via.placeholder.com/16x16/666666/ffffff?text=\u{1F4DD}",
+    image: navigationIcons.timekeeping,
     subnav: [
       {
         label: "Personal",
@@ -2785,10 +2370,8 @@ export {
   Label,
   modal_default as Modal,
   ModeToggle,
-  NavArea,
   NavAreaUpdated,
   NavigationBar,
-  NavigationBarScss,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -2800,16 +2383,28 @@ export {
   ToggleForm,
   UpgradedFieldsetFormInput,
   UpgradedFieldsetFormTextarea,
+  assets_default as assetsIcon,
+  cupcake_default as birthdayIcon,
   buttonVariants,
   cn,
   comboboxColorVariants,
+  file_default as fileIcon,
+  home_default as homeIcon,
+  navigationIcons,
+  payplusAssets,
+  payplus_logo_default as payplusLogo,
+  payplus_logo_dark_default as payplusLogoDark,
+  payroll_default as payrollIcon,
   sampleAdminPermissions,
   sampleAdminRoutes,
+  sampleAdminUser,
   sampleEmployeePermissions,
   sampleEmployeeRoutes,
   sampleEmployeeUser,
   sampleLogo,
   sampleUser,
+  system_default as systemIcon,
+  timekeeping_default as timekeepingIcon,
   toggleColorVariants
 };
 //# sourceMappingURL=index.mjs.map
