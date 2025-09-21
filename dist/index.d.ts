@@ -1,8 +1,9 @@
-import * as class_variance_authority_dist_types from 'class-variance-authority/dist/types';
+import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as React$1 from 'react';
 import React__default, { HTMLAttributes } from 'react';
+import * as AvatarPrimitive from '@radix-ui/react-avatar';
+import * as class_variance_authority_dist_types from 'class-variance-authority/dist/types';
 import { VariantProps } from 'class-variance-authority';
-import * as react_jsx_runtime from 'react/jsx-runtime';
 import { Command as Command$1 } from 'cmdk';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as LabelPrimitive from '@radix-ui/react-label';
@@ -13,8 +14,25 @@ import { Slot } from '@radix-ui/react-slot';
 import { ThemeProvider as ThemeProvider$1 } from 'next-themes';
 import { ClassValue } from 'clsx';
 
+interface ContentMarginProps extends React__default.HTMLAttributes<HTMLDivElement> {
+    as?: keyof JSX.IntrinsicElements;
+    className?: string;
+}
+/**
+ * ContentMargin provides horizontal margins and max-width using the .content-margin SCSS class.
+ * It adapts responsively based on your SCSS/media queries.
+ *
+ * Usage:
+ * <ContentMargin><YourContent /></ContentMargin>
+ */
+declare function ContentMargin({ children, as, className, ...props }: ContentMarginProps): react_jsx_runtime.JSX.Element;
+
+declare function Avatar({ className, ...props }: React$1.ComponentProps<typeof AvatarPrimitive.Root>): react_jsx_runtime.JSX.Element;
+declare function AvatarImage({ className, ...props }: React$1.ComponentProps<typeof AvatarPrimitive.Image>): react_jsx_runtime.JSX.Element;
+declare function AvatarFallback({ className, ...props }: React$1.ComponentProps<typeof AvatarPrimitive.Fallback>): react_jsx_runtime.JSX.Element;
+
 declare const buttonVariants: (props?: ({
-    variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
+    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | "noPadding" | null | undefined;
 } & class_variance_authority_dist_types.ClassProp) | undefined) => string;
 interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -90,7 +108,7 @@ declare function CommandGroup({ className, ...props }: React$1.ComponentProps<ty
 declare function CommandItem({ className, ...props }: React$1.ComponentProps<typeof Command$1.Item>): react_jsx_runtime.JSX.Element;
 
 declare const inputVariants: (props?: ({
-    variant?: "default" | "ghost" | "fieldset" | "underline" | "filled" | null | undefined;
+    variant?: "fieldset" | "default" | "ghost" | "underline" | "filled" | null | undefined;
     inputSize?: "default" | "sm" | "lg" | null | undefined;
 } & class_variance_authority_dist_types.ClassProp) | undefined) => string;
 interface InputProps extends Omit<React$1.InputHTMLAttributes<HTMLInputElement>, "size">, VariantProps<typeof inputVariants> {
@@ -110,7 +128,7 @@ declare function PopoverTrigger({ ...props }: React$1.ComponentProps<typeof Popo
 declare function PopoverContent({ className, align, sideOffset, ...props }: React$1.ComponentProps<typeof PopoverPrimitive.Content>): react_jsx_runtime.JSX.Element;
 
 declare const textareaVariants: (props?: ({
-    variant?: "default" | "ghost" | "fieldset" | "underline" | "filled" | null | undefined;
+    variant?: "fieldset" | "default" | "ghost" | "underline" | "filled" | null | undefined;
     textareaSize?: "default" | "sm" | "lg" | null | undefined;
 } & class_variance_authority_dist_types.ClassProp) | undefined) => string;
 interface TextareaProps extends Omit<React$1.TextareaHTMLAttributes<HTMLTextAreaElement>, "size">, VariantProps<typeof textareaVariants> {
@@ -357,4 +375,4 @@ declare const navigationIcons: {
     birthday: string;
 };
 
-export { Button, Combobox, Command, CommandGroup, CommandItem, CommandList, type CompanyLogo, Dialog, DialogContent, DialogTrigger, DropdownForm, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxFormField, GenericCheckboxGroup, Input, Label, Modal, ModeToggle, type NavAreaProps, NavAreaUpdated, type NavRoute, NavigationBar, type NavigationBarProps, Popover, PopoverContent, PopoverTrigger, Search, SideNav, type SideNavProps, SubAcc, type SubAccProps, Table, Textarea, ThemeProvider, Toggle, ToggleForm, UpgradedFieldsetFormInput, UpgradedFieldsetFormTextarea, type User, buttonVariants, cn, comboboxColorVariants, images, navigationIcons, payplusAssets, sampleAdminPermissions, sampleAdminRoutes, sampleAdminUser, sampleEmployeePermissions, sampleEmployeeRoutes, sampleEmployeeUser, sampleLogo, sampleUser, toggleColorVariants, useOutsideComponentClicker };
+export { Avatar, AvatarFallback, AvatarImage, Button, Command, CommandGroup, CommandItem, CommandList, type CompanyLogo, ContentMargin, Dialog, DialogContent, DialogTrigger, Combobox as Dropdown, GenericCheckboxFormField as FieldsetCheckboxFormField, DropdownForm as FieldsetDropdownForm, UpgradedFieldsetFormInput as FieldsetFormInput, UpgradedFieldsetFormTextarea as FieldsetFormTextarea, ToggleForm as FieldsetToggleForm, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxGroup, Input, Label, Modal, ModeToggle, type NavAreaProps, NavAreaUpdated, type NavRoute, NavigationBar, type NavigationBarProps, Popover, PopoverContent, PopoverTrigger, Search, SideNav, type SideNavProps, SubAcc, type SubAccProps, Table, Textarea, ThemeProvider, Toggle, type User, buttonVariants, cn, comboboxColorVariants, images, navigationIcons, payplusAssets, sampleAdminPermissions, sampleAdminRoutes, sampleAdminUser, sampleEmployeePermissions, sampleEmployeeRoutes, sampleEmployeeUser, sampleLogo, sampleUser, toggleColorVariants, useOutsideComponentClicker };

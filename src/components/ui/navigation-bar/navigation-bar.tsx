@@ -7,6 +7,9 @@ import { SideNav } from "./side-nav";
 import { SubAcc } from "./sub-acc";
 import { payplusAssets } from "../../../config/images";
 import "./navigation-bar.scss";
+import { ModeToggle } from "../mode-toggle";
+import { ContentMargin } from "../../layout/content-margin";
+import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 
 export const NavigationBar = (props: NavigationBarProps) => {
   const defaultLogo = payplusAssets.logo;
@@ -46,10 +49,12 @@ export const NavigationBar = (props: NavigationBarProps) => {
     // Check initial dark mode state
     const checkDarkMode = () => {
       // First check if theme is explicitly set via classes (highest priority)
-      const hasLightClass = document.documentElement.classList.contains("light") ||
-                           document.body.classList.contains("light");
-      const hasDarkClass = document.documentElement.classList.contains("dark") ||
-                          document.body.classList.contains("dark");
+      const hasLightClass =
+        document.documentElement.classList.contains("light") ||
+        document.body.classList.contains("light");
+      const hasDarkClass =
+        document.documentElement.classList.contains("dark") ||
+        document.body.classList.contains("dark");
 
       // If explicit theme is set, use that
       if (hasLightClass) {
@@ -62,7 +67,9 @@ export const NavigationBar = (props: NavigationBarProps) => {
       }
 
       // Only fallback to system preference if no explicit theme is set
-      const systemPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const systemPrefersDark =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
       setDarkMode(systemPrefersDark);
     };
 
@@ -96,101 +103,74 @@ export const NavigationBar = (props: NavigationBarProps) => {
   }, []);
 
   return (
-    <nav
-      className={`${className || ""}`}
-      style={{
-        zIndex: 50,
-        width: "100vw",
-      }}
-    >
-      <div className="nav-bar">
-        <div className="logo-container">
-          <img
-            className="image-on-nav"
-            src={darkMode && logo.darkMode ? logo.darkMode : logo.src}
-            alt={logo.alt}
-            loading="eager"
-          />
-        </div>
-
-        {/* Desktop Navigation */}
-        <NavAreaUpdated routes={routes} permissions={permissions} />
-
-        {/* Mobile Hamburger */}
-        <div className="hamburger-container">
-          <div
-            className={selectedHamburger ? "hamburger-selected" : "hamburger"}
-            onClick={() =>
-              setSelectedHamburger((prev) => {
-                return !prev;
-              })
-            }
-          >
-            <FaBars />
+    <ContentMargin>
+      <nav className="bg-background !z-50 w-screen">
+        <div className="bg-background sticky top-0 z-50 flex min-h-16 w-full items-center">
+          <div className="relative aspect-video w-40 bg-transparent">
+            <img
+              className="image-on-nav"
+              src={darkMode && logo.darkMode ? logo.darkMode : logo.src}
+              alt={logo.alt}
+              loading="eager"
+            />
           </div>
-        </div>
 
-        {/* Calendar Logo - Only for non-admin users */}
-        {!user?.data.isAdmin && (
-          <div
-            style={{
-              width: "2rem",
-              height: "2rem",
-              borderRadius: "4px",
-              backgroundColor: "rgba(0, 102, 204, 0.1)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            📅
-          </div>
-        )}
+          {/* Desktop Navigation */}
+          <NavAreaUpdated routes={routes} permissions={permissions} />
 
-        {/* Account Area */}
-        <div className="account-wrapper">
-          <div className="account-area">
-            <div className="account-dp-container">
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
-                {user?.data.name?.charAt(0) || "U"}
-              </div>
+          {/* Mobile Hamburger */}
+          <div className="hamburger-container">
+            <div
+              className={selectedHamburger ? "hamburger-selected" : "hamburger"}
+              onClick={() =>
+                setSelectedHamburger((prev) => {
+                  return !prev;
+                })
+              }
+            >
+              <FaBars />
             </div>
-            <FaChevronDown size="0.75rem" />
           </div>
-          <SubAcc isAdmin={isAdmin} />
-        </div>
 
-        {/* Dark Mode Toggle */}
-        <div
-          style={{
-            width: "2rem",
-            height: "2rem",
-            borderRadius: "4px",
-            backgroundColor: "rgba(0, 102, 204, 0.1)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
-        >
-          🌙
-        </div>
-      </div>
+          {/* Calendar Logo - Only for non-admin users */}
+          {/* {!user?.data.isAdmin && (
+            <div
+              style={{
+                width: "2rem",
+                height: "2rem",
+                borderRadius: "4px",
+                backgroundColor: "rgba(0, 102, 204, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              📅
+            </div>
+          )} */}
 
-      {/* Mobile Side Navigation */}
-      {selectedHamburger && (
-        <SideNav routes={routes} permissions={permissions} />
-      )}
-    </nav>
+          {/* Account Area */}
+          <div className="account-wrapper">
+            <div className="account-area h-10 w-10">
+              <div className="account-dp-container">
+                <Avatar>
+                  <AvatarImage src="" />
+                  <AvatarFallback>
+                    {user?.data.name?.charAt(0) || "U"}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+              <FaChevronDown size="0.75rem" />
+            </div>
+            <SubAcc isAdmin={isAdmin} />
+          </div>
+          <ModeToggle></ModeToggle>
+        </div>
+        {/* Mobile Side Navigation */}
+        {selectedHamburger && (
+          <SideNav routes={routes} permissions={permissions} />
+        )}
+      </nav>
+    </ContentMargin>
   );
 };

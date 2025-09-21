@@ -1,8 +1,26 @@
 "use client";
 
-// src/components/ui/button.tsx
-import * as React from "react";
-import { cva } from "class-variance-authority";
+// src/components/layout/content-margin.tsx
+import { jsx } from "react/jsx-runtime";
+function ContentMargin({
+  children,
+  as = "div",
+  className = "",
+  ...props
+}) {
+  const Component = as;
+  return /* @__PURE__ */ jsx(
+    Component,
+    {
+      className: `content-margin bg-background ${className}`,
+      ...props,
+      children
+    }
+  );
+}
+
+// src/components/ui/avatar.tsx
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
 // src/lib/utils.ts
 import { clsx } from "clsx";
@@ -11,8 +29,58 @@ function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+// src/components/ui/avatar.tsx
+import { jsx as jsx2 } from "react/jsx-runtime";
+function Avatar({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    AvatarPrimitive.Root,
+    {
+      "data-slot": "avatar",
+      className: cn(
+        "relative flex size-8 shrink-0 overflow-hidden rounded-full",
+        className
+      ),
+      ...props
+    }
+  );
+}
+function AvatarImage({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    AvatarPrimitive.Image,
+    {
+      "data-slot": "avatar-image",
+      className: cn("aspect-square size-full", className),
+      ...props
+    }
+  );
+}
+function AvatarFallback({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx2(
+    AvatarPrimitive.Fallback,
+    {
+      "data-slot": "avatar-fallback",
+      className: cn(
+        "bg-muted flex size-full items-center justify-center rounded-full",
+        className
+      ),
+      ...props
+    }
+  );
+}
+
 // src/components/ui/button.tsx
-import { jsx } from "react/jsx-runtime";
+import * as React from "react";
+import { cva } from "class-variance-authority";
+import { jsx as jsx3 } from "react/jsx-runtime";
 var buttonVariants = cva(
   "cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
@@ -41,7 +109,7 @@ var buttonVariants = cva(
 );
 var Button = React.forwardRef(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    return /* @__PURE__ */ jsx(
+    return /* @__PURE__ */ jsx3(
       "button",
       {
         className: cn(buttonVariants({ variant, size, className })),
@@ -64,27 +132,27 @@ import { SearchIcon } from "lucide-react";
 // src/components/ui/dialog.tsx
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { XIcon } from "lucide-react";
-import { jsx as jsx2, jsxs } from "react/jsx-runtime";
+import { jsx as jsx4, jsxs } from "react/jsx-runtime";
 function Dialog({
   ...props
 }) {
-  return /* @__PURE__ */ jsx2(DialogPrimitive.Root, { "data-slot": "dialog", ...props });
+  return /* @__PURE__ */ jsx4(DialogPrimitive.Root, { "data-slot": "dialog", ...props });
 }
 function DialogTrigger({
   ...props
 }) {
-  return /* @__PURE__ */ jsx2(DialogPrimitive.Trigger, { "data-slot": "dialog-trigger", ...props });
+  return /* @__PURE__ */ jsx4(DialogPrimitive.Trigger, { "data-slot": "dialog-trigger", ...props });
 }
 function DialogPortal({
   ...props
 }) {
-  return /* @__PURE__ */ jsx2(DialogPrimitive.Portal, { "data-slot": "dialog-portal", ...props });
+  return /* @__PURE__ */ jsx4(DialogPrimitive.Portal, { "data-slot": "dialog-portal", ...props });
 }
 function DialogOverlay({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx2(
+  return /* @__PURE__ */ jsx4(
     DialogPrimitive.Overlay,
     {
       "data-slot": "dialog-overlay",
@@ -103,7 +171,7 @@ function DialogContent({
   ...props
 }) {
   return /* @__PURE__ */ jsxs(DialogPortal, { "data-slot": "dialog-portal", children: [
-    /* @__PURE__ */ jsx2(DialogOverlay, {}),
+    /* @__PURE__ */ jsx4(DialogOverlay, {}),
     /* @__PURE__ */ jsxs(
       DialogPrimitive.Content,
       {
@@ -121,8 +189,8 @@ function DialogContent({
               "data-slot": "dialog-close",
               className: "ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
               children: [
-                /* @__PURE__ */ jsx2(XIcon, {}),
-                /* @__PURE__ */ jsx2("span", { className: "sr-only", children: "Close" })
+                /* @__PURE__ */ jsx4(XIcon, {}),
+                /* @__PURE__ */ jsx4("span", { className: "sr-only", children: "Close" })
               ]
             }
           )
@@ -133,12 +201,12 @@ function DialogContent({
 }
 
 // src/components/ui/command.tsx
-import { jsx as jsx3, jsxs as jsxs2 } from "react/jsx-runtime";
+import { jsx as jsx5, jsxs as jsxs2 } from "react/jsx-runtime";
 function Command({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx3(
+  return /* @__PURE__ */ jsx5(
     CommandPrimitive,
     {
       "data-slot": "command",
@@ -160,8 +228,8 @@ function CommandInput({
       "data-slot": "command-input-wrapper",
       className: "flex h-9 items-center gap-2 border-b px-3",
       children: [
-        /* @__PURE__ */ jsx3(SearchIcon, { className: "size-4 shrink-0 opacity-50" }),
-        /* @__PURE__ */ jsx3(
+        /* @__PURE__ */ jsx5(SearchIcon, { className: "size-4 shrink-0 opacity-50" }),
+        /* @__PURE__ */ jsx5(
           CommandPrimitive.Input,
           {
             "data-slot": "command-input",
@@ -180,7 +248,7 @@ function CommandList({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx3(
+  return /* @__PURE__ */ jsx5(
     CommandPrimitive.List,
     {
       "data-slot": "command-list",
@@ -195,7 +263,7 @@ function CommandList({
 function CommandEmpty({
   ...props
 }) {
-  return /* @__PURE__ */ jsx3(
+  return /* @__PURE__ */ jsx5(
     CommandPrimitive.Empty,
     {
       "data-slot": "command-empty",
@@ -208,7 +276,7 @@ function CommandGroup({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx3(
+  return /* @__PURE__ */ jsx5(
     CommandPrimitive.Group,
     {
       "data-slot": "command-group",
@@ -224,7 +292,7 @@ function CommandItem({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx3(
+  return /* @__PURE__ */ jsx5(
     CommandPrimitive.Item,
     {
       "data-slot": "command-item",
@@ -239,16 +307,16 @@ function CommandItem({
 
 // src/components/ui/popover.tsx
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import { jsx as jsx4 } from "react/jsx-runtime";
+import { jsx as jsx6 } from "react/jsx-runtime";
 function Popover({
   ...props
 }) {
-  return /* @__PURE__ */ jsx4(PopoverPrimitive.Root, { "data-slot": "popover", ...props });
+  return /* @__PURE__ */ jsx6(PopoverPrimitive.Root, { "data-slot": "popover", ...props });
 }
 function PopoverTrigger({
   ...props
 }) {
-  return /* @__PURE__ */ jsx4(PopoverPrimitive.Trigger, { "data-slot": "popover-trigger", ...props });
+  return /* @__PURE__ */ jsx6(PopoverPrimitive.Trigger, { "data-slot": "popover-trigger", ...props });
 }
 function PopoverContent({
   className,
@@ -256,7 +324,7 @@ function PopoverContent({
   sideOffset = 4,
   ...props
 }) {
-  return /* @__PURE__ */ jsx4(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsx4(
+  return /* @__PURE__ */ jsx6(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsx6(
     PopoverPrimitive.Content,
     {
       "data-slot": "popover-content",
@@ -272,7 +340,7 @@ function PopoverContent({
 }
 
 // src/components/ui/combobox.tsx
-import { jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
+import { jsx as jsx7, jsxs as jsxs3 } from "react/jsx-runtime";
 var comboboxColorVariants = {
   default: {
     fieldset: "border-input bg-transparent",
@@ -368,7 +436,7 @@ var Combobox = ({
     }
   }, [open]);
   return /* @__PURE__ */ jsxs3(Popover, { open, onOpenChange: setOpen, children: [
-    /* @__PURE__ */ jsx5(PopoverTrigger, { asChild: true, children: /* @__PURE__ */ jsxs3(
+    /* @__PURE__ */ jsx7(PopoverTrigger, { asChild: true, children: /* @__PURE__ */ jsxs3(
       "fieldset",
       {
         ref: fieldsetRef,
@@ -378,7 +446,7 @@ var Combobox = ({
           colorSet.fieldset
         ),
         children: [
-          label && /* @__PURE__ */ jsx5(
+          label && /* @__PURE__ */ jsx7(
             "legend",
             {
               className: cn(
@@ -389,13 +457,13 @@ var Combobox = ({
             }
           ),
           /* @__PURE__ */ jsxs3("div", { className: "flex w-full items-center justify-between bg-transparent px-2 py-1", children: [
-            /* @__PURE__ */ jsx5("span", { children: value ? optionsProp.find((o) => o.value === value)?.label || value : placeholder }),
-            /* @__PURE__ */ jsx5(ChevronsUpDown, { className: "opacity-50", size: 15 })
+            /* @__PURE__ */ jsx7("span", { children: value ? optionsProp.find((o) => o.value === value)?.label || value : placeholder }),
+            /* @__PURE__ */ jsx7(ChevronsUpDown, { className: "opacity-50", size: 15 })
           ] })
         ]
       }
     ) }),
-    /* @__PURE__ */ jsx5(
+    /* @__PURE__ */ jsx7(
       PopoverContent,
       {
         align: "start",
@@ -411,7 +479,7 @@ var Combobox = ({
         },
         ...dropdownProps,
         children: /* @__PURE__ */ jsxs3(Command, { className: "bg-background m-0 w-full border-0 p-0", children: [
-          /* @__PURE__ */ jsx5(
+          /* @__PURE__ */ jsx7(
             CommandInput,
             {
               placeholder,
@@ -421,7 +489,7 @@ var Combobox = ({
               ...safeInputProps
             }
           ),
-          /* @__PURE__ */ jsx5(CommandList, { children: loading ? /* @__PURE__ */ jsx5("div", { className: "py-6 text-center text-sm", children: "Loading..." }) : options.length === 0 ? /* @__PURE__ */ jsx5(CommandEmpty, { children: "No results found." }) : /* @__PURE__ */ jsx5(CommandGroup, { children: options.map((option) => /* @__PURE__ */ jsxs3(
+          /* @__PURE__ */ jsx7(CommandList, { children: loading ? /* @__PURE__ */ jsx7("div", { className: "py-6 text-center text-sm", children: "Loading..." }) : options.length === 0 ? /* @__PURE__ */ jsx7(CommandEmpty, { children: "No results found." }) : /* @__PURE__ */ jsx7(CommandGroup, { children: options.map((option) => /* @__PURE__ */ jsxs3(
             CommandItem,
             {
               value: option.value,
@@ -434,7 +502,7 @@ var Combobox = ({
               ),
               children: [
                 option.label,
-                value === option.value && /* @__PURE__ */ jsx5(Check, { className: "ml-auto opacity-100" })
+                value === option.value && /* @__PURE__ */ jsx7(Check, { className: "ml-auto opacity-100" })
               ]
             },
             option.value
@@ -447,7 +515,7 @@ var Combobox = ({
 
 // src/components/ui/checkboxgroup.tsx
 import { useCallback, useState as useState2 } from "react";
-import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
+import { jsx as jsx8, jsxs as jsxs4 } from "react/jsx-runtime";
 var DEFAULT_ITEMS = [
   { id: 1, code: "ITEM1", name: "First Item", permissionGroupId: "group-a" },
   { id: 2, code: "ITEM2", name: "Second Item", permissionGroupId: "group-a" },
@@ -517,7 +585,7 @@ var GenericCheckboxGroup = ({
   return (
     // Main container - responsive layout: column on mobile, row on xl screens
     /* @__PURE__ */ jsxs4("div", { className: "flex flex-col gap-4 xl:flex-row", children: [
-      /* @__PURE__ */ jsx6("div", { className: "flex flex-col gap-2", children: /* @__PURE__ */ jsx6(
+      /* @__PURE__ */ jsx8("div", { className: "flex flex-col gap-2", children: /* @__PURE__ */ jsx8(
         SelectAllCheckbox,
         {
           isChecked: isAllSelected,
@@ -526,7 +594,7 @@ var GenericCheckboxGroup = ({
           label: title
         }
       ) }),
-      /* @__PURE__ */ jsx6("div", { className: "xl:border-l-3 border-t-3 border-primary pt-5 xl:border-t-0 xl:border-primary xl:pl-5 xl:pt-0", children: /* @__PURE__ */ jsx6("div", { className: "flex max-h-[270px] max-w-[560px] flex-wrap gap-2 overflow-y-auto p-2", children: data.map((item) => /* @__PURE__ */ jsx6(
+      /* @__PURE__ */ jsx8("div", { className: "xl:border-l-3 border-t-3 border-primary pt-5 xl:border-t-0 xl:border-primary xl:pl-5 xl:pt-0", children: /* @__PURE__ */ jsx8("div", { className: "flex max-h-[270px] max-w-[560px] flex-wrap gap-2 overflow-y-auto p-2", children: data.map((item) => /* @__PURE__ */ jsx8(
         CheckboxItem,
         {
           item,
@@ -557,9 +625,9 @@ var SelectAllCheckbox = ({
           // Unselected: light background with hover
         ),
         children: [
-          /* @__PURE__ */ jsx6("div", { className: "px-2 text-center", children: /* @__PURE__ */ jsx6("span", { className: "text-sm font-medium", children: label }) }),
+          /* @__PURE__ */ jsx8("div", { className: "px-2 text-center", children: /* @__PURE__ */ jsx8("span", { className: "text-sm font-medium", children: label }) }),
           /* @__PURE__ */ jsxs4("div", { className: "relative mt-1", children: [
-            /* @__PURE__ */ jsx6(
+            /* @__PURE__ */ jsx8(
               "input",
               {
                 type: "checkbox",
@@ -581,13 +649,13 @@ var SelectAllCheckbox = ({
                   // Unselected: primary border only
                 ),
                 children: [
-                  isChecked && /* @__PURE__ */ jsx6(
+                  isChecked && /* @__PURE__ */ jsx8(
                     "svg",
                     {
                       className: "h-2 w-2 text-primary-foreground",
                       fill: "currentColor",
                       viewBox: "0 0 20 20",
-                      children: /* @__PURE__ */ jsx6(
+                      children: /* @__PURE__ */ jsx8(
                         "path",
                         {
                           fillRule: "evenodd",
@@ -597,7 +665,7 @@ var SelectAllCheckbox = ({
                       )
                     }
                   ),
-                  isIndeterminate && !isChecked && /* @__PURE__ */ jsx6("div", { className: "h-0.5 w-1.5 rounded bg-primary-foreground" })
+                  isIndeterminate && !isChecked && /* @__PURE__ */ jsx8("div", { className: "h-0.5 w-1.5 rounded bg-primary-foreground" })
                 ]
               }
             )
@@ -626,11 +694,11 @@ var CheckboxItem = ({
         ),
         children: [
           /* @__PURE__ */ jsxs4("div", { className: "flex flex-1 flex-col justify-center px-2 text-center", children: [
-            /* @__PURE__ */ jsx6("span", { className: "mb-1 text-sm font-medium leading-tight", children: item.code }),
-            /* @__PURE__ */ jsx6("span", { className: "text-xs leading-tight", children: item.name })
+            /* @__PURE__ */ jsx8("span", { className: "mb-1 text-sm font-medium leading-tight", children: item.code }),
+            /* @__PURE__ */ jsx8("span", { className: "text-xs leading-tight", children: item.name })
           ] }),
           /* @__PURE__ */ jsxs4("div", { className: "relative mb-1", children: [
-            /* @__PURE__ */ jsx6(
+            /* @__PURE__ */ jsx8(
               "input",
               {
                 type: "checkbox",
@@ -640,7 +708,7 @@ var CheckboxItem = ({
                 className: "sr-only"
               }
             ),
-            /* @__PURE__ */ jsx6(
+            /* @__PURE__ */ jsx8(
               "div",
               {
                 className: cn(
@@ -648,13 +716,13 @@ var CheckboxItem = ({
                   isSelected ? "border-primary-foreground bg-primary" : "border-primary"
                   // Unselected: primary border only
                 ),
-                children: isSelected && /* @__PURE__ */ jsx6(
+                children: isSelected && /* @__PURE__ */ jsx8(
                   "svg",
                   {
                     className: "h-2 w-2 text-primary-foreground",
                     fill: "currentColor",
                     viewBox: "0 0 20 20",
-                    children: /* @__PURE__ */ jsx6(
+                    children: /* @__PURE__ */ jsx8(
                       "path",
                       {
                         fillRule: "evenodd",
@@ -678,7 +746,7 @@ var checkboxgroup_default = GenericCheckboxGroup;
 import * as React3 from "react";
 import { cva as cva2 } from "class-variance-authority";
 import moment from "moment";
-import { jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
+import { jsx as jsx9, jsxs as jsxs5 } from "react/jsx-runtime";
 var inputVariants = cva2(
   // Default variant matches the original input style
   "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -781,7 +849,7 @@ function renderFieldsetInput({
       ),
       "input-type": type || "text",
       children: [
-        /* @__PURE__ */ jsx7(
+        /* @__PURE__ */ jsx9(
           "legend",
           {
             className: cn(
@@ -791,7 +859,7 @@ function renderFieldsetInput({
             children: legend || placeholder
           }
         ),
-        /* @__PURE__ */ jsx7(
+        /* @__PURE__ */ jsx9(
           "input",
           {
             type: type || "text",
@@ -840,7 +908,7 @@ var Input = React3.forwardRef(
         ...props
       });
     }
-    return /* @__PURE__ */ jsx7(
+    return /* @__PURE__ */ jsx9(
       "input",
       {
         type,
@@ -857,12 +925,12 @@ Input.displayName = "Input";
 
 // src/components/ui/label.tsx
 import * as LabelPrimitive from "@radix-ui/react-label";
-import { jsx as jsx8 } from "react/jsx-runtime";
+import { jsx as jsx10 } from "react/jsx-runtime";
 function Label({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ jsx8(
+  return /* @__PURE__ */ jsx10(
     LabelPrimitive.Root,
     {
       "data-slot": "label",
@@ -878,7 +946,7 @@ function Label({
 // src/components/ui/textarea.tsx
 import * as React4 from "react";
 import { cva as cva3 } from "class-variance-authority";
-import { jsx as jsx9, jsxs as jsxs6 } from "react/jsx-runtime";
+import { jsx as jsx11, jsxs as jsxs6 } from "react/jsx-runtime";
 var textareaVariants = cva3(
   "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-20 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none",
   {
@@ -951,7 +1019,7 @@ function renderFieldsetTextarea({
         className
       ),
       children: [
-        /* @__PURE__ */ jsx9(
+        /* @__PURE__ */ jsx11(
           "legend",
           {
             className: cn(
@@ -961,7 +1029,7 @@ function renderFieldsetTextarea({
             children: legend || placeholder
           }
         ),
-        /* @__PURE__ */ jsx9(
+        /* @__PURE__ */ jsx11(
           "textarea",
           {
             className: cn(
@@ -1002,7 +1070,7 @@ var Textarea = React4.forwardRef(
         ...props
       });
     }
-    return /* @__PURE__ */ jsx9(
+    return /* @__PURE__ */ jsx11(
       "textarea",
       {
         "data-slot": "textarea",
@@ -1019,7 +1087,7 @@ Textarea.displayName = "Textarea";
 
 // src/components/ui/toggle.tsx
 import { useCallback as useCallback2, useEffect as useEffect2, useRef as useRef2, useState as useState3 } from "react";
-import { jsx as jsx10, jsxs as jsxs7 } from "react/jsx-runtime";
+import { jsx as jsx12, jsxs as jsxs7 } from "react/jsx-runtime";
 var toggleColorVariants = {
   default: {
     fieldset: "border-input",
@@ -1075,18 +1143,18 @@ var Toggle = (props) => {
   const colorSet = toggleColorVariants[fieldsetColorVariant] || toggleColorVariants.default;
   if (disabled) {
     return /* @__PURE__ */ jsxs7("div", { className: "flex flex-col gap-1", children: [
-      legend && /* @__PURE__ */ jsx10(
+      legend && /* @__PURE__ */ jsx12(
         "span",
         {
           className: `mb-1 block text-xs leading-none font-medium ${colorSet.legend}`,
           children: legend
         }
       ),
-      /* @__PURE__ */ jsx10("span", { className: "text-foreground block text-xs font-semibold", children: isChecked ? checkedValue : notCheckedValue })
+      /* @__PURE__ */ jsx12("span", { className: "text-foreground block text-xs font-semibold", children: isChecked ? checkedValue : notCheckedValue })
     ] });
   }
   return /* @__PURE__ */ jsxs7("div", { className: "flex flex-col gap-1", children: [
-    legend && /* @__PURE__ */ jsx10(
+    legend && /* @__PURE__ */ jsx12(
       "span",
       {
         className: `mb-1 block text-xs leading-none font-medium ${colorSet.legend}`,
@@ -1094,12 +1162,12 @@ var Toggle = (props) => {
       }
     ),
     /* @__PURE__ */ jsxs7("div", { className: "relative flex w-40 overflow-hidden rounded-sm", children: [
-      /* @__PURE__ */ jsx10(
+      /* @__PURE__ */ jsx12(
         "span",
         {
           onClick: toggleYes,
           className: `border-input relative z-10 min-w-20 cursor-pointer rounded-l-sm border py-1 text-center text-xs font-semibold`,
-          children: /* @__PURE__ */ jsx10(
+          children: /* @__PURE__ */ jsx12(
             "span",
             {
               className: `relative z-10 ${isChecked ? "opacity-0" : "text-gray-300"} transition-opacity duration-300`,
@@ -1108,12 +1176,12 @@ var Toggle = (props) => {
           )
         }
       ),
-      /* @__PURE__ */ jsx10(
+      /* @__PURE__ */ jsx12(
         "span",
         {
           onClick: toggleNo,
           className: `border-input relative z-10 min-w-20 cursor-pointer rounded-r-sm border border-l-0 py-1 text-center text-xs font-semibold`,
-          children: /* @__PURE__ */ jsx10(
+          children: /* @__PURE__ */ jsx12(
             "span",
             {
               className: `relative z-10 ${!isChecked ? "opacity-0" : "text-gray-300"} transition-opacity duration-300`,
@@ -1122,11 +1190,11 @@ var Toggle = (props) => {
           )
         }
       ),
-      /* @__PURE__ */ jsx10(
+      /* @__PURE__ */ jsx12(
         "div",
         {
           className: `bg-primary absolute top-0 z-30 h-full min-w-20 transition-all duration-500 ease-out ${isChecked ? "left-0 rounded-l-sm" : "left-20 rounded-r-sm"} `,
-          children: /* @__PURE__ */ jsx10("span", { className: "absolute z-40 flex h-full w-full items-center justify-center text-xs font-semibold text-white", children: isChecked ? checkedValue : notCheckedValue })
+          children: /* @__PURE__ */ jsx12("span", { className: "absolute z-40 flex h-full w-full items-center justify-center text-xs font-semibold text-white", children: isChecked ? checkedValue : notCheckedValue })
         }
       )
     ] })
@@ -1135,7 +1203,7 @@ var Toggle = (props) => {
 
 // src/components/ui/search.tsx
 import { Search as SearchIcon2, X } from "lucide-react";
-import { jsx as jsx11, jsxs as jsxs8 } from "react/jsx-runtime";
+import { jsx as jsx13, jsxs as jsxs8 } from "react/jsx-runtime";
 var Search = ({
   value,
   onChange,
@@ -1147,10 +1215,10 @@ var Search = ({
   searchUrl
 }) => {
   return /* @__PURE__ */ jsxs8("div", { className: cn("relative", className), children: [
-    label && /* @__PURE__ */ jsx11("label", { className: "mb-1 block text-xs font-medium", children: label }),
+    label && /* @__PURE__ */ jsx13("label", { className: "mb-1 block text-xs font-medium", children: label }),
     /* @__PURE__ */ jsxs8("div", { className: "dark:bg-background flex w-full items-center rounded border bg-white px-2 py-1", children: [
-      /* @__PURE__ */ jsx11(SearchIcon2, { className: "mr-2 text-gray-400", size: 16 }),
-      /* @__PURE__ */ jsx11(
+      /* @__PURE__ */ jsx13(SearchIcon2, { className: "mr-2 text-gray-400", size: 16 }),
+      /* @__PURE__ */ jsx13(
         "input",
         {
           className: "flex-1 bg-transparent text-sm outline-none",
@@ -1160,7 +1228,7 @@ var Search = ({
           ...inputProps
         }
       ),
-      value && /* @__PURE__ */ jsx11(
+      value && /* @__PURE__ */ jsx13(
         "button",
         {
           type: "button",
@@ -1169,7 +1237,7 @@ var Search = ({
             e.stopPropagation();
             onChange("");
           },
-          children: /* @__PURE__ */ jsx11(X, { size: 16 })
+          children: /* @__PURE__ */ jsx13(X, { size: 16 })
         }
       )
     ] })
@@ -1183,7 +1251,7 @@ import {
   useEffect as useEffect3
 } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { jsx as jsx12, jsxs as jsxs9 } from "react/jsx-runtime";
+import { jsx as jsx14, jsxs as jsxs9 } from "react/jsx-runtime";
 function Table({
   headers,
   data,
@@ -1270,7 +1338,7 @@ function Table({
         borderColor: "var(--border)"
       },
       children: [
-        /* @__PURE__ */ jsx12("div", { className: "w-full overflow-x-auto", children: /* @__PURE__ */ jsxs9(
+        /* @__PURE__ */ jsx14("div", { className: "w-full overflow-x-auto", children: /* @__PURE__ */ jsxs9(
           "table",
           {
             className: "w-full border-collapse text-center",
@@ -1279,19 +1347,15 @@ function Table({
               color: "var(--foreground)"
             },
             children: [
-              /* @__PURE__ */ jsx12("thead", { children: /* @__PURE__ */ jsx12("tr", { children: headers.map((header, index) => /* @__PURE__ */ jsx12(
+              /* @__PURE__ */ jsx14("thead", { children: /* @__PURE__ */ jsx14("tr", { children: headers.map((header, index) => /* @__PURE__ */ jsx14(
                 "th",
                 {
-                  className: "min-w-[120px] px-4 py-3 text-sm font-semibold",
-                  style: {
-                    color: "var(--foreground)",
-                    borderBottom: "1px solid var(--primary)"
-                  },
+                  className: "text-foreground border-primary min-w-[120px] border-b-3 px-4 py-3 text-sm font-semibold",
                   children: header
                 },
                 index
               )) }) }),
-              /* @__PURE__ */ jsx12("tbody", { children: data.length === 0 ? /* @__PURE__ */ jsx12("tr", { children: /* @__PURE__ */ jsx12(
+              /* @__PURE__ */ jsx14("tbody", { children: data.length === 0 ? /* @__PURE__ */ jsx14("tr", { children: /* @__PURE__ */ jsx14(
                 "td",
                 {
                   colSpan: headers.length,
@@ -1299,7 +1363,7 @@ function Table({
                   style: { color: "var(--muted-foreground)" },
                   children: emptyMessage
                 }
-              ) }) : data.map((item, rowIndex) => /* @__PURE__ */ jsx12(
+              ) }) : data.map((item, rowIndex) => /* @__PURE__ */ jsx14(
                 "tr",
                 {
                   className: cn(
@@ -1309,7 +1373,7 @@ function Table({
                     }
                   ),
                   onClick: () => hasClickableRows && onRowClick?.(item),
-                  children: columnBindings.map((binding, colIndex) => /* @__PURE__ */ jsx12(
+                  children: columnBindings.map((binding, colIndex) => /* @__PURE__ */ jsx14(
                     "td",
                     {
                       className: "max-w-[200px] min-w-[120px] px-4 py-3",
@@ -1320,7 +1384,7 @@ function Table({
                           e.stopPropagation();
                         }
                       },
-                      children: /* @__PURE__ */ jsx12(
+                      children: /* @__PURE__ */ jsx14(
                         "div",
                         {
                           className: "overflow-hidden text-ellipsis",
@@ -1364,7 +1428,7 @@ function Table({
                 " items)"
               ] }),
               /* @__PURE__ */ jsxs9("div", { className: "flex gap-2", children: [
-                /* @__PURE__ */ jsx12(
+                /* @__PURE__ */ jsx14(
                   "button",
                   {
                     ref: prevButtonRef,
@@ -1388,10 +1452,10 @@ function Table({
                         e.currentTarget.style.color = "var(--foreground)";
                       }
                     },
-                    children: /* @__PURE__ */ jsx12(ChevronLeft, { size: 14 })
+                    children: /* @__PURE__ */ jsx14(ChevronLeft, { size: 14 })
                   }
                 ),
-                /* @__PURE__ */ jsx12(
+                /* @__PURE__ */ jsx14(
                   "button",
                   {
                     ref: nextButtonRef,
@@ -1415,14 +1479,14 @@ function Table({
                         e.currentTarget.style.color = "var(--foreground)";
                       }
                     },
-                    children: /* @__PURE__ */ jsx12(ChevronRight, { size: 14 })
+                    children: /* @__PURE__ */ jsx14(ChevronRight, { size: 14 })
                   }
                 )
               ] })
             ]
           }
         ),
-        loading && /* @__PURE__ */ jsx12(
+        loading && /* @__PURE__ */ jsx14(
           "div",
           {
             className: "absolute inset-0 flex items-center justify-center backdrop-blur-sm",
@@ -1433,7 +1497,7 @@ function Table({
                 className: "flex items-center gap-2 rounded-lg border px-4 py-2 shadow-lg",
                 style: { background: "var(--card)", borderColor: "var(--border)" },
                 children: [
-                  /* @__PURE__ */ jsx12(
+                  /* @__PURE__ */ jsx14(
                     "div",
                     {
                       className: "h-4 w-4 animate-spin rounded-full border-2",
@@ -1443,7 +1507,7 @@ function Table({
                       }
                     }
                   ),
-                  /* @__PURE__ */ jsx12(
+                  /* @__PURE__ */ jsx14(
                     "span",
                     {
                       className: "text-sm",
@@ -1470,7 +1534,7 @@ import {
   useFormContext,
   useFormState
 } from "react-hook-form";
-import { jsx as jsx13 } from "react/jsx-runtime";
+import { jsx as jsx15 } from "react/jsx-runtime";
 var Form = FormProvider;
 var FormFieldContext = React7.createContext(
   {}
@@ -1478,7 +1542,7 @@ var FormFieldContext = React7.createContext(
 var FormField = ({
   ...props
 }) => {
-  return /* @__PURE__ */ jsx13(FormFieldContext.Provider, { value: { name: props.name }, children: /* @__PURE__ */ jsx13(Controller, { ...props }) });
+  return /* @__PURE__ */ jsx15(FormFieldContext.Provider, { value: { name: props.name }, children: /* @__PURE__ */ jsx15(Controller, { ...props }) });
 };
 var useFormField = () => {
   const fieldContext = React7.useContext(FormFieldContext);
@@ -1504,7 +1568,7 @@ var FormItemContext = React7.createContext(
 );
 function FormItem({ className, ...props }) {
   const id = React7.useId();
-  return /* @__PURE__ */ jsx13(FormItemContext.Provider, { value: { id }, children: /* @__PURE__ */ jsx13(
+  return /* @__PURE__ */ jsx15(FormItemContext.Provider, { value: { id }, children: /* @__PURE__ */ jsx15(
     "div",
     {
       "data-slot": "form-item",
@@ -1518,7 +1582,7 @@ function FormLabel({
   ...props
 }) {
   const { error, formItemId } = useFormField();
-  return /* @__PURE__ */ jsx13(
+  return /* @__PURE__ */ jsx15(
     Label,
     {
       "data-slot": "form-label",
@@ -1531,7 +1595,7 @@ function FormLabel({
 }
 function FormControl({ ...props }) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
-  return /* @__PURE__ */ jsx13(
+  return /* @__PURE__ */ jsx15(
     Slot,
     {
       "data-slot": "form-control",
@@ -1544,7 +1608,7 @@ function FormControl({ ...props }) {
 }
 function FormDescription({ className, ...props }) {
   const { formDescriptionId } = useFormField();
-  return /* @__PURE__ */ jsx13(
+  return /* @__PURE__ */ jsx15(
     "p",
     {
       "data-slot": "form-description",
@@ -1560,7 +1624,7 @@ function FormMessage({ className, ...props }) {
   if (!body) {
     return null;
   }
-  return /* @__PURE__ */ jsx13(
+  return /* @__PURE__ */ jsx15(
     "p",
     {
       "data-slot": "form-message",
@@ -1574,7 +1638,7 @@ function FormMessage({ className, ...props }) {
 
 // src/components/upgraded/dropdown-form.tsx
 import { Controller as Controller2, useFormContext as useFormContext2 } from "react-hook-form";
-import { jsx as jsx14, jsxs as jsxs10 } from "react/jsx-runtime";
+import { jsx as jsx16, jsxs as jsxs10 } from "react/jsx-runtime";
 var DropdownForm = ({
   name,
   label,
@@ -1582,14 +1646,14 @@ var DropdownForm = ({
   ...comboboxProps
 }) => {
   const { control } = useFormContext2();
-  return /* @__PURE__ */ jsx14(
+  return /* @__PURE__ */ jsx16(
     Controller2,
     {
       name,
       control,
       render: ({ field, fieldState }) => /* @__PURE__ */ jsxs10(FormItem, { children: [
-        label && /* @__PURE__ */ jsx14(FormLabel, { children: label }),
-        /* @__PURE__ */ jsx14(FormControl, { children: /* @__PURE__ */ jsx14(
+        label && /* @__PURE__ */ jsx16(FormLabel, { children: label }),
+        /* @__PURE__ */ jsx16(FormControl, { children: /* @__PURE__ */ jsx16(
           Combobox,
           {
             ...comboboxProps,
@@ -1597,8 +1661,8 @@ var DropdownForm = ({
             onChange: field.onChange
           }
         ) }),
-        description && /* @__PURE__ */ jsx14(FormDescription, { children: description }),
-        /* @__PURE__ */ jsx14(FormMessage, { children: fieldState.error?.message })
+        description && /* @__PURE__ */ jsx16(FormDescription, { children: description }),
+        /* @__PURE__ */ jsx16(FormMessage, { children: fieldState.error?.message })
       ] })
     }
   );
@@ -1606,7 +1670,7 @@ var DropdownForm = ({
 
 // src/components/upgraded/fieldset-form-input.tsx
 import { useFormContext as useFormContext3, Controller as Controller3 } from "react-hook-form";
-import { jsx as jsx15, jsxs as jsxs11 } from "react/jsx-runtime";
+import { jsx as jsx17, jsxs as jsxs11 } from "react/jsx-runtime";
 function UpgradedFieldsetFormInput({
   name,
   legend,
@@ -1616,13 +1680,13 @@ function UpgradedFieldsetFormInput({
   ...props
 }) {
   const { control } = useFormContext3();
-  return /* @__PURE__ */ jsx15(
+  return /* @__PURE__ */ jsx17(
     Controller3,
     {
       name,
       control,
       render: ({ field }) => /* @__PURE__ */ jsxs11(FormItem, { children: [
-        /* @__PURE__ */ jsx15(FormControl, { children: /* @__PURE__ */ jsx15(
+        /* @__PURE__ */ jsx17(FormControl, { children: /* @__PURE__ */ jsx17(
           Input,
           {
             ...field,
@@ -1634,7 +1698,7 @@ function UpgradedFieldsetFormInput({
             ...props
           }
         ) }),
-        /* @__PURE__ */ jsx15(FormMessage, {})
+        /* @__PURE__ */ jsx17(FormMessage, {})
       ] })
     }
   );
@@ -1642,7 +1706,7 @@ function UpgradedFieldsetFormInput({
 
 // src/components/upgraded/fieldset-form-textarea.tsx
 import { useFormContext as useFormContext4, Controller as Controller4 } from "react-hook-form";
-import { jsx as jsx16, jsxs as jsxs12 } from "react/jsx-runtime";
+import { jsx as jsx18, jsxs as jsxs12 } from "react/jsx-runtime";
 function UpgradedFieldsetFormTextarea({
   name,
   legend,
@@ -1651,13 +1715,13 @@ function UpgradedFieldsetFormTextarea({
   ...props
 }) {
   const { control } = useFormContext4();
-  return /* @__PURE__ */ jsx16(
+  return /* @__PURE__ */ jsx18(
     Controller4,
     {
       name,
       control,
       render: ({ field }) => /* @__PURE__ */ jsxs12(FormItem, { children: [
-        /* @__PURE__ */ jsx16(FormControl, { children: /* @__PURE__ */ jsx16(
+        /* @__PURE__ */ jsx18(FormControl, { children: /* @__PURE__ */ jsx18(
           Textarea,
           {
             ...field,
@@ -1668,7 +1732,7 @@ function UpgradedFieldsetFormTextarea({
             ...props
           }
         ) }),
-        /* @__PURE__ */ jsx16(FormMessage, {})
+        /* @__PURE__ */ jsx18(FormMessage, {})
       ] })
     }
   );
@@ -1676,7 +1740,7 @@ function UpgradedFieldsetFormTextarea({
 
 // src/components/upgraded/toggle-form.tsx
 import { useFormContext as useFormContext5, Controller as Controller5 } from "react-hook-form";
-import { jsx as jsx17, jsxs as jsxs13 } from "react/jsx-runtime";
+import { jsx as jsx19, jsxs as jsxs13 } from "react/jsx-runtime";
 function ToggleForm({
   name,
   legend,
@@ -1688,13 +1752,13 @@ function ToggleForm({
   const { control } = useFormContext5();
   const finalCheckedValue = checkedValue ?? "YES";
   const finalNotCheckedValue = notCheckedValue ?? "NO";
-  return /* @__PURE__ */ jsx17(
+  return /* @__PURE__ */ jsx19(
     Controller5,
     {
       name,
       control,
       render: ({ field }) => /* @__PURE__ */ jsxs13(FormItem, { children: [
-        /* @__PURE__ */ jsx17(FormControl, { children: /* @__PURE__ */ jsx17(
+        /* @__PURE__ */ jsx19(FormControl, { children: /* @__PURE__ */ jsx19(
           Toggle,
           {
             ...props,
@@ -1707,7 +1771,7 @@ function ToggleForm({
             notCheckedValue: finalNotCheckedValue
           }
         ) }),
-        /* @__PURE__ */ jsx17(FormMessage, {})
+        /* @__PURE__ */ jsx19(FormMessage, {})
       ] })
     }
   );
@@ -1716,7 +1780,7 @@ function ToggleForm({
 // src/components/upgraded/checkboxgroup-form.tsx
 import { FormProvider as FormProvider2, useForm, useFormContext as useFormContext6 } from "react-hook-form";
 import { useState as useState5 } from "react";
-import { jsx as jsx18, jsxs as jsxs14 } from "react/jsx-runtime";
+import { jsx as jsx20, jsxs as jsxs14 } from "react/jsx-runtime";
 var GenericCheckboxFormField = ({
   data,
   name,
@@ -1725,7 +1789,7 @@ var GenericCheckboxFormField = ({
   className = ""
 }) => {
   const { control } = useFormContext6();
-  return /* @__PURE__ */ jsx18(
+  return /* @__PURE__ */ jsx20(
     FormField,
     {
       control,
@@ -1770,7 +1834,7 @@ var GenericCheckboxFormField = ({
               className
             ),
             children: [
-              /* @__PURE__ */ jsx18(FormControl, { children: /* @__PURE__ */ jsx18(
+              /* @__PURE__ */ jsx20(FormControl, { children: /* @__PURE__ */ jsx20(
                 checkboxgroup_default,
                 {
                   data,
@@ -1781,7 +1845,7 @@ var GenericCheckboxFormField = ({
                   title
                 }
               ) }),
-              /* @__PURE__ */ jsx18(FormMessage, {})
+              /* @__PURE__ */ jsx20(FormMessage, {})
             ]
           }
         );
@@ -1818,7 +1882,7 @@ var useOutsideComponentClicker = ({ ref, onClickedOutside }) => {
 };
 
 // src/components/ui/navigation-bar/nav-area-updated.tsx
-import { jsx as jsx19, jsxs as jsxs15 } from "react/jsx-runtime";
+import { jsx as jsx21, jsxs as jsxs15 } from "react/jsx-runtime";
 var NavAreaUpdated = (props) => {
   const { routes, permissions } = props;
   const [selected, setSelected] = useState6(-1);
@@ -1832,13 +1896,13 @@ var NavAreaUpdated = (props) => {
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ jsx19("div", { ref, className: "nav-area", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+  return /* @__PURE__ */ jsx21("div", { ref, className: "nav-area", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
     if (true) {
       if (subnav) {
         if (!showSubRoute(subnav)) return null;
       }
       return /* @__PURE__ */ jsxs15("div", { children: [
-        /* @__PURE__ */ jsx19(
+        /* @__PURE__ */ jsx21(
           NavLink,
           {
             selected: selected === i,
@@ -1850,7 +1914,7 @@ var NavAreaUpdated = (props) => {
           },
           i
         ),
-        i === selected ? /* @__PURE__ */ jsx19(
+        i === selected ? /* @__PURE__ */ jsx21(
           SubNav,
           {
             routes: routes[selected]?.subnav,
@@ -1883,14 +1947,14 @@ var NavLink = ({
         onSelect();
       },
       children: [
-        image && /* @__PURE__ */ jsx19(
+        image && /* @__PURE__ */ jsx21(
           "img",
           {
             src: image,
             alt: "navIcon"
           }
         ),
-        /* @__PURE__ */ jsx19("span", { children: label })
+        /* @__PURE__ */ jsx21("span", { children: label })
       ]
     }
   );
@@ -1907,16 +1971,16 @@ var SubNav = ({
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ jsx19("div", { className: "subnav", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
+  return /* @__PURE__ */ jsx21("div", { className: "subnav", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
     if (subnav) {
       if (true) {
         return /* @__PURE__ */ jsxs15("div", { className: "level1-sub-nav", children: [
-          /* @__PURE__ */ jsx19("div", { className: "level1-header", children: /* @__PURE__ */ jsx19("span", { children: label }) }),
-          /* @__PURE__ */ jsx19("div", { className: "level2-sub-nav", children: /* @__PURE__ */ jsxs15("div", { className: "level2-header", children: [
+          /* @__PURE__ */ jsx21("div", { className: "level1-header", children: /* @__PURE__ */ jsx21("span", { children: label }) }),
+          /* @__PURE__ */ jsx21("div", { className: "level2-sub-nav", children: /* @__PURE__ */ jsxs15("div", { className: "level2-header", children: [
             subnav.map(({ label: label2, to: to2, subnav: subnav2, permissionId: permissionId2 }, y) => {
               if (!subnav2) {
                 if (true) {
-                  return /* @__PURE__ */ jsx19(
+                  return /* @__PURE__ */ jsx21(
                     "a",
                     {
                       href: to2,
@@ -1924,7 +1988,7 @@ var SubNav = ({
                         e.preventDefault();
                         alert(`Navigating to: ${to2}`);
                       },
-                      children: /* @__PURE__ */ jsx19("span", { children: label2 })
+                      children: /* @__PURE__ */ jsx21("span", { children: label2 })
                     },
                     y
                   );
@@ -1942,19 +2006,19 @@ var SubNav = ({
                         {
                           className: selected === y ? "level3-header-shown" : "level3-header",
                           children: [
-                            /* @__PURE__ */ jsx19("span", { children: label2 }),
-                            selected === y ? /* @__PURE__ */ jsx19(FaAngleDown, {}) : /* @__PURE__ */ jsx19(FaAngleLeft, {})
+                            /* @__PURE__ */ jsx21("span", { children: label2 }),
+                            selected === y ? /* @__PURE__ */ jsx21(FaAngleDown, {}) : /* @__PURE__ */ jsx21(FaAngleLeft, {})
                           ]
                         }
                       ),
-                      /* @__PURE__ */ jsx19(
+                      /* @__PURE__ */ jsx21(
                         "div",
                         {
                           className: selected === y ? "level3-content-shown" : "level3-content",
-                          children: /* @__PURE__ */ jsx19("div", { children: subnav2.map(
+                          children: /* @__PURE__ */ jsx21("div", { children: subnav2.map(
                             ({ label: label3, to: to3, permissionId: permissionId3 }, z) => {
                               if (true) {
-                                return /* @__PURE__ */ jsx19(
+                                return /* @__PURE__ */ jsx21(
                                   "a",
                                   {
                                     href: to3,
@@ -1980,12 +2044,12 @@ var SubNav = ({
                 );
               }
             }),
-            /* @__PURE__ */ jsx19("div", { className: "arrow-container", children: /* @__PURE__ */ jsx19("div", { className: "arrow-right" }) })
+            /* @__PURE__ */ jsx21("div", { className: "arrow-container", children: /* @__PURE__ */ jsx21("div", { className: "arrow-right" }) })
           ] }) })
         ] }, i);
       }
     } else {
-      return /* @__PURE__ */ jsx19("a", { href: to, className: "level1-sub-nav", children: /* @__PURE__ */ jsx19("span", { children: label }) }, i);
+      return /* @__PURE__ */ jsx21("a", { href: to, className: "level1-sub-nav", children: /* @__PURE__ */ jsx21("span", { children: label }) }, i);
     }
   }) });
 };
@@ -1993,7 +2057,7 @@ var SubNav = ({
 // src/components/ui/navigation-bar/side-nav.tsx
 import { useRef as useRef5, useState as useState7 } from "react";
 import { FaAngleRight } from "react-icons/fa";
-import { jsx as jsx20, jsxs as jsxs16 } from "react/jsx-runtime";
+import { jsx as jsx22, jsxs as jsxs16 } from "react/jsx-runtime";
 var SideNav = (props) => {
   const { routes, permissions = [] } = props;
   const [selected, setSelected] = useState7(-1);
@@ -2007,11 +2071,11 @@ var SideNav = (props) => {
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ jsx20("div", { className: "side-nav-filter", id: "SideNavFilter", children: /* @__PURE__ */ jsx20("div", { ref, className: "side-nav", id: "SideArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+  return /* @__PURE__ */ jsx22("div", { className: "side-nav-filter", id: "SideNavFilter", children: /* @__PURE__ */ jsx22("div", { ref, className: "side-nav", id: "SideArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
     if (true) {
       if (subnav && !showSubRoute(subnav)) return null;
       return /* @__PURE__ */ jsxs16("div", { style: { display: "flex", flexDirection: "column" }, children: [
-        /* @__PURE__ */ jsx20(
+        /* @__PURE__ */ jsx22(
           SideNavLink,
           {
             selected: selected === i,
@@ -2023,7 +2087,7 @@ var SideNav = (props) => {
           },
           i
         ),
-        selected === i && subnav && /* @__PURE__ */ jsx20(SideSubNav, { routes: subnav, permissions })
+        selected === i && subnav && /* @__PURE__ */ jsx22(SideSubNav, { routes: subnav, permissions })
       ] }, i);
     }
   }) }) });
@@ -2050,14 +2114,14 @@ var SideNavLink = ({
         onSelect();
       },
       children: [
-        image && /* @__PURE__ */ jsx20(
+        image && /* @__PURE__ */ jsx22(
           "img",
           {
             src: image,
             alt: "navIcon"
           }
         ),
-        /* @__PURE__ */ jsx20("span", { children: label })
+        /* @__PURE__ */ jsx22("span", { children: label })
       ]
     }
   );
@@ -2068,7 +2132,7 @@ var SideSubNav = ({
 }) => {
   const [selected, setSelected] = useState7(-1);
   if (!routes || routes.length === 0) return null;
-  return /* @__PURE__ */ jsx20("div", { className: "side-sub-nav", children: routes.map(({ label, to, subnav, permissionId }, i) => {
+  return /* @__PURE__ */ jsx22("div", { className: "side-sub-nav", children: routes.map(({ label, to, subnav, permissionId }, i) => {
     if (subnav) {
       return /* @__PURE__ */ jsxs16("div", { className: selected === i ? "side-sub-sub-container-selected" : "side-sub-sub-container", children: [
         /* @__PURE__ */ jsxs16(
@@ -2077,14 +2141,14 @@ var SideSubNav = ({
             className: "side-sub-sub-nav-heading-link",
             onClick: () => setSelected((prev) => prev === i ? -1 : i),
             children: [
-              /* @__PURE__ */ jsx20("span", { className: "side-sub-nav-heading", children: label }),
-              /* @__PURE__ */ jsx20(FaAngleRight, {})
+              /* @__PURE__ */ jsx22("span", { className: "side-sub-nav-heading", children: label }),
+              /* @__PURE__ */ jsx22(FaAngleRight, {})
             ]
           }
         ),
-        selected === i && /* @__PURE__ */ jsx20("div", { className: "side-sub-sub-links-container", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
+        selected === i && /* @__PURE__ */ jsx22("div", { className: "side-sub-sub-links-container", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
           if (true) {
-            return /* @__PURE__ */ jsx20(
+            return /* @__PURE__ */ jsx22(
               "a",
               {
                 href: to2,
@@ -2100,12 +2164,12 @@ var SideSubNav = ({
         }) })
       ] }, i);
     } else {
-      return /* @__PURE__ */ jsx20(
+      return /* @__PURE__ */ jsx22(
         "a",
         {
           href: to,
           className: "side-sub-nav-heading-link",
-          children: /* @__PURE__ */ jsx20("span", { className: "side-sub-nav-heading", children: label })
+          children: /* @__PURE__ */ jsx22("span", { className: "side-sub-nav-heading", children: label })
         },
         i
       );
@@ -2114,7 +2178,7 @@ var SideSubNav = ({
 };
 
 // src/components/ui/navigation-bar/sub-acc.tsx
-import { jsx as jsx21, jsxs as jsxs17 } from "react/jsx-runtime";
+import { jsx as jsx23, jsxs as jsxs17 } from "react/jsx-runtime";
 var SubAcc = (props) => {
   const {
     isAdmin = false,
@@ -2123,9 +2187,9 @@ var SubAcc = (props) => {
     onResetPassword = () => alert("Reset password clicked - replace with your reset password function")
   } = props;
   return /* @__PURE__ */ jsxs17("ul", { className: "sub-acc", children: [
-    /* @__PURE__ */ jsx21("li", { className: "account-label", children: /* @__PURE__ */ jsx21("button", { onClick: onChangePassword, children: "Change Password" }) }),
-    isAdmin && /* @__PURE__ */ jsx21("li", { className: "account-label", children: /* @__PURE__ */ jsx21("button", { onClick: onResetPassword, children: "Reset Password" }) }),
-    /* @__PURE__ */ jsx21("li", { className: "account-label", children: /* @__PURE__ */ jsx21("button", { onClick: onSignOut, children: "Sign Out" }) })
+    /* @__PURE__ */ jsx23("li", { className: "account-label", children: /* @__PURE__ */ jsx23("button", { onClick: onChangePassword, children: "Change Password" }) }),
+    isAdmin && /* @__PURE__ */ jsx23("li", { className: "account-label", children: /* @__PURE__ */ jsx23("button", { onClick: onResetPassword, children: "Reset Password" }) }),
+    /* @__PURE__ */ jsx23("li", { className: "account-label", children: /* @__PURE__ */ jsx23("button", { onClick: onSignOut, children: "Sign Out" }) })
   ] });
 };
 
@@ -2168,8 +2232,89 @@ var navigationIcons = {
   birthday: images.birthday
 };
 
+// src/components/ui/mode-toggle.tsx
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+
+// src/components/ui/dropdown-menu.tsx
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
+import { jsx as jsx24, jsxs as jsxs18 } from "react/jsx-runtime";
+function DropdownMenu({
+  ...props
+}) {
+  return /* @__PURE__ */ jsx24(DropdownMenuPrimitive.Root, { "data-slot": "dropdown-menu", ...props });
+}
+function DropdownMenuTrigger({
+  ...props
+}) {
+  return /* @__PURE__ */ jsx24(
+    DropdownMenuPrimitive.Trigger,
+    {
+      "data-slot": "dropdown-menu-trigger",
+      ...props
+    }
+  );
+}
+function DropdownMenuContent({
+  className,
+  sideOffset = 4,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx24(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx24(
+    DropdownMenuPrimitive.Content,
+    {
+      "data-slot": "dropdown-menu-content",
+      sideOffset,
+      className: cn(
+        "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md",
+        className
+      ),
+      ...props
+    }
+  ) });
+}
+function DropdownMenuItem({
+  className,
+  inset,
+  variant = "default",
+  ...props
+}) {
+  return /* @__PURE__ */ jsx24(
+    DropdownMenuPrimitive.Item,
+    {
+      "data-slot": "dropdown-menu-item",
+      "data-inset": inset,
+      "data-variant": variant,
+      className: cn(
+        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        className
+      ),
+      ...props
+    }
+  );
+}
+
+// src/components/ui/mode-toggle.tsx
+import { jsx as jsx25, jsxs as jsxs19 } from "react/jsx-runtime";
+function ModeToggle() {
+  const { setTheme } = useTheme();
+  return /* @__PURE__ */ jsxs19(DropdownMenu, { children: [
+    /* @__PURE__ */ jsx25(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs19(Button, { variant: "outline", size: "icon", className: "", children: [
+      /* @__PURE__ */ jsx25(Sun, { className: "h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" }),
+      /* @__PURE__ */ jsx25(Moon, { className: "absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" }),
+      /* @__PURE__ */ jsx25("span", { className: "sr-only", children: "Toggle theme" })
+    ] }) }),
+    /* @__PURE__ */ jsxs19(DropdownMenuContent, { align: "end", children: [
+      /* @__PURE__ */ jsx25(DropdownMenuItem, { onClick: () => setTheme("light"), children: "Light" }),
+      /* @__PURE__ */ jsx25(DropdownMenuItem, { onClick: () => setTheme("dark"), children: "Dark" }),
+      /* @__PURE__ */ jsx25(DropdownMenuItem, { onClick: () => setTheme("system"), children: "System" })
+    ] })
+  ] });
+}
+
 // src/components/ui/navigation-bar/navigation-bar.tsx
-import { jsx as jsx22, jsxs as jsxs18 } from "react/jsx-runtime";
+import { jsx as jsx26, jsxs as jsxs20 } from "react/jsx-runtime";
 var NavigationBar = (props) => {
   const defaultLogo = payplusAssets.logo;
   const {
@@ -2230,188 +2375,56 @@ var NavigationBar = (props) => {
       mediaQuery.removeEventListener("change", mediaListener);
     };
   }, []);
-  return /* @__PURE__ */ jsxs18(
-    "nav",
-    {
-      className: `${className || ""}`,
-      style: {
-        zIndex: 50,
-        width: "100vw"
-      },
-      children: [
-        /* @__PURE__ */ jsxs18("div", { className: "nav-bar", children: [
-          /* @__PURE__ */ jsx22("div", { className: "logo-container", children: /* @__PURE__ */ jsx22(
-            "img",
-            {
-              className: "image-on-nav",
-              src: darkMode && logo.darkMode ? logo.darkMode : logo.src,
-              alt: logo.alt,
-              loading: "eager"
-            }
-          ) }),
-          /* @__PURE__ */ jsx22(NavAreaUpdated, { routes, permissions }),
-          /* @__PURE__ */ jsx22("div", { className: "hamburger-container", children: /* @__PURE__ */ jsx22(
-            "div",
-            {
-              className: selectedHamburger ? "hamburger-selected" : "hamburger",
-              onClick: () => setSelectedHamburger((prev) => {
-                return !prev;
-              }),
-              children: /* @__PURE__ */ jsx22(FaBars, {})
-            }
-          ) }),
-          !user?.data.isAdmin && /* @__PURE__ */ jsx22(
-            "div",
-            {
-              style: {
-                width: "2rem",
-                height: "2rem",
-                borderRadius: "4px",
-                backgroundColor: "rgba(0, 102, 204, 0.1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-              },
-              children: "\u{1F4C5}"
-            }
-          ),
-          /* @__PURE__ */ jsxs18("div", { className: "account-wrapper", children: [
-            /* @__PURE__ */ jsxs18("div", { className: "account-area", children: [
-              /* @__PURE__ */ jsx22("div", { className: "account-dp-container", children: /* @__PURE__ */ jsx22(
-                "div",
-                {
-                  style: {
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "white",
-                    fontWeight: "bold"
-                  },
-                  children: user?.data.name?.charAt(0) || "U"
-                }
-              ) }),
-              /* @__PURE__ */ jsx22(FaChevronDown, { size: "0.75rem" })
-            ] }),
-            /* @__PURE__ */ jsx22(SubAcc, { isAdmin })
-          ] }),
-          /* @__PURE__ */ jsx22(
-            "div",
-            {
-              style: {
-                width: "2rem",
-                height: "2rem",
-                borderRadius: "4px",
-                backgroundColor: "rgba(0, 102, 204, 0.1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer"
-              },
-              children: "\u{1F319}"
-            }
-          )
+  return /* @__PURE__ */ jsx26(ContentMargin, { children: /* @__PURE__ */ jsxs20("nav", { className: "bg-background !z-50 w-screen", children: [
+    /* @__PURE__ */ jsxs20("div", { className: "bg-background sticky top-0 z-50 flex min-h-16 w-full items-center", children: [
+      /* @__PURE__ */ jsx26("div", { className: "relative aspect-video w-40 bg-transparent", children: /* @__PURE__ */ jsx26(
+        "img",
+        {
+          className: "image-on-nav",
+          src: darkMode && logo.darkMode ? logo.darkMode : logo.src,
+          alt: logo.alt,
+          loading: "eager"
+        }
+      ) }),
+      /* @__PURE__ */ jsx26(NavAreaUpdated, { routes, permissions }),
+      /* @__PURE__ */ jsx26("div", { className: "hamburger-container", children: /* @__PURE__ */ jsx26(
+        "div",
+        {
+          className: selectedHamburger ? "hamburger-selected" : "hamburger",
+          onClick: () => setSelectedHamburger((prev) => {
+            return !prev;
+          }),
+          children: /* @__PURE__ */ jsx26(FaBars, {})
+        }
+      ) }),
+      /* @__PURE__ */ jsxs20("div", { className: "account-wrapper", children: [
+        /* @__PURE__ */ jsxs20("div", { className: "account-area h-10 w-10", children: [
+          /* @__PURE__ */ jsx26("div", { className: "account-dp-container", children: /* @__PURE__ */ jsxs20(Avatar, { children: [
+            /* @__PURE__ */ jsx26(AvatarImage, { src: "" }),
+            /* @__PURE__ */ jsx26(AvatarFallback, { children: user?.data.name?.charAt(0) || "U" })
+          ] }) }),
+          /* @__PURE__ */ jsx26(FaChevronDown, { size: "0.75rem" })
         ] }),
-        selectedHamburger && /* @__PURE__ */ jsx22(SideNav, { routes, permissions })
-      ]
-    }
-  );
+        /* @__PURE__ */ jsx26(SubAcc, { isAdmin })
+      ] }),
+      /* @__PURE__ */ jsx26(ModeToggle, {})
+    ] }),
+    selectedHamburger && /* @__PURE__ */ jsx26(SideNav, { routes, permissions })
+  ] }) });
 };
 
 // src/components/theme-provider.tsx
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { jsx as jsx23 } from "react/jsx-runtime";
+import { jsx as jsx27 } from "react/jsx-runtime";
 function ThemeProvider({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ jsx23(NextThemesProvider, { ...props, children });
-}
-
-// src/components/ui/mode-toggle.tsx
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-
-// src/components/ui/dropdown-menu.tsx
-import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
-import { jsx as jsx24, jsxs as jsxs19 } from "react/jsx-runtime";
-function DropdownMenu({
-  ...props
-}) {
-  return /* @__PURE__ */ jsx24(DropdownMenuPrimitive.Root, { "data-slot": "dropdown-menu", ...props });
-}
-function DropdownMenuTrigger({
-  ...props
-}) {
-  return /* @__PURE__ */ jsx24(
-    DropdownMenuPrimitive.Trigger,
-    {
-      "data-slot": "dropdown-menu-trigger",
-      ...props
-    }
-  );
-}
-function DropdownMenuContent({
-  className,
-  sideOffset = 4,
-  ...props
-}) {
-  return /* @__PURE__ */ jsx24(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx24(
-    DropdownMenuPrimitive.Content,
-    {
-      "data-slot": "dropdown-menu-content",
-      sideOffset,
-      className: cn(
-        "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border p-1 shadow-md",
-        className
-      ),
-      ...props
-    }
-  ) });
-}
-function DropdownMenuItem({
-  className,
-  inset,
-  variant = "default",
-  ...props
-}) {
-  return /* @__PURE__ */ jsx24(
-    DropdownMenuPrimitive.Item,
-    {
-      "data-slot": "dropdown-menu-item",
-      "data-inset": inset,
-      "data-variant": variant,
-      className: cn(
-        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className
-      ),
-      ...props
-    }
-  );
-}
-
-// src/components/ui/mode-toggle.tsx
-import { jsx as jsx25, jsxs as jsxs20 } from "react/jsx-runtime";
-function ModeToggle() {
-  const { setTheme } = useTheme();
-  return /* @__PURE__ */ jsxs20(DropdownMenu, { children: [
-    /* @__PURE__ */ jsx25(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs20(Button, { variant: "outline", size: "icon", children: [
-      /* @__PURE__ */ jsx25(Sun, { className: "h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" }),
-      /* @__PURE__ */ jsx25(Moon, { className: "absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" }),
-      /* @__PURE__ */ jsx25("span", { className: "sr-only", children: "Toggle theme" })
-    ] }) }),
-    /* @__PURE__ */ jsxs20(DropdownMenuContent, { align: "end", children: [
-      /* @__PURE__ */ jsx25(DropdownMenuItem, { onClick: () => setTheme("light"), children: "Light" }),
-      /* @__PURE__ */ jsx25(DropdownMenuItem, { onClick: () => setTheme("dark"), children: "Dark" }),
-      /* @__PURE__ */ jsx25(DropdownMenuItem, { onClick: () => setTheme("system"), children: "System" })
-    ] })
-  ] });
+  return /* @__PURE__ */ jsx27(NextThemesProvider, { ...props, children });
 }
 
 // src/components/common/Modal/modal.tsx
-import { Fragment, jsx as jsx26, jsxs as jsxs21 } from "react/jsx-runtime";
+import { Fragment, jsx as jsx28, jsxs as jsxs21 } from "react/jsx-runtime";
 var Modal = ({
   header = "Header",
   children,
@@ -2420,18 +2433,18 @@ var Modal = ({
   ...rest
 }) => {
   const modalSize = { "modal-size": size };
-  return /* @__PURE__ */ jsx26(Fragment, { children: show ? /* @__PURE__ */ jsx26("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ jsxs21(
+  return /* @__PURE__ */ jsx28(Fragment, { children: show ? /* @__PURE__ */ jsx28("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ jsxs21(
     "div",
     {
       className: cn("modal-container", "bg-background"),
       ...rest,
       ...modalSize,
       children: [
-        /* @__PURE__ */ jsx26(
+        /* @__PURE__ */ jsx28(
           "div",
           {
             className: cn("modal-header-container", "border border-blue-800"),
-            children: /* @__PURE__ */ jsx26(
+            children: /* @__PURE__ */ jsx28(
               "span",
               {
                 className: cn(
@@ -2443,7 +2456,7 @@ var Modal = ({
             )
           }
         ),
-        /* @__PURE__ */ jsx26("div", { className: cn("content-container"), children })
+        /* @__PURE__ */ jsx28("div", { className: cn("content-container"), children })
       ]
     }
   ) }) : null });
@@ -2705,22 +2718,29 @@ var sampleEmployeePermissions = [
   // Only basic time entry permissions
 ];
 export {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
   Button,
-  Combobox,
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
+  ContentMargin,
   Dialog,
   DialogContent,
   DialogTrigger,
-  DropdownForm,
+  Combobox as Dropdown,
+  GenericCheckboxFormField as FieldsetCheckboxFormField,
+  DropdownForm as FieldsetDropdownForm,
+  UpgradedFieldsetFormInput as FieldsetFormInput,
+  UpgradedFieldsetFormTextarea as FieldsetFormTextarea,
+  ToggleForm as FieldsetToggleForm,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-  GenericCheckboxFormField,
   GenericCheckboxGroup,
   Input,
   Label,
@@ -2738,9 +2758,6 @@ export {
   Textarea,
   ThemeProvider,
   Toggle,
-  ToggleForm,
-  UpgradedFieldsetFormInput,
-  UpgradedFieldsetFormTextarea,
   buttonVariants,
   cn,
   comboboxColorVariants,

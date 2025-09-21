@@ -31,22 +31,29 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
+  Avatar: () => Avatar,
+  AvatarFallback: () => AvatarFallback,
+  AvatarImage: () => AvatarImage,
   Button: () => Button,
-  Combobox: () => Combobox,
   Command: () => Command,
   CommandGroup: () => CommandGroup,
   CommandItem: () => CommandItem,
   CommandList: () => CommandList,
+  ContentMargin: () => ContentMargin,
   Dialog: () => Dialog,
   DialogContent: () => DialogContent,
   DialogTrigger: () => DialogTrigger,
-  DropdownForm: () => DropdownForm,
+  Dropdown: () => Combobox,
+  FieldsetCheckboxFormField: () => GenericCheckboxFormField,
+  FieldsetDropdownForm: () => DropdownForm,
+  FieldsetFormInput: () => UpgradedFieldsetFormInput,
+  FieldsetFormTextarea: () => UpgradedFieldsetFormTextarea,
+  FieldsetToggleForm: () => ToggleForm,
   Form: () => Form,
   FormControl: () => FormControl,
   FormField: () => FormField,
   FormItem: () => FormItem,
   FormMessage: () => FormMessage,
-  GenericCheckboxFormField: () => GenericCheckboxFormField,
   GenericCheckboxGroup: () => GenericCheckboxGroup,
   Input: () => Input,
   Label: () => Label,
@@ -64,9 +71,6 @@ __export(index_exports, {
   Textarea: () => Textarea,
   ThemeProvider: () => ThemeProvider,
   Toggle: () => Toggle,
-  ToggleForm: () => ToggleForm,
-  UpgradedFieldsetFormInput: () => UpgradedFieldsetFormInput,
-  UpgradedFieldsetFormTextarea: () => UpgradedFieldsetFormTextarea,
   buttonVariants: () => buttonVariants,
   cn: () => cn,
   comboboxColorVariants: () => comboboxColorVariants,
@@ -86,9 +90,27 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 
-// src/components/ui/button.tsx
-var React = __toESM(require("react"));
-var import_class_variance_authority = require("class-variance-authority");
+// src/components/layout/content-margin.tsx
+var import_jsx_runtime = require("react/jsx-runtime");
+function ContentMargin({
+  children,
+  as = "div",
+  className = "",
+  ...props
+}) {
+  const Component = as;
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    Component,
+    {
+      className: `content-margin bg-background ${className}`,
+      ...props,
+      children
+    }
+  );
+}
+
+// src/components/ui/avatar.tsx
+var AvatarPrimitive = __toESM(require("@radix-ui/react-avatar"));
 
 // src/lib/utils.ts
 var import_clsx = require("clsx");
@@ -97,8 +119,58 @@ function cn(...inputs) {
   return (0, import_tailwind_merge.twMerge)((0, import_clsx.clsx)(inputs));
 }
 
+// src/components/ui/avatar.tsx
+var import_jsx_runtime2 = require("react/jsx-runtime");
+function Avatar({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    AvatarPrimitive.Root,
+    {
+      "data-slot": "avatar",
+      className: cn(
+        "relative flex size-8 shrink-0 overflow-hidden rounded-full",
+        className
+      ),
+      ...props
+    }
+  );
+}
+function AvatarImage({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    AvatarPrimitive.Image,
+    {
+      "data-slot": "avatar-image",
+      className: cn("aspect-square size-full", className),
+      ...props
+    }
+  );
+}
+function AvatarFallback({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    AvatarPrimitive.Fallback,
+    {
+      "data-slot": "avatar-fallback",
+      className: cn(
+        "bg-muted flex size-full items-center justify-center rounded-full",
+        className
+      ),
+      ...props
+    }
+  );
+}
+
 // src/components/ui/button.tsx
-var import_jsx_runtime = require("react/jsx-runtime");
+var React = __toESM(require("react"));
+var import_class_variance_authority = require("class-variance-authority");
+var import_jsx_runtime3 = require("react/jsx-runtime");
 var buttonVariants = (0, import_class_variance_authority.cva)(
   "cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
@@ -127,7 +199,7 @@ var buttonVariants = (0, import_class_variance_authority.cva)(
 );
 var Button = React.forwardRef(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "button",
       {
         className: cn(buttonVariants({ variant, size, className })),
@@ -150,27 +222,27 @@ var import_lucide_react2 = require("lucide-react");
 // src/components/ui/dialog.tsx
 var DialogPrimitive = __toESM(require("@radix-ui/react-dialog"));
 var import_lucide_react = require("lucide-react");
-var import_jsx_runtime2 = require("react/jsx-runtime");
+var import_jsx_runtime4 = require("react/jsx-runtime");
 function Dialog({
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(DialogPrimitive.Root, { "data-slot": "dialog", ...props });
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(DialogPrimitive.Root, { "data-slot": "dialog", ...props });
 }
 function DialogTrigger({
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(DialogPrimitive.Trigger, { "data-slot": "dialog-trigger", ...props });
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(DialogPrimitive.Trigger, { "data-slot": "dialog-trigger", ...props });
 }
 function DialogPortal({
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(DialogPrimitive.Portal, { "data-slot": "dialog-portal", ...props });
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(DialogPrimitive.Portal, { "data-slot": "dialog-portal", ...props });
 }
 function DialogOverlay({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
     DialogPrimitive.Overlay,
     {
       "data-slot": "dialog-overlay",
@@ -188,9 +260,9 @@ function DialogContent({
   showCloseButton = true,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(DialogPortal, { "data-slot": "dialog-portal", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(DialogOverlay, {}),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(DialogPortal, { "data-slot": "dialog-portal", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(DialogOverlay, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
       DialogPrimitive.Content,
       {
         "data-slot": "dialog-content",
@@ -201,14 +273,14 @@ function DialogContent({
         ...props,
         children: [
           children,
-          showCloseButton && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+          showCloseButton && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
             DialogPrimitive.Close,
             {
               "data-slot": "dialog-close",
               className: "ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_lucide_react.XIcon, {}),
-                /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "sr-only", children: "Close" })
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_lucide_react.XIcon, {}),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "sr-only", children: "Close" })
               ]
             }
           )
@@ -219,12 +291,12 @@ function DialogContent({
 }
 
 // src/components/ui/command.tsx
-var import_jsx_runtime3 = require("react/jsx-runtime");
+var import_jsx_runtime5 = require("react/jsx-runtime");
 function Command({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
     import_cmdk.Command,
     {
       "data-slot": "command",
@@ -240,14 +312,14 @@ function CommandInput({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
     "div",
     {
       "data-slot": "command-input-wrapper",
       className: "flex h-9 items-center gap-2 border-b px-3",
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_lucide_react2.SearchIcon, { className: "size-4 shrink-0 opacity-50" }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_lucide_react2.SearchIcon, { className: "size-4 shrink-0 opacity-50" }),
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
           import_cmdk.Command.Input,
           {
             "data-slot": "command-input",
@@ -266,7 +338,7 @@ function CommandList({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
     import_cmdk.Command.List,
     {
       "data-slot": "command-list",
@@ -281,7 +353,7 @@ function CommandList({
 function CommandEmpty({
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
     import_cmdk.Command.Empty,
     {
       "data-slot": "command-empty",
@@ -294,7 +366,7 @@ function CommandGroup({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
     import_cmdk.Command.Group,
     {
       "data-slot": "command-group",
@@ -310,7 +382,7 @@ function CommandItem({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
     import_cmdk.Command.Item,
     {
       "data-slot": "command-item",
@@ -325,16 +397,16 @@ function CommandItem({
 
 // src/components/ui/popover.tsx
 var PopoverPrimitive = __toESM(require("@radix-ui/react-popover"));
-var import_jsx_runtime4 = require("react/jsx-runtime");
+var import_jsx_runtime6 = require("react/jsx-runtime");
 function Popover({
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(PopoverPrimitive.Root, { "data-slot": "popover", ...props });
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(PopoverPrimitive.Root, { "data-slot": "popover", ...props });
 }
 function PopoverTrigger({
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(PopoverPrimitive.Trigger, { "data-slot": "popover-trigger", ...props });
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(PopoverPrimitive.Trigger, { "data-slot": "popover-trigger", ...props });
 }
 function PopoverContent({
   className,
@@ -342,7 +414,7 @@ function PopoverContent({
   sideOffset = 4,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(PopoverPrimitive.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(PopoverPrimitive.Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
     PopoverPrimitive.Content,
     {
       "data-slot": "popover-content",
@@ -358,7 +430,7 @@ function PopoverContent({
 }
 
 // src/components/ui/combobox.tsx
-var import_jsx_runtime5 = require("react/jsx-runtime");
+var import_jsx_runtime7 = require("react/jsx-runtime");
 var comboboxColorVariants = {
   default: {
     fieldset: "border-input bg-transparent",
@@ -453,8 +525,8 @@ var Combobox = ({
       setDropdownWidth(`${fieldsetRef.current.offsetWidth}px`);
     }
   }, [open]);
-  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(Popover, { open, onOpenChange: setOpen, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(PopoverTrigger, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(Popover, { open, onOpenChange: setOpen, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(PopoverTrigger, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
       "fieldset",
       {
         ref: fieldsetRef,
@@ -464,7 +536,7 @@ var Combobox = ({
           colorSet.fieldset
         ),
         children: [
-          label && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+          label && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
             "legend",
             {
               className: cn(
@@ -474,14 +546,14 @@ var Combobox = ({
               children: label
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "flex w-full items-center justify-between bg-transparent px-2 py-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { children: value ? optionsProp.find((o) => o.value === value)?.label || value : placeholder }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_lucide_react3.ChevronsUpDown, { className: "opacity-50", size: 15 })
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)("div", { className: "flex w-full items-center justify-between bg-transparent px-2 py-1", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("span", { children: value ? optionsProp.find((o) => o.value === value)?.label || value : placeholder }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_lucide_react3.ChevronsUpDown, { className: "opacity-50", size: 15 })
           ] })
         ]
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
       PopoverContent,
       {
         align: "start",
@@ -496,8 +568,8 @@ var Combobox = ({
           zIndex: 50
         },
         ...dropdownProps,
-        children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(Command, { className: "bg-background m-0 w-full border-0 p-0", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+        children: /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(Command, { className: "bg-background m-0 w-full border-0 p-0", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
             CommandInput,
             {
               placeholder,
@@ -507,7 +579,7 @@ var Combobox = ({
               ...safeInputProps
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(CommandList, { children: loading ? /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "py-6 text-center text-sm", children: "Loading..." }) : options.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(CommandEmpty, { children: "No results found." }) : /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(CommandGroup, { children: options.map((option) => /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(CommandList, { children: loading ? /* @__PURE__ */ (0, import_jsx_runtime7.jsx)("div", { className: "py-6 text-center text-sm", children: "Loading..." }) : options.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(CommandEmpty, { children: "No results found." }) : /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(CommandGroup, { children: options.map((option) => /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
             CommandItem,
             {
               value: option.value,
@@ -520,7 +592,7 @@ var Combobox = ({
               ),
               children: [
                 option.label,
-                value === option.value && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_lucide_react3.Check, { className: "ml-auto opacity-100" })
+                value === option.value && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_lucide_react3.Check, { className: "ml-auto opacity-100" })
               ]
             },
             option.value
@@ -533,7 +605,7 @@ var Combobox = ({
 
 // src/components/ui/checkboxgroup.tsx
 var import_react = require("react");
-var import_jsx_runtime6 = (
+var import_jsx_runtime8 = (
   // Main container - responsive layout: column on mobile, row on xl screens
   require("react/jsx-runtime")
 );
@@ -603,8 +675,8 @@ var GenericCheckboxGroup = ({
     },
     [selectedItems, name, valueName, OnFormChange]
   );
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex flex-col gap-4 xl:flex-row", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "flex flex-col gap-2", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex flex-col gap-4 xl:flex-row", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "flex flex-col gap-2", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
       SelectAllCheckbox,
       {
         isChecked: isAllSelected,
@@ -613,7 +685,7 @@ var GenericCheckboxGroup = ({
         label: title
       }
     ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "xl:border-l-3 border-t-3 border-primary pt-5 xl:border-t-0 xl:border-primary xl:pl-5 xl:pt-0", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "flex max-h-[270px] max-w-[560px] flex-wrap gap-2 overflow-y-auto p-2", children: data.map((item) => /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "xl:border-l-3 border-t-3 border-primary pt-5 xl:border-t-0 xl:border-primary xl:pl-5 xl:pt-0", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "flex max-h-[270px] max-w-[560px] flex-wrap gap-2 overflow-y-auto p-2", children: data.map((item) => /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
       CheckboxItem,
       {
         item,
@@ -632,7 +704,7 @@ var SelectAllCheckbox = ({
 }) => {
   return (
     // Select All button - 128px x 80px with top margin
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
       "div",
       {
         onClick: onToggle,
@@ -643,9 +715,9 @@ var SelectAllCheckbox = ({
           // Unselected: light background with hover
         ),
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "px-2 text-center", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-sm font-medium", children: label }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "relative mt-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "px-2 text-center", children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-sm font-medium", children: label }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "relative mt-1", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
               "input",
               {
                 type: "checkbox",
@@ -658,7 +730,7 @@ var SelectAllCheckbox = ({
                 className: "sr-only"
               }
             ),
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
               "div",
               {
                 className: cn(
@@ -667,13 +739,13 @@ var SelectAllCheckbox = ({
                   // Unselected: primary border only
                 ),
                 children: [
-                  isChecked && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+                  isChecked && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
                     "svg",
                     {
                       className: "h-2 w-2 text-primary-foreground",
                       fill: "currentColor",
                       viewBox: "0 0 20 20",
-                      children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+                      children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
                         "path",
                         {
                           fillRule: "evenodd",
@@ -683,7 +755,7 @@ var SelectAllCheckbox = ({
                       )
                     }
                   ),
-                  isIndeterminate && !isChecked && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "h-0.5 w-1.5 rounded bg-primary-foreground" })
+                  isIndeterminate && !isChecked && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("div", { className: "h-0.5 w-1.5 rounded bg-primary-foreground" })
                 ]
               }
             )
@@ -700,7 +772,7 @@ var CheckboxItem = ({
 }) => {
   return (
     // Individual item box - 128px x 80px
-    /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
       "div",
       {
         onClick: () => onToggle(item, isSelected),
@@ -711,12 +783,12 @@ var CheckboxItem = ({
           // Unselected: light background with hover
         ),
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "flex flex-1 flex-col justify-center px-2 text-center", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "mb-1 text-sm font-medium leading-tight", children: item.code }),
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { className: "text-xs leading-tight", children: item.name })
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "flex flex-1 flex-col justify-center px-2 text-center", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "mb-1 text-sm font-medium leading-tight", children: item.code }),
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { className: "text-xs leading-tight", children: item.name })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)("div", { className: "relative mb-1", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)("div", { className: "relative mb-1", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
               "input",
               {
                 type: "checkbox",
@@ -726,7 +798,7 @@ var CheckboxItem = ({
                 className: "sr-only"
               }
             ),
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
               "div",
               {
                 className: cn(
@@ -734,13 +806,13 @@ var CheckboxItem = ({
                   isSelected ? "border-primary-foreground bg-primary" : "border-primary"
                   // Unselected: primary border only
                 ),
-                children: isSelected && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+                children: isSelected && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
                   "svg",
                   {
                     className: "h-2 w-2 text-primary-foreground",
                     fill: "currentColor",
                     viewBox: "0 0 20 20",
-                    children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+                    children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
                       "path",
                       {
                         fillRule: "evenodd",
@@ -764,7 +836,7 @@ var checkboxgroup_default = GenericCheckboxGroup;
 var React3 = __toESM(require("react"));
 var import_class_variance_authority2 = require("class-variance-authority");
 var import_moment = __toESM(require("moment"));
-var import_jsx_runtime7 = require("react/jsx-runtime");
+var import_jsx_runtime9 = require("react/jsx-runtime");
 var inputVariants = (0, import_class_variance_authority2.cva)(
   // Default variant matches the original input style
   "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -856,7 +928,7 @@ function renderFieldsetInput({
   ...props
 }) {
   const colorSet = fieldsetColorVariants[fieldsetColorVariant] || fieldsetColorVariants.default;
-  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
     "fieldset",
     {
       className: cn(
@@ -867,7 +939,7 @@ function renderFieldsetInput({
       ),
       "input-type": type || "text",
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
           "legend",
           {
             className: cn(
@@ -877,7 +949,7 @@ function renderFieldsetInput({
             children: legend || placeholder
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
           "input",
           {
             type: type || "text",
@@ -926,7 +998,7 @@ var Input = React3.forwardRef(
         ...props
       });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
       "input",
       {
         type,
@@ -943,12 +1015,12 @@ Input.displayName = "Input";
 
 // src/components/ui/label.tsx
 var LabelPrimitive = __toESM(require("@radix-ui/react-label"));
-var import_jsx_runtime8 = require("react/jsx-runtime");
+var import_jsx_runtime10 = require("react/jsx-runtime");
 function Label({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
     LabelPrimitive.Root,
     {
       "data-slot": "label",
@@ -964,7 +1036,7 @@ function Label({
 // src/components/ui/textarea.tsx
 var React4 = __toESM(require("react"));
 var import_class_variance_authority3 = require("class-variance-authority");
-var import_jsx_runtime9 = require("react/jsx-runtime");
+var import_jsx_runtime11 = require("react/jsx-runtime");
 var textareaVariants = (0, import_class_variance_authority3.cva)(
   "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-20 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none",
   {
@@ -1027,7 +1099,7 @@ function renderFieldsetTextarea({
   ...props
 }) {
   const colorSet = fieldsetColorVariants2[fieldsetColorVariant] || fieldsetColorVariants2.default;
-  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
     "fieldset",
     {
       className: cn(
@@ -1037,7 +1109,7 @@ function renderFieldsetTextarea({
         className
       ),
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
           "legend",
           {
             className: cn(
@@ -1047,7 +1119,7 @@ function renderFieldsetTextarea({
             children: legend || placeholder
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
           "textarea",
           {
             className: cn(
@@ -1088,7 +1160,7 @@ var Textarea = React4.forwardRef(
         ...props
       });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
       "textarea",
       {
         "data-slot": "textarea",
@@ -1105,7 +1177,7 @@ Textarea.displayName = "Textarea";
 
 // src/components/ui/toggle.tsx
 var import_react2 = require("react");
-var import_jsx_runtime10 = require("react/jsx-runtime");
+var import_jsx_runtime12 = require("react/jsx-runtime");
 var toggleColorVariants = {
   default: {
     fieldset: "border-input",
@@ -1160,32 +1232,32 @@ var Toggle = (props) => {
   }, [onChange, name, disabled]);
   const colorSet = toggleColorVariants[fieldsetColorVariant] || toggleColorVariants.default;
   if (disabled) {
-    return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex flex-col gap-1", children: [
-      legend && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex flex-col gap-1", children: [
+      legend && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
         "span",
         {
           className: `mb-1 block text-xs leading-none font-medium ${colorSet.legend}`,
           children: legend
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-foreground block text-xs font-semibold", children: isChecked ? checkedValue : notCheckedValue })
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "text-foreground block text-xs font-semibold", children: isChecked ? checkedValue : notCheckedValue })
     ] });
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex flex-col gap-1", children: [
-    legend && /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex flex-col gap-1", children: [
+    legend && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
       "span",
       {
         className: `mb-1 block text-xs leading-none font-medium ${colorSet.legend}`,
         children: legend
       }
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "relative flex w-40 overflow-hidden rounded-sm", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "relative flex w-40 overflow-hidden rounded-sm", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
         "span",
         {
           onClick: toggleYes,
           className: `border-input relative z-10 min-w-20 cursor-pointer rounded-l-sm border py-1 text-center text-xs font-semibold`,
-          children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+          children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
             "span",
             {
               className: `relative z-10 ${isChecked ? "opacity-0" : "text-gray-300"} transition-opacity duration-300`,
@@ -1194,12 +1266,12 @@ var Toggle = (props) => {
           )
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
         "span",
         {
           onClick: toggleNo,
           className: `border-input relative z-10 min-w-20 cursor-pointer rounded-r-sm border border-l-0 py-1 text-center text-xs font-semibold`,
-          children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+          children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
             "span",
             {
               className: `relative z-10 ${!isChecked ? "opacity-0" : "text-gray-300"} transition-opacity duration-300`,
@@ -1208,11 +1280,11 @@ var Toggle = (props) => {
           )
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
         "div",
         {
           className: `bg-primary absolute top-0 z-30 h-full min-w-20 transition-all duration-500 ease-out ${isChecked ? "left-0 rounded-l-sm" : "left-20 rounded-r-sm"} `,
-          children: /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "absolute z-40 flex h-full w-full items-center justify-center text-xs font-semibold text-white", children: isChecked ? checkedValue : notCheckedValue })
+          children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "absolute z-40 flex h-full w-full items-center justify-center text-xs font-semibold text-white", children: isChecked ? checkedValue : notCheckedValue })
         }
       )
     ] })
@@ -1221,7 +1293,7 @@ var Toggle = (props) => {
 
 // src/components/ui/search.tsx
 var import_lucide_react4 = require("lucide-react");
-var import_jsx_runtime11 = require("react/jsx-runtime");
+var import_jsx_runtime13 = require("react/jsx-runtime");
 var Search = ({
   value,
   onChange,
@@ -1232,11 +1304,11 @@ var Search = ({
   options,
   searchUrl
 }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: cn("relative", className), children: [
-    label && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)("label", { className: "mb-1 block text-xs font-medium", children: label }),
-    /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)("div", { className: "dark:bg-background flex w-full items-center rounded border bg-white px-2 py-1", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(import_lucide_react4.Search, { className: "mr-2 text-gray-400", size: 16 }),
-      /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: cn("relative", className), children: [
+    label && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("label", { className: "mb-1 block text-xs font-medium", children: label }),
+    /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("div", { className: "dark:bg-background flex w-full items-center rounded border bg-white px-2 py-1", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_lucide_react4.Search, { className: "mr-2 text-gray-400", size: 16 }),
+      /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
         "input",
         {
           className: "flex-1 bg-transparent text-sm outline-none",
@@ -1246,7 +1318,7 @@ var Search = ({
           ...inputProps
         }
       ),
-      value && /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+      value && /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
         "button",
         {
           type: "button",
@@ -1255,7 +1327,7 @@ var Search = ({
             e.stopPropagation();
             onChange("");
           },
-          children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(import_lucide_react4.X, { size: 16 })
+          children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_lucide_react4.X, { size: 16 })
         }
       )
     ] })
@@ -1265,7 +1337,7 @@ var Search = ({
 // src/components/ui/table.tsx
 var import_react3 = require("react");
 var import_lucide_react5 = require("lucide-react");
-var import_jsx_runtime12 = require("react/jsx-runtime");
+var import_jsx_runtime14 = require("react/jsx-runtime");
 function Table({
   headers,
   data,
@@ -1342,7 +1414,7 @@ function Table({
     return String(item[binding] ?? "");
   };
   const hasClickableRows = Boolean(onRowClick);
-  return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
     "div",
     {
       className: "flex w-full flex-col overflow-hidden rounded-sm border",
@@ -1352,7 +1424,7 @@ function Table({
         borderColor: "var(--border)"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("div", { className: "w-full overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("div", { className: "w-full overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
           "table",
           {
             className: "w-full border-collapse text-center",
@@ -1361,19 +1433,15 @@ function Table({
               color: "var(--foreground)"
             },
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("tr", { children: headers.map((header, index) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("thead", { children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("tr", { children: headers.map((header, index) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
                 "th",
                 {
-                  className: "min-w-[120px] px-4 py-3 text-sm font-semibold",
-                  style: {
-                    color: "var(--foreground)",
-                    borderBottom: "1px solid var(--primary)"
-                  },
+                  className: "text-foreground border-primary min-w-[120px] border-b-3 px-4 py-3 text-sm font-semibold",
                   children: header
                 },
                 index
               )) }) }),
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("tbody", { children: data.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("tbody", { children: data.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("tr", { children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
                 "td",
                 {
                   colSpan: headers.length,
@@ -1381,7 +1449,7 @@ function Table({
                   style: { color: "var(--muted-foreground)" },
                   children: emptyMessage
                 }
-              ) }) : data.map((item, rowIndex) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+              ) }) : data.map((item, rowIndex) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
                 "tr",
                 {
                   className: cn(
@@ -1391,7 +1459,7 @@ function Table({
                     }
                   ),
                   onClick: () => hasClickableRows && onRowClick?.(item),
-                  children: columnBindings.map((binding, colIndex) => /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+                  children: columnBindings.map((binding, colIndex) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
                     "td",
                     {
                       className: "max-w-[200px] min-w-[120px] px-4 py-3",
@@ -1402,7 +1470,7 @@ function Table({
                           e.stopPropagation();
                         }
                       },
-                      children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+                      children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
                         "div",
                         {
                           className: "overflow-hidden text-ellipsis",
@@ -1427,7 +1495,7 @@ function Table({
             ]
           }
         ) }),
-        maxPage > 1 && /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
+        maxPage > 1 && /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
           "div",
           {
             className: "flex items-center justify-end gap-4 p-2",
@@ -1436,7 +1504,7 @@ function Table({
               borderTop: "1px solid var(--border)"
             },
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "text-sm", style: { color: "var(--muted-foreground)" }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "text-sm", style: { color: "var(--muted-foreground)" }, children: [
                 "Page ",
                 currentPage,
                 " of ",
@@ -1445,8 +1513,8 @@ function Table({
                 totalItems,
                 " items)"
               ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex gap-2", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "flex gap-2", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
                   "button",
                   {
                     ref: prevButtonRef,
@@ -1470,10 +1538,10 @@ function Table({
                         e.currentTarget.style.color = "var(--foreground)";
                       }
                     },
-                    children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_lucide_react5.ChevronLeft, { size: 14 })
+                    children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(import_lucide_react5.ChevronLeft, { size: 14 })
                   }
                 ),
-                /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
                   "button",
                   {
                     ref: nextButtonRef,
@@ -1497,25 +1565,25 @@ function Table({
                         e.currentTarget.style.color = "var(--foreground)";
                       }
                     },
-                    children: /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(import_lucide_react5.ChevronRight, { size: 14 })
+                    children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(import_lucide_react5.ChevronRight, { size: 14 })
                   }
                 )
               ] })
             ]
           }
         ),
-        loading && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+        loading && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
           "div",
           {
             className: "absolute inset-0 flex items-center justify-center backdrop-blur-sm",
             style: { background: "var(--background)", opacity: 0.5 },
-            children: /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
+            children: /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
               "div",
               {
                 className: "flex items-center gap-2 rounded-lg border px-4 py-2 shadow-lg",
                 style: { background: "var(--card)", borderColor: "var(--border)" },
                 children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+                  /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
                     "div",
                     {
                       className: "h-4 w-4 animate-spin rounded-full border-2",
@@ -1525,7 +1593,7 @@ function Table({
                       }
                     }
                   ),
-                  /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+                  /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
                     "span",
                     {
                       className: "text-sm",
@@ -1547,7 +1615,7 @@ function Table({
 var React7 = __toESM(require("react"));
 var import_react_slot = require("@radix-ui/react-slot");
 var import_react_hook_form = require("react-hook-form");
-var import_jsx_runtime13 = require("react/jsx-runtime");
+var import_jsx_runtime15 = require("react/jsx-runtime");
 var Form = import_react_hook_form.FormProvider;
 var FormFieldContext = React7.createContext(
   {}
@@ -1555,7 +1623,7 @@ var FormFieldContext = React7.createContext(
 var FormField = ({
   ...props
 }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(FormFieldContext.Provider, { value: { name: props.name }, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_react_hook_form.Controller, { ...props }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(FormFieldContext.Provider, { value: { name: props.name }, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(import_react_hook_form.Controller, { ...props }) });
 };
 var useFormField = () => {
   const fieldContext = React7.useContext(FormFieldContext);
@@ -1581,7 +1649,7 @@ var FormItemContext = React7.createContext(
 );
 function FormItem({ className, ...props }) {
   const id = React7.useId();
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(FormItemContext.Provider, { value: { id }, children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(FormItemContext.Provider, { value: { id }, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     "div",
     {
       "data-slot": "form-item",
@@ -1595,7 +1663,7 @@ function FormLabel({
   ...props
 }) {
   const { error, formItemId } = useFormField();
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     Label,
     {
       "data-slot": "form-label",
@@ -1608,7 +1676,7 @@ function FormLabel({
 }
 function FormControl({ ...props }) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     import_react_slot.Slot,
     {
       "data-slot": "form-control",
@@ -1621,7 +1689,7 @@ function FormControl({ ...props }) {
 }
 function FormDescription({ className, ...props }) {
   const { formDescriptionId } = useFormField();
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     "p",
     {
       "data-slot": "form-description",
@@ -1637,7 +1705,7 @@ function FormMessage({ className, ...props }) {
   if (!body) {
     return null;
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
     "p",
     {
       "data-slot": "form-message",
@@ -1651,7 +1719,7 @@ function FormMessage({ className, ...props }) {
 
 // src/components/upgraded/dropdown-form.tsx
 var import_react_hook_form2 = require("react-hook-form");
-var import_jsx_runtime14 = require("react/jsx-runtime");
+var import_jsx_runtime16 = require("react/jsx-runtime");
 var DropdownForm = ({
   name,
   label,
@@ -1659,14 +1727,14 @@ var DropdownForm = ({
   ...comboboxProps
 }) => {
   const { control } = (0, import_react_hook_form2.useFormContext)();
-  return /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
     import_react_hook_form2.Controller,
     {
       name,
       control,
-      render: ({ field, fieldState }) => /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(FormItem, { children: [
-        label && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(FormLabel, { children: label }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+      render: ({ field, fieldState }) => /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(FormItem, { children: [
+        label && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FormLabel, { children: label }),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
           Combobox,
           {
             ...comboboxProps,
@@ -1674,8 +1742,8 @@ var DropdownForm = ({
             onChange: field.onChange
           }
         ) }),
-        description && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(FormDescription, { children: description }),
-        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(FormMessage, { children: fieldState.error?.message })
+        description && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FormDescription, { children: description }),
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FormMessage, { children: fieldState.error?.message })
       ] })
     }
   );
@@ -1683,7 +1751,7 @@ var DropdownForm = ({
 
 // src/components/upgraded/fieldset-form-input.tsx
 var import_react_hook_form3 = require("react-hook-form");
-var import_jsx_runtime15 = require("react/jsx-runtime");
+var import_jsx_runtime17 = require("react/jsx-runtime");
 function UpgradedFieldsetFormInput({
   name,
   legend,
@@ -1693,13 +1761,13 @@ function UpgradedFieldsetFormInput({
   ...props
 }) {
   const { control } = (0, import_react_hook_form3.useFormContext)();
-  return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
     import_react_hook_form3.Controller,
     {
       name,
       control,
-      render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(FormItem, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+      render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(FormItem, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
           Input,
           {
             ...field,
@@ -1711,7 +1779,7 @@ function UpgradedFieldsetFormInput({
             ...props
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(FormMessage, {})
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(FormMessage, {})
       ] })
     }
   );
@@ -1719,7 +1787,7 @@ function UpgradedFieldsetFormInput({
 
 // src/components/upgraded/fieldset-form-textarea.tsx
 var import_react_hook_form4 = require("react-hook-form");
-var import_jsx_runtime16 = require("react/jsx-runtime");
+var import_jsx_runtime18 = require("react/jsx-runtime");
 function UpgradedFieldsetFormTextarea({
   name,
   legend,
@@ -1728,13 +1796,13 @@ function UpgradedFieldsetFormTextarea({
   ...props
 }) {
   const { control } = (0, import_react_hook_form4.useFormContext)();
-  return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
     import_react_hook_form4.Controller,
     {
       name,
       control,
-      render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(FormItem, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+      render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(FormItem, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
           Textarea,
           {
             ...field,
@@ -1745,7 +1813,7 @@ function UpgradedFieldsetFormTextarea({
             ...props
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(FormMessage, {})
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(FormMessage, {})
       ] })
     }
   );
@@ -1753,7 +1821,7 @@ function UpgradedFieldsetFormTextarea({
 
 // src/components/upgraded/toggle-form.tsx
 var import_react_hook_form5 = require("react-hook-form");
-var import_jsx_runtime17 = require("react/jsx-runtime");
+var import_jsx_runtime19 = require("react/jsx-runtime");
 function ToggleForm({
   name,
   legend,
@@ -1765,13 +1833,13 @@ function ToggleForm({
   const { control } = (0, import_react_hook_form5.useFormContext)();
   const finalCheckedValue = checkedValue ?? "YES";
   const finalNotCheckedValue = notCheckedValue ?? "NO";
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
     import_react_hook_form5.Controller,
     {
       name,
       control,
-      render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(FormItem, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+      render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(FormItem, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
           Toggle,
           {
             ...props,
@@ -1784,7 +1852,7 @@ function ToggleForm({
             notCheckedValue: finalNotCheckedValue
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(FormMessage, {})
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(FormMessage, {})
       ] })
     }
   );
@@ -1793,7 +1861,7 @@ function ToggleForm({
 // src/components/upgraded/checkboxgroup-form.tsx
 var import_react_hook_form6 = require("react-hook-form");
 var import_react4 = require("react");
-var import_jsx_runtime18 = require("react/jsx-runtime");
+var import_jsx_runtime20 = require("react/jsx-runtime");
 var GenericCheckboxFormField = ({
   data,
   name,
@@ -1802,7 +1870,7 @@ var GenericCheckboxFormField = ({
   className = ""
 }) => {
   const { control } = (0, import_react_hook_form6.useFormContext)();
-  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     FormField,
     {
       control,
@@ -1839,7 +1907,7 @@ var GenericCheckboxFormField = ({
               console.warn("Unknown action:", action);
           }
         };
-        return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
+        return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
           FormItem,
           {
             className: cn(
@@ -1847,7 +1915,7 @@ var GenericCheckboxFormField = ({
               className
             ),
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(FormControl, { children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
                 checkboxgroup_default,
                 {
                   data,
@@ -1858,7 +1926,7 @@ var GenericCheckboxFormField = ({
                   title
                 }
               ) }),
-              /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(FormMessage, {})
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(FormMessage, {})
             ]
           }
         );
@@ -1895,7 +1963,7 @@ var useOutsideComponentClicker = ({ ref, onClickedOutside }) => {
 };
 
 // src/components/ui/navigation-bar/nav-area-updated.tsx
-var import_jsx_runtime19 = require("react/jsx-runtime");
+var import_jsx_runtime21 = require("react/jsx-runtime");
 var NavAreaUpdated = (props) => {
   const { routes, permissions } = props;
   const [selected, setSelected] = (0, import_react6.useState)(-1);
@@ -1909,13 +1977,13 @@ var NavAreaUpdated = (props) => {
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { ref, className: "nav-area", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { ref, className: "nav-area", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
     if (true) {
       if (subnav) {
         if (!showSubRoute(subnav)) return null;
       }
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
           NavLink,
           {
             selected: selected === i,
@@ -1927,7 +1995,7 @@ var NavAreaUpdated = (props) => {
           },
           i
         ),
-        i === selected ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+        i === selected ? /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
           SubNav,
           {
             routes: routes[selected]?.subnav,
@@ -1946,7 +2014,7 @@ var NavLink = ({
   onSelect,
   unselect
 }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
     "a",
     {
       className: selected ? "nav-item-container-active" : "nav-item-container",
@@ -1960,14 +2028,14 @@ var NavLink = ({
         onSelect();
       },
       children: [
-        image && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+        image && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
           "img",
           {
             src: image,
             alt: "navIcon"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { children: label })
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label })
       ]
     }
   );
@@ -1984,16 +2052,16 @@ var SubNav = ({
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "subnav", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "subnav", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
     if (subnav) {
       if (true) {
-        return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "level1-sub-nav", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "level1-header", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { children: label }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "level2-sub-nav", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "level2-header", children: [
+        return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "level1-sub-nav", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "level1-header", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "level2-sub-nav", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "level2-header", children: [
             subnav.map(({ label: label2, to: to2, subnav: subnav2, permissionId: permissionId2 }, y) => {
               if (!subnav2) {
                 if (true) {
-                  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+                  return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
                     "a",
                     {
                       href: to2,
@@ -2001,37 +2069,37 @@ var SubNav = ({
                         e.preventDefault();
                         alert(`Navigating to: ${to2}`);
                       },
-                      children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { children: label2 })
+                      children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label2 })
                     },
                     y
                   );
                 }
               } else if (subnav2) {
                 if (!showSubRoute(subnav2)) return null;
-                return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+                return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
                   "div",
                   {
                     onClick: () => onSelect(y),
                     className: "level3-container",
                     children: [
-                      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+                      /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
                         "div",
                         {
                           className: selected === y ? "level3-header-shown" : "level3-header",
                           children: [
-                            /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { children: label2 }),
-                            selected === y ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_fa.FaAngleDown, {}) : /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_fa.FaAngleLeft, {})
+                            /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label2 }),
+                            selected === y ? /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(import_fa.FaAngleDown, {}) : /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(import_fa.FaAngleLeft, {})
                           ]
                         }
                       ),
-                      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+                      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
                         "div",
                         {
                           className: selected === y ? "level3-content-shown" : "level3-content",
-                          children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { children: subnav2.map(
+                          children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { children: subnav2.map(
                             ({ label: label3, to: to3, permissionId: permissionId3 }, z) => {
                               if (true) {
-                                return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+                                return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
                                   "a",
                                   {
                                     href: to3,
@@ -2039,7 +2107,7 @@ var SubNav = ({
                                       e.preventDefault();
                                       alert(`Navigating to: ${to3}`);
                                     },
-                                    children: /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("span", { children: [
+                                    children: /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("span", { children: [
                                       label3,
                                       " "
                                     ] })
@@ -2057,12 +2125,12 @@ var SubNav = ({
                 );
               }
             }),
-            /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "arrow-container", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "arrow-right" }) })
+            /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "arrow-container", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "arrow-right" }) })
           ] }) })
         ] }, i);
       }
     } else {
-      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("a", { href: to, className: "level1-sub-nav", children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { children: label }) }, i);
+      return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("a", { href: to, className: "level1-sub-nav", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { children: label }) }, i);
     }
   }) });
 };
@@ -2070,7 +2138,7 @@ var SubNav = ({
 // src/components/ui/navigation-bar/side-nav.tsx
 var import_react7 = require("react");
 var import_fa2 = require("react-icons/fa");
-var import_jsx_runtime20 = require("react/jsx-runtime");
+var import_jsx_runtime22 = require("react/jsx-runtime");
 var SideNav = (props) => {
   const { routes, permissions = [] } = props;
   const [selected, setSelected] = (0, import_react7.useState)(-1);
@@ -2084,11 +2152,11 @@ var SideNav = (props) => {
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "side-nav-filter", id: "SideNavFilter", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { ref, className: "side-nav", id: "SideArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "side-nav-filter", id: "SideNavFilter", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { ref, className: "side-nav", id: "SideArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
     if (true) {
       if (subnav && !showSubRoute(subnav)) return null;
-      return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { style: { display: "flex", flexDirection: "column" }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { style: { display: "flex", flexDirection: "column" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
           SideNavLink,
           {
             selected: selected === i,
@@ -2100,7 +2168,7 @@ var SideNav = (props) => {
           },
           i
         ),
-        selected === i && subnav && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(SideSubNav, { routes: subnav, permissions })
+        selected === i && subnav && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SideSubNav, { routes: subnav, permissions })
       ] }, i);
     }
   }) }) });
@@ -2113,7 +2181,7 @@ var SideNavLink = ({
   onSelect,
   unselect
 }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
     "a",
     {
       className: selected ? "side-nav-item-container-active" : "side-nav-item-container",
@@ -2127,14 +2195,14 @@ var SideNavLink = ({
         onSelect();
       },
       children: [
-        image && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+        image && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
           "img",
           {
             src: image,
             alt: "navIcon"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { children: label })
+        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { children: label })
       ]
     }
   );
@@ -2145,23 +2213,23 @@ var SideSubNav = ({
 }) => {
   const [selected, setSelected] = (0, import_react7.useState)(-1);
   if (!routes || routes.length === 0) return null;
-  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "side-sub-nav", children: routes.map(({ label, to, subnav, permissionId }, i) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "side-sub-nav", children: routes.map(({ label, to, subnav, permissionId }, i) => {
     if (subnav) {
-      return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: selected === i ? "side-sub-sub-container-selected" : "side-sub-sub-container", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
+      return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: selected === i ? "side-sub-sub-container-selected" : "side-sub-sub-container", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
           "div",
           {
             className: "side-sub-sub-nav-heading-link",
             onClick: () => setSelected((prev) => prev === i ? -1 : i),
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "side-sub-nav-heading", children: label }),
-              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_fa2.FaAngleRight, {})
+              /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "side-sub-nav-heading", children: label }),
+              /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_fa2.FaAngleRight, {})
             ]
           }
         ),
-        selected === i && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "side-sub-sub-links-container", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
+        selected === i && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "side-sub-sub-links-container", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
           if (true) {
-            return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+            return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
               "a",
               {
                 href: to2,
@@ -2177,12 +2245,12 @@ var SideSubNav = ({
         }) })
       ] }, i);
     } else {
-      return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
         "a",
         {
           href: to,
           className: "side-sub-nav-heading-link",
-          children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "side-sub-nav-heading", children: label })
+          children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("span", { className: "side-sub-nav-heading", children: label })
         },
         i
       );
@@ -2191,7 +2259,7 @@ var SideSubNav = ({
 };
 
 // src/components/ui/navigation-bar/sub-acc.tsx
-var import_jsx_runtime21 = require("react/jsx-runtime");
+var import_jsx_runtime23 = require("react/jsx-runtime");
 var SubAcc = (props) => {
   const {
     isAdmin = false,
@@ -2199,10 +2267,10 @@ var SubAcc = (props) => {
     onChangePassword = () => alert("Change password clicked - replace with your change password function"),
     onResetPassword = () => alert("Reset password clicked - replace with your reset password function")
   } = props;
-  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("ul", { className: "sub-acc", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("li", { className: "account-label", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("button", { onClick: onChangePassword, children: "Change Password" }) }),
-    isAdmin && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("li", { className: "account-label", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("button", { onClick: onResetPassword, children: "Reset Password" }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("li", { className: "account-label", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("button", { onClick: onSignOut, children: "Sign Out" }) })
+  return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)("ul", { className: "sub-acc", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("li", { className: "account-label", children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("button", { onClick: onChangePassword, children: "Change Password" }) }),
+    isAdmin && /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("li", { className: "account-label", children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("button", { onClick: onResetPassword, children: "Reset Password" }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("li", { className: "account-label", children: /* @__PURE__ */ (0, import_jsx_runtime23.jsx)("button", { onClick: onSignOut, children: "Sign Out" }) })
   ] });
 };
 
@@ -2245,170 +2313,9 @@ var navigationIcons = {
   birthday: images.birthday
 };
 
-// src/components/ui/navigation-bar/navigation-bar.tsx
-var import_jsx_runtime22 = require("react/jsx-runtime");
-var NavigationBar = (props) => {
-  const defaultLogo = payplusAssets.logo;
-  const {
-    routes,
-    permissions = [],
-    isAdmin = false,
-    logo = defaultLogo,
-    user,
-    className
-  } = props;
-  const [selectedHamburger, setSelectedHamburger] = (0, import_react8.useState)(false);
-  const [darkMode, setDarkMode] = (0, import_react8.useState)(false);
-  (0, import_react8.useEffect)(() => {
-    if (typeof window === "undefined") return;
-    const listener = () => {
-      if (window.innerWidth < 1024) {
-        setSelectedHamburger(false);
-      }
-    };
-    window.addEventListener("resize", listener);
-    return () => {
-      window.removeEventListener("resize", listener);
-    };
-  }, []);
-  (0, import_react8.useEffect)(() => {
-    if (typeof document === "undefined") return;
-    const checkDarkMode = () => {
-      const hasLightClass = document.documentElement.classList.contains("light") || document.body.classList.contains("light");
-      const hasDarkClass = document.documentElement.classList.contains("dark") || document.body.classList.contains("dark");
-      if (hasLightClass) {
-        setDarkMode(false);
-        return;
-      }
-      if (hasDarkClass) {
-        setDarkMode(true);
-        return;
-      }
-      const systemPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setDarkMode(systemPrefersDark);
-    };
-    checkDarkMode();
-    const observer = new MutationObserver(() => {
-      checkDarkMode();
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"]
-    });
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["class"]
-    });
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const mediaListener = () => checkDarkMode();
-    mediaQuery.addEventListener("change", mediaListener);
-    return () => {
-      observer.disconnect();
-      mediaQuery.removeEventListener("change", mediaListener);
-    };
-  }, []);
-  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
-    "nav",
-    {
-      className: `${className || ""}`,
-      style: {
-        zIndex: 50,
-        width: "100vw"
-      },
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "nav-bar", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "logo-container", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-            "img",
-            {
-              className: "image-on-nav",
-              src: darkMode && logo.darkMode ? logo.darkMode : logo.src,
-              alt: logo.alt,
-              loading: "eager"
-            }
-          ) }),
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(NavAreaUpdated, { routes, permissions }),
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "hamburger-container", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-            "div",
-            {
-              className: selectedHamburger ? "hamburger-selected" : "hamburger",
-              onClick: () => setSelectedHamburger((prev) => {
-                return !prev;
-              }),
-              children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_fa3.FaBars, {})
-            }
-          ) }),
-          !user?.data.isAdmin && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-            "div",
-            {
-              style: {
-                width: "2rem",
-                height: "2rem",
-                borderRadius: "4px",
-                backgroundColor: "rgba(0, 102, 204, 0.1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-              },
-              children: "\u{1F4C5}"
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "account-wrapper", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "account-area", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "account-dp-container", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-                "div",
-                {
-                  style: {
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "white",
-                    fontWeight: "bold"
-                  },
-                  children: user?.data.name?.charAt(0) || "U"
-                }
-              ) }),
-              /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_fa3.FaChevronDown, { size: "0.75rem" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SubAcc, { isAdmin })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-            "div",
-            {
-              style: {
-                width: "2rem",
-                height: "2rem",
-                borderRadius: "4px",
-                backgroundColor: "rgba(0, 102, 204, 0.1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer"
-              },
-              children: "\u{1F319}"
-            }
-          )
-        ] }),
-        selectedHamburger && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SideNav, { routes, permissions })
-      ]
-    }
-  );
-};
-
-// src/components/theme-provider.tsx
-var import_next_themes = require("next-themes");
-var import_jsx_runtime23 = require("react/jsx-runtime");
-function ThemeProvider({
-  children,
-  ...props
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(import_next_themes.ThemeProvider, { ...props, children });
-}
-
 // src/components/ui/mode-toggle.tsx
 var import_lucide_react7 = require("lucide-react");
-var import_next_themes2 = require("next-themes");
+var import_next_themes = require("next-themes");
 
 // src/components/ui/dropdown-menu.tsx
 var DropdownMenuPrimitive = __toESM(require("@radix-ui/react-dropdown-menu"));
@@ -2472,9 +2379,9 @@ function DropdownMenuItem({
 // src/components/ui/mode-toggle.tsx
 var import_jsx_runtime25 = require("react/jsx-runtime");
 function ModeToggle() {
-  const { setTheme } = (0, import_next_themes2.useTheme)();
+  const { setTheme } = (0, import_next_themes.useTheme)();
   return /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(DropdownMenu, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(Button, { variant: "outline", size: "icon", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(Button, { variant: "outline", size: "icon", className: "", children: [
       /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(import_lucide_react7.Sun, { className: "h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" }),
       /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(import_lucide_react7.Moon, { className: "absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" }),
       /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("span", { className: "sr-only", children: "Toggle theme" })
@@ -2487,8 +2394,118 @@ function ModeToggle() {
   ] });
 }
 
-// src/components/common/Modal/modal.tsx
+// src/components/ui/navigation-bar/navigation-bar.tsx
 var import_jsx_runtime26 = require("react/jsx-runtime");
+var NavigationBar = (props) => {
+  const defaultLogo = payplusAssets.logo;
+  const {
+    routes,
+    permissions = [],
+    isAdmin = false,
+    logo = defaultLogo,
+    user,
+    className
+  } = props;
+  const [selectedHamburger, setSelectedHamburger] = (0, import_react8.useState)(false);
+  const [darkMode, setDarkMode] = (0, import_react8.useState)(false);
+  (0, import_react8.useEffect)(() => {
+    if (typeof window === "undefined") return;
+    const listener = () => {
+      if (window.innerWidth < 1024) {
+        setSelectedHamburger(false);
+      }
+    };
+    window.addEventListener("resize", listener);
+    return () => {
+      window.removeEventListener("resize", listener);
+    };
+  }, []);
+  (0, import_react8.useEffect)(() => {
+    if (typeof document === "undefined") return;
+    const checkDarkMode = () => {
+      const hasLightClass = document.documentElement.classList.contains("light") || document.body.classList.contains("light");
+      const hasDarkClass = document.documentElement.classList.contains("dark") || document.body.classList.contains("dark");
+      if (hasLightClass) {
+        setDarkMode(false);
+        return;
+      }
+      if (hasDarkClass) {
+        setDarkMode(true);
+        return;
+      }
+      const systemPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setDarkMode(systemPrefersDark);
+    };
+    checkDarkMode();
+    const observer = new MutationObserver(() => {
+      checkDarkMode();
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaListener = () => checkDarkMode();
+    mediaQuery.addEventListener("change", mediaListener);
+    return () => {
+      observer.disconnect();
+      mediaQuery.removeEventListener("change", mediaListener);
+    };
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(ContentMargin, { children: /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("nav", { className: "bg-background !z-50 w-screen", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "bg-background sticky top-0 z-50 flex min-h-16 w-full items-center", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "relative aspect-video w-40 bg-transparent", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
+        "img",
+        {
+          className: "image-on-nav",
+          src: darkMode && logo.darkMode ? logo.darkMode : logo.src,
+          alt: logo.alt,
+          loading: "eager"
+        }
+      ) }),
+      /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(NavAreaUpdated, { routes, permissions }),
+      /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "hamburger-container", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
+        "div",
+        {
+          className: selectedHamburger ? "hamburger-selected" : "hamburger",
+          onClick: () => setSelectedHamburger((prev) => {
+            return !prev;
+          }),
+          children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(import_fa3.FaBars, {})
+        }
+      ) }),
+      /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "account-wrapper", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)("div", { className: "account-area h-10 w-10", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: "account-dp-container", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)(Avatar, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(AvatarImage, { src: "" }),
+            /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(AvatarFallback, { children: user?.data.name?.charAt(0) || "U" })
+          ] }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(import_fa3.FaChevronDown, { size: "0.75rem" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(SubAcc, { isAdmin })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(ModeToggle, {})
+    ] }),
+    selectedHamburger && /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(SideNav, { routes, permissions })
+  ] }) });
+};
+
+// src/components/theme-provider.tsx
+var import_next_themes2 = require("next-themes");
+var import_jsx_runtime27 = require("react/jsx-runtime");
+function ThemeProvider({
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(import_next_themes2.ThemeProvider, { ...props, children });
+}
+
+// src/components/common/Modal/modal.tsx
+var import_jsx_runtime28 = require("react/jsx-runtime");
 var Modal = ({
   header = "Header",
   children,
@@ -2497,18 +2514,18 @@ var Modal = ({
   ...rest
 }) => {
   const modalSize = { "modal-size": size };
-  return /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(import_jsx_runtime26.Fragment, { children: show ? /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(import_jsx_runtime28.Fragment, { children: show ? /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ (0, import_jsx_runtime28.jsxs)(
     "div",
     {
       className: cn("modal-container", "bg-background"),
       ...rest,
       ...modalSize,
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
           "div",
           {
             className: cn("modal-header-container", "border border-blue-800"),
-            children: /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(
+            children: /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
               "span",
               {
                 className: cn(
@@ -2520,7 +2537,7 @@ var Modal = ({
             )
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)("div", { className: cn("content-container"), children })
+        /* @__PURE__ */ (0, import_jsx_runtime28.jsx)("div", { className: cn("content-container"), children })
       ]
     }
   ) }) : null });
@@ -2783,22 +2800,29 @@ var sampleEmployeePermissions = [
 ];
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
   Button,
-  Combobox,
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
+  ContentMargin,
   Dialog,
   DialogContent,
   DialogTrigger,
-  DropdownForm,
+  Dropdown,
+  FieldsetCheckboxFormField,
+  FieldsetDropdownForm,
+  FieldsetFormInput,
+  FieldsetFormTextarea,
+  FieldsetToggleForm,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-  GenericCheckboxFormField,
   GenericCheckboxGroup,
   Input,
   Label,
@@ -2816,9 +2840,6 @@ var sampleEmployeePermissions = [
   Textarea,
   ThemeProvider,
   Toggle,
-  ToggleForm,
-  UpgradedFieldsetFormInput,
-  UpgradedFieldsetFormTextarea,
   buttonVariants,
   cn,
   comboboxColorVariants,

@@ -1,0 +1,23 @@
+$content-margin-default: 60px;
+$max-screen-width: 1920px;
+
+.content-margin {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $content-margin-default;
+  padding-right: $content-margin-default;
+  max-width: $max-screen-width;
+
+  @media (min-width: 2040px) {
+    margin-inline: calc((100vw - #{$max-screen-width}) / 2);
+  }
+  @media (max-width: 768px) {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: var(--background);
+  }
+  @media (max-width: 480px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

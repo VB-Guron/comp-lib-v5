@@ -1,5 +1,3 @@
-
-
 .nav-bar {
   height: 4rem; // 64px equivalent to h-16
   display: flex;
@@ -556,6 +554,7 @@
 .account-wrapper {
   position: relative;
   z-index: 55 !important;
+  border: 2px solid red;
 
   &:hover {
     cursor: pointer;

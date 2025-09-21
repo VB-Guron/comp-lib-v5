@@ -150,11 +150,7 @@ export function Table<T extends Record<string, any>>({
               {headers.map((header, index) => (
                 <th
                   key={index}
-                  className="min-w-[120px] px-4 py-3 text-sm font-semibold"
-                  style={{
-                    color: "var(--foreground)",
-                    borderBottom: "1px solid var(--primary)",
-                  }}
+                  className="text-foreground border-primary min-w-[120px] border-b-3 px-4 py-3 text-sm font-semibold"
                 >
                   {header}
                 </th>

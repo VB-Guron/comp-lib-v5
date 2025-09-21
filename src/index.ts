@@ -1,7 +1,15 @@
-"use client";
+("use client");
+
+// Layout components
+export { ContentMargin } from "./components/layout/content-margin";
+
 // Tailwind/CSS components
+export { Avatar, AvatarImage, AvatarFallback } from "./components/ui/avatar";
 export { Button, buttonVariants } from "./components/ui/button";
-export { Combobox, comboboxColorVariants } from "./components/ui/combobox";
+export {
+  Combobox as Dropdown,
+  comboboxColorVariants,
+} from "./components/ui/combobox";
 export { GenericCheckboxGroup } from "./components/ui/checkboxgroup";
 export {
   Command,
@@ -30,11 +38,11 @@ export {
 } from "./components/ui/form";
 
 // Upgraded form components
-export { DropdownForm } from "./components/upgraded/dropdown-form";
-export { UpgradedFieldsetFormInput } from "./components/upgraded/fieldset-form-input";
-export { UpgradedFieldsetFormTextarea } from "./components/upgraded/fieldset-form-textarea";
-export { ToggleForm } from "./components/upgraded/toggle-form";
-export { GenericCheckboxFormField } from "./components/upgraded/checkboxgroup-form";
+export { DropdownForm as FieldsetDropdownForm } from "./components/upgraded/dropdown-form";
+export { UpgradedFieldsetFormInput as FieldsetFormInput } from "./components/upgraded/fieldset-form-input";
+export { UpgradedFieldsetFormTextarea as FieldsetFormTextarea } from "./components/upgraded/fieldset-form-textarea";
+export { ToggleForm as FieldsetToggleForm } from "./components/upgraded/toggle-form";
+export { GenericCheckboxFormField as FieldsetCheckboxFormField } from "./components/upgraded/checkboxgroup-form";
 
 // Navigation components
 export {
@@ -81,8 +89,4 @@ export {
 } from "./components/ui/navigation-bar/sample-data";
 
 // Images and Assets Configuration
-export {
-  images,
-  payplusAssets,
-  navigationIcons
-} from "./config/images";
+export { images, payplusAssets, navigationIcons } from "./config/images";
