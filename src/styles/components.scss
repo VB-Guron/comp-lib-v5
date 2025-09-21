@@ -1,7 +1,8 @@
 // Start with modern @use syntax
-@use "../components/ui/modal";
-@use "../components/ui/dropdown";
-@use "../components/common/navbar";
+//@use "../components/ui/modal";
+//@use "../components/ui/dropdown";
+//@use "../components/common/navbar";
+@use "../components/common/Modal/modal.scss";
 
 // Add any global SCSS variables here
 $primary: #3b82f6;
