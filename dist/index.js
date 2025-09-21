@@ -2258,7 +2258,7 @@ var NavigationBar = (props) => {
     className
   } = props;
   const [selectedHamburger, setSelectedHamburger] = (0, import_react8.useState)(false);
-  const [, setDarkMode] = (0, import_react8.useState)(false);
+  const [darkMode, setDarkMode] = (0, import_react8.useState)(false);
   (0, import_react8.useEffect)(() => {
     if (typeof window === "undefined") return;
     const listener = () => {
@@ -2281,85 +2281,103 @@ var NavigationBar = (props) => {
       document.body.removeEventListener("transitionend", bodyClassListener);
     };
   }, []);
-  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("nav", { className: `${className || ""}`, style: { zIndex: 50, width: "100vw", backgroundColor: "var(--background, #ffffff)" }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "nav-bar", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "logo-container", children: logo.darkMode ? /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(import_jsx_runtime22.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-          "img",
-          {
-            className: "image-on-nav",
-            style: { display: "none" },
-            src: logo.darkMode,
-            alt: logo.alt,
-            loading: "eager"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-          "img",
-          {
-            className: "image-on-nav",
-            src: logo.src,
-            alt: logo.alt,
-            loading: "eager"
-          }
-        )
-      ] }) : /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-        "img",
-        {
-          className: "image-on-nav",
-          src: logo.src,
-          alt: logo.alt,
-          loading: "eager"
-        }
-      ) }),
-      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(NavAreaUpdated, { routes, permissions }),
-      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "hamburger-container", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
-        "div",
-        {
-          className: selectedHamburger ? "hamburger-selected" : "hamburger",
-          onClick: () => setSelectedHamburger((prev) => {
-            return !prev;
-          }),
-          children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_fa3.FaBars, {})
-        }
-      ) }),
-      !user?.data.isAdmin && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { style: {
-        width: "2rem",
-        height: "2rem",
-        borderRadius: "4px",
-        backgroundColor: "rgba(0, 102, 204, 0.1)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
-      }, children: "\u{1F4C5}" }),
-      /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "account-wrapper", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "account-area", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "account-dp-container", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { style: {
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            fontWeight: "bold"
-          }, children: user?.data.name?.charAt(0) || "U" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_fa3.FaChevronDown, { size: "0.75rem" })
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)(
+    "nav",
+    {
+      className: `${className || ""}`,
+      style: {
+        zIndex: 50,
+        width: "100vw",
+        backgroundColor: "var(--background, #ffffff)"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "nav-bar", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "logo-container", children: darkMode ? /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_jsx_runtime22.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+            "img",
+            {
+              className: "image-on-nav",
+              style: { display: "none" },
+              src: logo.darkMode,
+              alt: logo.alt,
+              loading: "eager"
+            }
+          ) }) : /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+            "img",
+            {
+              className: "image-on-nav",
+              src: logo.src,
+              alt: logo.alt,
+              loading: "eager"
+            }
+          ) }),
+          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(NavAreaUpdated, { routes, permissions }),
+          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "hamburger-container", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+            "div",
+            {
+              className: selectedHamburger ? "hamburger-selected" : "hamburger",
+              onClick: () => setSelectedHamburger((prev) => {
+                return !prev;
+              }),
+              children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_fa3.FaBars, {})
+            }
+          ) }),
+          !user?.data.isAdmin && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+            "div",
+            {
+              style: {
+                width: "2rem",
+                height: "2rem",
+                borderRadius: "4px",
+                backgroundColor: "rgba(0, 102, 204, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              },
+              children: "\u{1F4C5}"
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "account-wrapper", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { className: "account-area", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { className: "account-dp-container", children: /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+                "div",
+                {
+                  style: {
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "white",
+                    fontWeight: "bold"
+                  },
+                  children: user?.data.name?.charAt(0) || "U"
+                }
+              ) }),
+              /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_fa3.FaChevronDown, { size: "0.75rem" })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SubAcc, { isAdmin })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(
+            "div",
+            {
+              style: {
+                width: "2rem",
+                height: "2rem",
+                borderRadius: "4px",
+                backgroundColor: "rgba(0, 102, 204, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer"
+              },
+              children: "\u{1F319}"
+            }
+          )
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SubAcc, { isAdmin })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { style: {
-        width: "2rem",
-        height: "2rem",
-        borderRadius: "4px",
-        backgroundColor: "rgba(0, 102, 204, 0.1)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer"
-      }, children: "\u{1F319}" })
-    ] }),
-    selectedHamburger && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SideNav, { routes, permissions })
-  ] });
+        selectedHamburger && /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(SideNav, { routes, permissions })
+      ]
+    }
+  );
 };
 
 // src/components/theme-provider.tsx

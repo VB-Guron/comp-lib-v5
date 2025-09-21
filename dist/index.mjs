@@ -2181,7 +2181,7 @@ var NavigationBar = (props) => {
     className
   } = props;
   const [selectedHamburger, setSelectedHamburger] = useState8(false);
-  const [, setDarkMode] = useState8(false);
+  const [darkMode, setDarkMode] = useState8(false);
   useEffect5(() => {
     if (typeof window === "undefined") return;
     const listener = () => {
@@ -2204,85 +2204,103 @@ var NavigationBar = (props) => {
       document.body.removeEventListener("transitionend", bodyClassListener);
     };
   }, []);
-  return /* @__PURE__ */ jsxs18("nav", { className: `${className || ""}`, style: { zIndex: 50, width: "100vw", backgroundColor: "var(--background, #ffffff)" }, children: [
-    /* @__PURE__ */ jsxs18("div", { className: "nav-bar", children: [
-      /* @__PURE__ */ jsx22("div", { className: "logo-container", children: logo.darkMode ? /* @__PURE__ */ jsxs18(Fragment, { children: [
-        /* @__PURE__ */ jsx22(
-          "img",
-          {
-            className: "image-on-nav",
-            style: { display: "none" },
-            src: logo.darkMode,
-            alt: logo.alt,
-            loading: "eager"
-          }
-        ),
-        /* @__PURE__ */ jsx22(
-          "img",
-          {
-            className: "image-on-nav",
-            src: logo.src,
-            alt: logo.alt,
-            loading: "eager"
-          }
-        )
-      ] }) : /* @__PURE__ */ jsx22(
-        "img",
-        {
-          className: "image-on-nav",
-          src: logo.src,
-          alt: logo.alt,
-          loading: "eager"
-        }
-      ) }),
-      /* @__PURE__ */ jsx22(NavAreaUpdated, { routes, permissions }),
-      /* @__PURE__ */ jsx22("div", { className: "hamburger-container", children: /* @__PURE__ */ jsx22(
-        "div",
-        {
-          className: selectedHamburger ? "hamburger-selected" : "hamburger",
-          onClick: () => setSelectedHamburger((prev) => {
-            return !prev;
-          }),
-          children: /* @__PURE__ */ jsx22(FaBars, {})
-        }
-      ) }),
-      !user?.data.isAdmin && /* @__PURE__ */ jsx22("div", { style: {
-        width: "2rem",
-        height: "2rem",
-        borderRadius: "4px",
-        backgroundColor: "rgba(0, 102, 204, 0.1)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
-      }, children: "\u{1F4C5}" }),
-      /* @__PURE__ */ jsxs18("div", { className: "account-wrapper", children: [
-        /* @__PURE__ */ jsxs18("div", { className: "account-area", children: [
-          /* @__PURE__ */ jsx22("div", { className: "account-dp-container", children: /* @__PURE__ */ jsx22("div", { style: {
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            fontWeight: "bold"
-          }, children: user?.data.name?.charAt(0) || "U" }) }),
-          /* @__PURE__ */ jsx22(FaChevronDown, { size: "0.75rem" })
+  return /* @__PURE__ */ jsxs18(
+    "nav",
+    {
+      className: `${className || ""}`,
+      style: {
+        zIndex: 50,
+        width: "100vw",
+        backgroundColor: "var(--background, #ffffff)"
+      },
+      children: [
+        /* @__PURE__ */ jsxs18("div", { className: "nav-bar", children: [
+          /* @__PURE__ */ jsx22("div", { className: "logo-container", children: darkMode ? /* @__PURE__ */ jsx22(Fragment, { children: /* @__PURE__ */ jsx22(
+            "img",
+            {
+              className: "image-on-nav",
+              style: { display: "none" },
+              src: logo.darkMode,
+              alt: logo.alt,
+              loading: "eager"
+            }
+          ) }) : /* @__PURE__ */ jsx22(
+            "img",
+            {
+              className: "image-on-nav",
+              src: logo.src,
+              alt: logo.alt,
+              loading: "eager"
+            }
+          ) }),
+          /* @__PURE__ */ jsx22(NavAreaUpdated, { routes, permissions }),
+          /* @__PURE__ */ jsx22("div", { className: "hamburger-container", children: /* @__PURE__ */ jsx22(
+            "div",
+            {
+              className: selectedHamburger ? "hamburger-selected" : "hamburger",
+              onClick: () => setSelectedHamburger((prev) => {
+                return !prev;
+              }),
+              children: /* @__PURE__ */ jsx22(FaBars, {})
+            }
+          ) }),
+          !user?.data.isAdmin && /* @__PURE__ */ jsx22(
+            "div",
+            {
+              style: {
+                width: "2rem",
+                height: "2rem",
+                borderRadius: "4px",
+                backgroundColor: "rgba(0, 102, 204, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              },
+              children: "\u{1F4C5}"
+            }
+          ),
+          /* @__PURE__ */ jsxs18("div", { className: "account-wrapper", children: [
+            /* @__PURE__ */ jsxs18("div", { className: "account-area", children: [
+              /* @__PURE__ */ jsx22("div", { className: "account-dp-container", children: /* @__PURE__ */ jsx22(
+                "div",
+                {
+                  style: {
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "white",
+                    fontWeight: "bold"
+                  },
+                  children: user?.data.name?.charAt(0) || "U"
+                }
+              ) }),
+              /* @__PURE__ */ jsx22(FaChevronDown, { size: "0.75rem" })
+            ] }),
+            /* @__PURE__ */ jsx22(SubAcc, { isAdmin })
+          ] }),
+          /* @__PURE__ */ jsx22(
+            "div",
+            {
+              style: {
+                width: "2rem",
+                height: "2rem",
+                borderRadius: "4px",
+                backgroundColor: "rgba(0, 102, 204, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer"
+              },
+              children: "\u{1F319}"
+            }
+          )
         ] }),
-        /* @__PURE__ */ jsx22(SubAcc, { isAdmin })
-      ] }),
-      /* @__PURE__ */ jsx22("div", { style: {
-        width: "2rem",
-        height: "2rem",
-        borderRadius: "4px",
-        backgroundColor: "rgba(0, 102, 204, 0.1)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer"
-      }, children: "\u{1F319}" })
-    ] }),
-    selectedHamburger && /* @__PURE__ */ jsx22(SideNav, { routes, permissions })
-  ] });
+        selectedHamburger && /* @__PURE__ */ jsx22(SideNav, { routes, permissions })
+      ]
+    }
+  );
 };
 
 // src/components/theme-provider.tsx

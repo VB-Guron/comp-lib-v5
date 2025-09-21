@@ -17,14 +17,14 @@ export const NavigationBar = (props: NavigationBarProps) => {
     isAdmin = false,
     logo = defaultLogo,
     user,
-    className
+    className,
   } = props;
   const [selectedHamburger, setSelectedHamburger] = useState(false);
-  const [, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     // Safe window check for Storybook and other environments
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const listener = () => {
       if (window.innerWidth < 1024) {
@@ -41,7 +41,7 @@ export const NavigationBar = (props: NavigationBarProps) => {
 
   useEffect(() => {
     // Safe document check for Storybook and other environments
-    if (typeof document === 'undefined') return;
+    if (typeof document === "undefined") return;
 
     const bodyClassListener = () => {
       setDarkMode(document.body.classList.contains("dark"));
@@ -55,21 +55,22 @@ export const NavigationBar = (props: NavigationBarProps) => {
   }, []);
 
   return (
-    <nav className={`${className || ''}`} style={{ zIndex: 50, width: '100vw', backgroundColor: 'var(--background, #ffffff)' }}>
+    <nav
+      className={`${className || ""}`}
+      style={{
+        zIndex: 50,
+        width: "100vw",
+        backgroundColor: "var(--background, #ffffff)",
+      }}
+    >
       <div className="nav-bar">
         <div className="logo-container">
-          {logo.darkMode ? (
+          {darkMode ? (
             <>
               <img
                 className="image-on-nav"
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 src={logo.darkMode}
-                alt={logo.alt}
-                loading="eager"
-              />
-              <img
-                className="image-on-nav"
-                src={logo.src}
                 alt={logo.alt}
                 loading="eager"
               />
@@ -103,15 +104,17 @@ export const NavigationBar = (props: NavigationBarProps) => {
 
         {/* Calendar Logo - Only for non-admin users */}
         {!user?.data.isAdmin && (
-          <div style={{
-            width: '2rem',
-            height: '2rem',
-            borderRadius: '4px',
-            backgroundColor: 'rgba(0, 102, 204, 0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
+          <div
+            style={{
+              width: "2rem",
+              height: "2rem",
+              borderRadius: "4px",
+              backgroundColor: "rgba(0, 102, 204, 0.1)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             📅
           </div>
         )}
@@ -120,16 +123,18 @@ export const NavigationBar = (props: NavigationBarProps) => {
         <div className="account-wrapper">
           <div className="account-area">
             <div className="account-dp-container">
-              <div style={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'white',
-                fontWeight: 'bold'
-              }}>
-                {user?.data.name?.charAt(0) || 'U'}
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "white",
+                  fontWeight: "bold",
+                }}
+              >
+                {user?.data.name?.charAt(0) || "U"}
               </div>
             </div>
             <FaChevronDown size="0.75rem" />
@@ -138,16 +143,18 @@ export const NavigationBar = (props: NavigationBarProps) => {
         </div>
 
         {/* Dark Mode Toggle */}
-        <div style={{
-          width: '2rem',
-          height: '2rem',
-          borderRadius: '4px',
-          backgroundColor: 'rgba(0, 102, 204, 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer'
-        }}>
+        <div
+          style={{
+            width: "2rem",
+            height: "2rem",
+            borderRadius: "4px",
+            backgroundColor: "rgba(0, 102, 204, 0.1)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+          }}
+        >
           🌙
         </div>
       </div>
