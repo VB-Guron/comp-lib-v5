@@ -1133,8 +1133,336 @@ var Toggle = (props) => {
   ] });
 };
 
+// src/components/ui/search.tsx
+import { Search as SearchIcon2, X } from "lucide-react";
+import { jsx as jsx11, jsxs as jsxs8 } from "react/jsx-runtime";
+var Search = ({
+  value,
+  onChange,
+  placeholder = "Search...",
+  label,
+  inputProps,
+  className = "",
+  options,
+  searchUrl
+}) => {
+  return /* @__PURE__ */ jsxs8("div", { className: cn("relative", className), children: [
+    label && /* @__PURE__ */ jsx11("label", { className: "mb-1 block text-xs font-medium", children: label }),
+    /* @__PURE__ */ jsxs8("div", { className: "dark:bg-background flex w-full items-center rounded border bg-white px-2 py-1", children: [
+      /* @__PURE__ */ jsx11(SearchIcon2, { className: "mr-2 text-gray-400", size: 16 }),
+      /* @__PURE__ */ jsx11(
+        "input",
+        {
+          className: "flex-1 bg-transparent text-sm outline-none",
+          placeholder,
+          value,
+          onChange: (e) => onChange(e.target.value),
+          ...inputProps
+        }
+      ),
+      value && /* @__PURE__ */ jsx11(
+        "button",
+        {
+          type: "button",
+          className: "ml-2 text-gray-400 hover:text-gray-600",
+          onClick: (e) => {
+            e.stopPropagation();
+            onChange("");
+          },
+          children: /* @__PURE__ */ jsx11(X, { size: 16 })
+        }
+      )
+    ] })
+  ] });
+};
+
+// src/components/ui/table.tsx
+import {
+  useMemo,
+  useRef as useRef3,
+  useEffect as useEffect3
+} from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { jsx as jsx12, jsxs as jsxs9 } from "react/jsx-runtime";
+function Table({
+  headers,
+  data,
+  bindings,
+  totalItems = data.length,
+  itemsPerPage = 10,
+  currentPage = 1,
+  searchQuery = "",
+  onPageChange,
+  onRowClick,
+  actionComponents,
+  emptyMessage = "No data to display",
+  loading = false,
+  resetToFirstPage = false,
+  onResetComplete
+}) {
+  const pageRef = useRef3(currentPage);
+  const prevButtonRef = useRef3(null);
+  const nextButtonRef = useRef3(null);
+  useEffect3(() => {
+    pageRef.current = currentPage;
+  }, [currentPage]);
+  const maxPage = useMemo(() => {
+    return Math.ceil(totalItems / itemsPerPage);
+  }, [itemsPerPage, totalItems]);
+  const canGoPrev = currentPage > 1;
+  const canGoNext = currentPage < maxPage && maxPage > 0;
+  useEffect3(() => {
+    if (resetToFirstPage && currentPage !== 1) {
+      onPageChange?.(1, searchQuery);
+      onResetComplete?.();
+    }
+  }, [
+    resetToFirstPage,
+    currentPage,
+    searchQuery,
+    onPageChange,
+    onResetComplete
+  ]);
+  useEffect3(() => {
+    if (currentPage > maxPage && maxPage > 0) {
+      const newPage = maxPage;
+      onPageChange?.(newPage, searchQuery);
+    }
+  }, [maxPage, currentPage, searchQuery, onPageChange]);
+  const handlePrevPage = () => {
+    if (canGoPrev) {
+      const newPage = currentPage - 1;
+      onPageChange?.(newPage, searchQuery);
+    }
+  };
+  const handleNextPage = () => {
+    if (canGoNext) {
+      const newPage = currentPage + 1;
+      onPageChange?.(newPage, searchQuery);
+    }
+  };
+  const columnBindings = useMemo(() => {
+    if (bindings && bindings.length === headers.length) {
+      return bindings;
+    }
+    return headers.map((header) => {
+      if (header.toLowerCase() === "action" || header.toLowerCase() === "actions") {
+        return (item) => actionComponents?.(item) || null;
+      }
+      const key = header.toLowerCase().replace(/\s+/g, "_");
+      return key;
+    });
+  }, [headers, bindings, actionComponents]);
+  const renderCellContent = (item, binding) => {
+    if (typeof binding === "function") {
+      return binding(item);
+    }
+    return String(item[binding] ?? "");
+  };
+  const hasClickableRows = Boolean(onRowClick);
+  return /* @__PURE__ */ jsxs9(
+    "div",
+    {
+      className: "flex w-full flex-col overflow-hidden rounded-sm border",
+      style: {
+        background: "var(--background)",
+        color: "var(--foreground)",
+        borderColor: "var(--border)"
+      },
+      children: [
+        /* @__PURE__ */ jsx12("div", { className: "w-full overflow-x-auto", children: /* @__PURE__ */ jsxs9(
+          "table",
+          {
+            className: "w-full border-collapse text-center",
+            style: {
+              background: "var(--background)",
+              color: "var(--foreground)"
+            },
+            children: [
+              /* @__PURE__ */ jsx12("thead", { children: /* @__PURE__ */ jsx12("tr", { children: headers.map((header, index) => /* @__PURE__ */ jsx12(
+                "th",
+                {
+                  className: "min-w-[120px] px-4 py-3 text-sm font-semibold",
+                  style: {
+                    color: "var(--foreground)",
+                    borderBottom: "1px solid var(--primary)"
+                  },
+                  children: header
+                },
+                index
+              )) }) }),
+              /* @__PURE__ */ jsx12("tbody", { children: data.length === 0 ? /* @__PURE__ */ jsx12("tr", { children: /* @__PURE__ */ jsx12(
+                "td",
+                {
+                  colSpan: headers.length,
+                  className: "px-4 py-8 text-center text-lg font-medium",
+                  style: { color: "var(--muted-foreground)" },
+                  children: emptyMessage
+                }
+              ) }) : data.map((item, rowIndex) => /* @__PURE__ */ jsx12(
+                "tr",
+                {
+                  className: cn(
+                    `odd:bg-background text-foreground even:bg-accent text-sm`,
+                    {
+                      "cursor-pointer transition-colors duration-150 hover:bg-gray-200": hasClickableRows
+                    }
+                  ),
+                  onClick: () => hasClickableRows && onRowClick?.(item),
+                  children: columnBindings.map((binding, colIndex) => /* @__PURE__ */ jsx12(
+                    "td",
+                    {
+                      className: "max-w-[200px] min-w-[120px] px-4 py-3",
+                      style: { color: "var(--foreground)" },
+                      onClick: (e) => {
+                        const isActionColumn = headers[colIndex]?.toLowerCase() === "action" || headers[colIndex]?.toLowerCase() === "actions";
+                        if (isActionColumn) {
+                          e.stopPropagation();
+                        }
+                      },
+                      children: /* @__PURE__ */ jsx12(
+                        "div",
+                        {
+                          className: "overflow-hidden text-ellipsis",
+                          style: {
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            minHeight: "rem",
+                            maxHeight: "3rem",
+                            lineHeight: "1.5rem",
+                            color: "inherit"
+                          },
+                          children: renderCellContent(item, binding)
+                        }
+                      )
+                    },
+                    colIndex
+                  ))
+                },
+                rowIndex
+              )) })
+            ]
+          }
+        ) }),
+        maxPage > 1 && /* @__PURE__ */ jsxs9(
+          "div",
+          {
+            className: "flex items-center justify-end gap-4 p-2",
+            style: {
+              background: "var(--muted)",
+              borderTop: "1px solid var(--border)"
+            },
+            children: [
+              /* @__PURE__ */ jsxs9("div", { className: "text-sm", style: { color: "var(--muted-foreground)" }, children: [
+                "Page ",
+                currentPage,
+                " of ",
+                maxPage,
+                " (",
+                totalItems,
+                " items)"
+              ] }),
+              /* @__PURE__ */ jsxs9("div", { className: "flex gap-2", children: [
+                /* @__PURE__ */ jsx12(
+                  "button",
+                  {
+                    ref: prevButtonRef,
+                    onClick: handlePrevPage,
+                    disabled: !canGoPrev || loading,
+                    className: "flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-150",
+                    style: {
+                      color: canGoPrev && !loading ? "var(--foreground)" : "var(--muted-foreground)",
+                      background: canGoPrev && !loading ? "var(--background)" : "var(--muted)",
+                      cursor: !canGoPrev || loading ? "not-allowed" : "pointer"
+                    },
+                    onMouseOver: (e) => {
+                      if (canGoPrev && !loading) {
+                        e.currentTarget.style.background = "var(--primary)";
+                        e.currentTarget.style.color = "var(--primary-foreground)";
+                      }
+                    },
+                    onMouseOut: (e) => {
+                      if (canGoPrev && !loading) {
+                        e.currentTarget.style.background = "var(--background)";
+                        e.currentTarget.style.color = "var(--foreground)";
+                      }
+                    },
+                    children: /* @__PURE__ */ jsx12(ChevronLeft, { size: 14 })
+                  }
+                ),
+                /* @__PURE__ */ jsx12(
+                  "button",
+                  {
+                    ref: nextButtonRef,
+                    onClick: handleNextPage,
+                    disabled: !canGoNext || loading,
+                    className: "flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-150",
+                    style: {
+                      color: canGoNext && !loading ? "var(--foreground)" : "var(--muted-foreground)",
+                      background: canGoNext && !loading ? "var(--background)" : "var(--muted)",
+                      cursor: !canGoNext || loading ? "not-allowed" : "pointer"
+                    },
+                    onMouseOver: (e) => {
+                      if (canGoNext && !loading) {
+                        e.currentTarget.style.background = "var(--primary)";
+                        e.currentTarget.style.color = "var(--primary-foreground)";
+                      }
+                    },
+                    onMouseOut: (e) => {
+                      if (canGoNext && !loading) {
+                        e.currentTarget.style.background = "var(--background)";
+                        e.currentTarget.style.color = "var(--foreground)";
+                      }
+                    },
+                    children: /* @__PURE__ */ jsx12(ChevronRight, { size: 14 })
+                  }
+                )
+              ] })
+            ]
+          }
+        ),
+        loading && /* @__PURE__ */ jsx12(
+          "div",
+          {
+            className: "absolute inset-0 flex items-center justify-center backdrop-blur-sm",
+            style: { background: "var(--background)", opacity: 0.5 },
+            children: /* @__PURE__ */ jsxs9(
+              "div",
+              {
+                className: "flex items-center gap-2 rounded-lg border px-4 py-2 shadow-lg",
+                style: { background: "var(--card)", borderColor: "var(--border)" },
+                children: [
+                  /* @__PURE__ */ jsx12(
+                    "div",
+                    {
+                      className: "h-4 w-4 animate-spin rounded-full border-2",
+                      style: {
+                        borderColor: "var(--primary)",
+                        borderTopColor: "transparent"
+                      }
+                    }
+                  ),
+                  /* @__PURE__ */ jsx12(
+                    "span",
+                    {
+                      className: "text-sm",
+                      style: { color: "var(--muted-foreground)" },
+                      children: "Loading..."
+                    }
+                  )
+                ]
+              }
+            )
+          }
+        )
+      ]
+    }
+  );
+}
+
 // src/components/ui/form.tsx
-import * as React6 from "react";
+import * as React7 from "react";
 import { Slot } from "@radix-ui/react-slot";
 import {
   Controller,
@@ -1142,19 +1470,19 @@ import {
   useFormContext,
   useFormState
 } from "react-hook-form";
-import { jsx as jsx11 } from "react/jsx-runtime";
+import { jsx as jsx13 } from "react/jsx-runtime";
 var Form = FormProvider;
-var FormFieldContext = React6.createContext(
+var FormFieldContext = React7.createContext(
   {}
 );
 var FormField = ({
   ...props
 }) => {
-  return /* @__PURE__ */ jsx11(FormFieldContext.Provider, { value: { name: props.name }, children: /* @__PURE__ */ jsx11(Controller, { ...props }) });
+  return /* @__PURE__ */ jsx13(FormFieldContext.Provider, { value: { name: props.name }, children: /* @__PURE__ */ jsx13(Controller, { ...props }) });
 };
 var useFormField = () => {
-  const fieldContext = React6.useContext(FormFieldContext);
-  const itemContext = React6.useContext(FormItemContext);
+  const fieldContext = React7.useContext(FormFieldContext);
+  const itemContext = React7.useContext(FormItemContext);
   const { getFieldState } = useFormContext();
   const formState = useFormState({ name: fieldContext.name });
   const fieldState = getFieldState(fieldContext.name, formState);
@@ -1171,12 +1499,12 @@ var useFormField = () => {
     ...fieldState
   };
 };
-var FormItemContext = React6.createContext(
+var FormItemContext = React7.createContext(
   {}
 );
 function FormItem({ className, ...props }) {
-  const id = React6.useId();
-  return /* @__PURE__ */ jsx11(FormItemContext.Provider, { value: { id }, children: /* @__PURE__ */ jsx11(
+  const id = React7.useId();
+  return /* @__PURE__ */ jsx13(FormItemContext.Provider, { value: { id }, children: /* @__PURE__ */ jsx13(
     "div",
     {
       "data-slot": "form-item",
@@ -1190,7 +1518,7 @@ function FormLabel({
   ...props
 }) {
   const { error, formItemId } = useFormField();
-  return /* @__PURE__ */ jsx11(
+  return /* @__PURE__ */ jsx13(
     Label,
     {
       "data-slot": "form-label",
@@ -1203,7 +1531,7 @@ function FormLabel({
 }
 function FormControl({ ...props }) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
-  return /* @__PURE__ */ jsx11(
+  return /* @__PURE__ */ jsx13(
     Slot,
     {
       "data-slot": "form-control",
@@ -1216,7 +1544,7 @@ function FormControl({ ...props }) {
 }
 function FormDescription({ className, ...props }) {
   const { formDescriptionId } = useFormField();
-  return /* @__PURE__ */ jsx11(
+  return /* @__PURE__ */ jsx13(
     "p",
     {
       "data-slot": "form-description",
@@ -1232,7 +1560,7 @@ function FormMessage({ className, ...props }) {
   if (!body) {
     return null;
   }
-  return /* @__PURE__ */ jsx11(
+  return /* @__PURE__ */ jsx13(
     "p",
     {
       "data-slot": "form-message",
@@ -1246,7 +1574,7 @@ function FormMessage({ className, ...props }) {
 
 // src/components/upgraded/dropdown-form.tsx
 import { Controller as Controller2, useFormContext as useFormContext2 } from "react-hook-form";
-import { jsx as jsx12, jsxs as jsxs8 } from "react/jsx-runtime";
+import { jsx as jsx14, jsxs as jsxs10 } from "react/jsx-runtime";
 var DropdownForm = ({
   name,
   label,
@@ -1254,14 +1582,14 @@ var DropdownForm = ({
   ...comboboxProps
 }) => {
   const { control } = useFormContext2();
-  return /* @__PURE__ */ jsx12(
+  return /* @__PURE__ */ jsx14(
     Controller2,
     {
       name,
       control,
-      render: ({ field, fieldState }) => /* @__PURE__ */ jsxs8(FormItem, { children: [
-        label && /* @__PURE__ */ jsx12(FormLabel, { children: label }),
-        /* @__PURE__ */ jsx12(FormControl, { children: /* @__PURE__ */ jsx12(
+      render: ({ field, fieldState }) => /* @__PURE__ */ jsxs10(FormItem, { children: [
+        label && /* @__PURE__ */ jsx14(FormLabel, { children: label }),
+        /* @__PURE__ */ jsx14(FormControl, { children: /* @__PURE__ */ jsx14(
           Combobox,
           {
             ...comboboxProps,
@@ -1269,8 +1597,8 @@ var DropdownForm = ({
             onChange: field.onChange
           }
         ) }),
-        description && /* @__PURE__ */ jsx12(FormDescription, { children: description }),
-        /* @__PURE__ */ jsx12(FormMessage, { children: fieldState.error?.message })
+        description && /* @__PURE__ */ jsx14(FormDescription, { children: description }),
+        /* @__PURE__ */ jsx14(FormMessage, { children: fieldState.error?.message })
       ] })
     }
   );
@@ -1278,7 +1606,7 @@ var DropdownForm = ({
 
 // src/components/upgraded/fieldset-form-input.tsx
 import { useFormContext as useFormContext3, Controller as Controller3 } from "react-hook-form";
-import { jsx as jsx13, jsxs as jsxs9 } from "react/jsx-runtime";
+import { jsx as jsx15, jsxs as jsxs11 } from "react/jsx-runtime";
 function UpgradedFieldsetFormInput({
   name,
   legend,
@@ -1288,13 +1616,13 @@ function UpgradedFieldsetFormInput({
   ...props
 }) {
   const { control } = useFormContext3();
-  return /* @__PURE__ */ jsx13(
+  return /* @__PURE__ */ jsx15(
     Controller3,
     {
       name,
       control,
-      render: ({ field }) => /* @__PURE__ */ jsxs9(FormItem, { children: [
-        /* @__PURE__ */ jsx13(FormControl, { children: /* @__PURE__ */ jsx13(
+      render: ({ field }) => /* @__PURE__ */ jsxs11(FormItem, { children: [
+        /* @__PURE__ */ jsx15(FormControl, { children: /* @__PURE__ */ jsx15(
           Input,
           {
             ...field,
@@ -1306,7 +1634,7 @@ function UpgradedFieldsetFormInput({
             ...props
           }
         ) }),
-        /* @__PURE__ */ jsx13(FormMessage, {})
+        /* @__PURE__ */ jsx15(FormMessage, {})
       ] })
     }
   );
@@ -1314,7 +1642,7 @@ function UpgradedFieldsetFormInput({
 
 // src/components/upgraded/fieldset-form-textarea.tsx
 import { useFormContext as useFormContext4, Controller as Controller4 } from "react-hook-form";
-import { jsx as jsx14, jsxs as jsxs10 } from "react/jsx-runtime";
+import { jsx as jsx16, jsxs as jsxs12 } from "react/jsx-runtime";
 function UpgradedFieldsetFormTextarea({
   name,
   legend,
@@ -1323,13 +1651,13 @@ function UpgradedFieldsetFormTextarea({
   ...props
 }) {
   const { control } = useFormContext4();
-  return /* @__PURE__ */ jsx14(
+  return /* @__PURE__ */ jsx16(
     Controller4,
     {
       name,
       control,
-      render: ({ field }) => /* @__PURE__ */ jsxs10(FormItem, { children: [
-        /* @__PURE__ */ jsx14(FormControl, { children: /* @__PURE__ */ jsx14(
+      render: ({ field }) => /* @__PURE__ */ jsxs12(FormItem, { children: [
+        /* @__PURE__ */ jsx16(FormControl, { children: /* @__PURE__ */ jsx16(
           Textarea,
           {
             ...field,
@@ -1340,7 +1668,7 @@ function UpgradedFieldsetFormTextarea({
             ...props
           }
         ) }),
-        /* @__PURE__ */ jsx14(FormMessage, {})
+        /* @__PURE__ */ jsx16(FormMessage, {})
       ] })
     }
   );
@@ -1348,7 +1676,7 @@ function UpgradedFieldsetFormTextarea({
 
 // src/components/upgraded/toggle-form.tsx
 import { useFormContext as useFormContext5, Controller as Controller5 } from "react-hook-form";
-import { jsx as jsx15, jsxs as jsxs11 } from "react/jsx-runtime";
+import { jsx as jsx17, jsxs as jsxs13 } from "react/jsx-runtime";
 function ToggleForm({
   name,
   legend,
@@ -1360,13 +1688,13 @@ function ToggleForm({
   const { control } = useFormContext5();
   const finalCheckedValue = checkedValue ?? "YES";
   const finalNotCheckedValue = notCheckedValue ?? "NO";
-  return /* @__PURE__ */ jsx15(
+  return /* @__PURE__ */ jsx17(
     Controller5,
     {
       name,
       control,
-      render: ({ field }) => /* @__PURE__ */ jsxs11(FormItem, { children: [
-        /* @__PURE__ */ jsx15(FormControl, { children: /* @__PURE__ */ jsx15(
+      render: ({ field }) => /* @__PURE__ */ jsxs13(FormItem, { children: [
+        /* @__PURE__ */ jsx17(FormControl, { children: /* @__PURE__ */ jsx17(
           Toggle,
           {
             ...props,
@@ -1379,7 +1707,7 @@ function ToggleForm({
             notCheckedValue: finalNotCheckedValue
           }
         ) }),
-        /* @__PURE__ */ jsx15(FormMessage, {})
+        /* @__PURE__ */ jsx17(FormMessage, {})
       ] })
     }
   );
@@ -1387,8 +1715,8 @@ function ToggleForm({
 
 // src/components/upgraded/checkboxgroup-form.tsx
 import { FormProvider as FormProvider2, useForm, useFormContext as useFormContext6 } from "react-hook-form";
-import { useState as useState4 } from "react";
-import { jsx as jsx16, jsxs as jsxs12 } from "react/jsx-runtime";
+import { useState as useState5 } from "react";
+import { jsx as jsx18, jsxs as jsxs14 } from "react/jsx-runtime";
 var GenericCheckboxFormField = ({
   data,
   name,
@@ -1397,7 +1725,7 @@ var GenericCheckboxFormField = ({
   className = ""
 }) => {
   const { control } = useFormContext6();
-  return /* @__PURE__ */ jsx16(
+  return /* @__PURE__ */ jsx18(
     FormField,
     {
       control,
@@ -1434,7 +1762,7 @@ var GenericCheckboxFormField = ({
               console.warn("Unknown action:", action);
           }
         };
-        return /* @__PURE__ */ jsxs12(
+        return /* @__PURE__ */ jsxs14(
           FormItem,
           {
             className: cn(
@@ -1442,7 +1770,7 @@ var GenericCheckboxFormField = ({
               className
             ),
             children: [
-              /* @__PURE__ */ jsx16(FormControl, { children: /* @__PURE__ */ jsx16(
+              /* @__PURE__ */ jsx18(FormControl, { children: /* @__PURE__ */ jsx18(
                 checkboxgroup_default,
                 {
                   data,
@@ -1453,7 +1781,7 @@ var GenericCheckboxFormField = ({
                   title
                 }
               ) }),
-              /* @__PURE__ */ jsx16(FormMessage, {})
+              /* @__PURE__ */ jsx18(FormMessage, {})
             ]
           }
         );
@@ -1463,17 +1791,17 @@ var GenericCheckboxFormField = ({
 };
 
 // src/components/ui/navigation-bar/navigation-bar.tsx
-import { useEffect as useEffect4, useState as useState7 } from "react";
+import { useEffect as useEffect5, useState as useState8 } from "react";
 import { FaChevronDown, FaBars } from "react-icons/fa";
 
 // src/components/ui/navigation-bar/nav-area-updated.tsx
-import { useRef as useRef3, useState as useState5 } from "react";
+import { useRef as useRef4, useState as useState6 } from "react";
 import { FaAngleDown, FaAngleLeft } from "react-icons/fa";
 
 // src/components/ui/navigation-bar/hooks.ts
-import { useEffect as useEffect3 } from "react";
+import { useEffect as useEffect4 } from "react";
 var useOutsideComponentClicker = ({ ref, onClickedOutside }) => {
-  useEffect3(() => {
+  useEffect4(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
         onClickedOutside();
@@ -1490,11 +1818,11 @@ var useOutsideComponentClicker = ({ ref, onClickedOutside }) => {
 };
 
 // src/components/ui/navigation-bar/nav-area-updated.tsx
-import { jsx as jsx17, jsxs as jsxs13 } from "react/jsx-runtime";
+import { jsx as jsx19, jsxs as jsxs15 } from "react/jsx-runtime";
 var NavAreaUpdated = (props) => {
   const { routes, permissions } = props;
-  const [selected, setSelected] = useState5(-1);
-  const ref = useRef3(null);
+  const [selected, setSelected] = useState6(-1);
+  const ref = useRef4(null);
   useOutsideComponentClicker({
     ref,
     onClickedOutside: () => {
@@ -1504,13 +1832,13 @@ var NavAreaUpdated = (props) => {
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ jsx17("div", { ref, className: "nav-area", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+  return /* @__PURE__ */ jsx19("div", { ref, className: "nav-area", id: "navArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
     if (true) {
       if (subnav) {
         if (!showSubRoute(subnav)) return null;
       }
-      return /* @__PURE__ */ jsxs13("div", { children: [
-        /* @__PURE__ */ jsx17(
+      return /* @__PURE__ */ jsxs15("div", { children: [
+        /* @__PURE__ */ jsx19(
           NavLink,
           {
             selected: selected === i,
@@ -1522,7 +1850,7 @@ var NavAreaUpdated = (props) => {
           },
           i
         ),
-        i === selected ? /* @__PURE__ */ jsx17(
+        i === selected ? /* @__PURE__ */ jsx19(
           SubNav,
           {
             routes: routes[selected]?.subnav,
@@ -1541,7 +1869,7 @@ var NavLink = ({
   onSelect,
   unselect
 }) => {
-  return /* @__PURE__ */ jsxs13(
+  return /* @__PURE__ */ jsxs15(
     "a",
     {
       className: selected ? "nav-item-container-active" : "nav-item-container",
@@ -1555,14 +1883,14 @@ var NavLink = ({
         onSelect();
       },
       children: [
-        image && /* @__PURE__ */ jsx17(
+        image && /* @__PURE__ */ jsx19(
           "img",
           {
             src: image,
             alt: "navIcon"
           }
         ),
-        /* @__PURE__ */ jsx17("span", { children: label })
+        /* @__PURE__ */ jsx19("span", { children: label })
       ]
     }
   );
@@ -1571,7 +1899,7 @@ var SubNav = ({
   routes,
   permissions = []
 }) => {
-  const [selected, setSelected] = useState5(-1);
+  const [selected, setSelected] = useState6(-1);
   const onSelect = (i) => {
     setSelected((prev) => prev === i ? -1 : i);
   };
@@ -1579,16 +1907,16 @@ var SubNav = ({
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ jsx17("div", { className: "subnav", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
+  return /* @__PURE__ */ jsx19("div", { className: "subnav", children: routes?.map(({ label, to, subnav, permissionId }, i) => {
     if (subnav) {
       if (true) {
-        return /* @__PURE__ */ jsxs13("div", { className: "level1-sub-nav", children: [
-          /* @__PURE__ */ jsx17("div", { className: "level1-header", children: /* @__PURE__ */ jsx17("span", { children: label }) }),
-          /* @__PURE__ */ jsx17("div", { className: "level2-sub-nav", children: /* @__PURE__ */ jsxs13("div", { className: "level2-header", children: [
+        return /* @__PURE__ */ jsxs15("div", { className: "level1-sub-nav", children: [
+          /* @__PURE__ */ jsx19("div", { className: "level1-header", children: /* @__PURE__ */ jsx19("span", { children: label }) }),
+          /* @__PURE__ */ jsx19("div", { className: "level2-sub-nav", children: /* @__PURE__ */ jsxs15("div", { className: "level2-header", children: [
             subnav.map(({ label: label2, to: to2, subnav: subnav2, permissionId: permissionId2 }, y) => {
               if (!subnav2) {
                 if (true) {
-                  return /* @__PURE__ */ jsx17(
+                  return /* @__PURE__ */ jsx19(
                     "a",
                     {
                       href: to2,
@@ -1596,37 +1924,37 @@ var SubNav = ({
                         e.preventDefault();
                         alert(`Navigating to: ${to2}`);
                       },
-                      children: /* @__PURE__ */ jsx17("span", { children: label2 })
+                      children: /* @__PURE__ */ jsx19("span", { children: label2 })
                     },
                     y
                   );
                 }
               } else if (subnav2) {
                 if (!showSubRoute(subnav2)) return null;
-                return /* @__PURE__ */ jsxs13(
+                return /* @__PURE__ */ jsxs15(
                   "div",
                   {
                     onClick: () => onSelect(y),
                     className: "level3-container",
                     children: [
-                      /* @__PURE__ */ jsxs13(
+                      /* @__PURE__ */ jsxs15(
                         "div",
                         {
                           className: selected === y ? "level3-header-shown" : "level3-header",
                           children: [
-                            /* @__PURE__ */ jsx17("span", { children: label2 }),
-                            selected === y ? /* @__PURE__ */ jsx17(FaAngleDown, {}) : /* @__PURE__ */ jsx17(FaAngleLeft, {})
+                            /* @__PURE__ */ jsx19("span", { children: label2 }),
+                            selected === y ? /* @__PURE__ */ jsx19(FaAngleDown, {}) : /* @__PURE__ */ jsx19(FaAngleLeft, {})
                           ]
                         }
                       ),
-                      /* @__PURE__ */ jsx17(
+                      /* @__PURE__ */ jsx19(
                         "div",
                         {
                           className: selected === y ? "level3-content-shown" : "level3-content",
-                          children: /* @__PURE__ */ jsx17("div", { children: subnav2.map(
+                          children: /* @__PURE__ */ jsx19("div", { children: subnav2.map(
                             ({ label: label3, to: to3, permissionId: permissionId3 }, z) => {
                               if (true) {
-                                return /* @__PURE__ */ jsx17(
+                                return /* @__PURE__ */ jsx19(
                                   "a",
                                   {
                                     href: to3,
@@ -1634,7 +1962,7 @@ var SubNav = ({
                                       e.preventDefault();
                                       alert(`Navigating to: ${to3}`);
                                     },
-                                    children: /* @__PURE__ */ jsxs13("span", { children: [
+                                    children: /* @__PURE__ */ jsxs15("span", { children: [
                                       label3,
                                       " "
                                     ] })
@@ -1652,24 +1980,24 @@ var SubNav = ({
                 );
               }
             }),
-            /* @__PURE__ */ jsx17("div", { className: "arrow-container", children: /* @__PURE__ */ jsx17("div", { className: "arrow-right" }) })
+            /* @__PURE__ */ jsx19("div", { className: "arrow-container", children: /* @__PURE__ */ jsx19("div", { className: "arrow-right" }) })
           ] }) })
         ] }, i);
       }
     } else {
-      return /* @__PURE__ */ jsx17("a", { href: to, className: "level1-sub-nav", children: /* @__PURE__ */ jsx17("span", { children: label }) }, i);
+      return /* @__PURE__ */ jsx19("a", { href: to, className: "level1-sub-nav", children: /* @__PURE__ */ jsx19("span", { children: label }) }, i);
     }
   }) });
 };
 
 // src/components/ui/navigation-bar/side-nav.tsx
-import { useRef as useRef4, useState as useState6 } from "react";
+import { useRef as useRef5, useState as useState7 } from "react";
 import { FaAngleRight } from "react-icons/fa";
-import { jsx as jsx18, jsxs as jsxs14 } from "react/jsx-runtime";
+import { jsx as jsx20, jsxs as jsxs16 } from "react/jsx-runtime";
 var SideNav = (props) => {
   const { routes, permissions = [] } = props;
-  const [selected, setSelected] = useState6(-1);
-  const ref = useRef4(null);
+  const [selected, setSelected] = useState7(-1);
+  const ref = useRef5(null);
   useOutsideComponentClicker({
     ref,
     onClickedOutside: () => {
@@ -1679,11 +2007,11 @@ var SideNav = (props) => {
   const showSubRoute = (routes2) => {
     return true;
   };
-  return /* @__PURE__ */ jsx18("div", { className: "side-nav-filter", id: "SideNavFilter", children: /* @__PURE__ */ jsx18("div", { ref, className: "side-nav", id: "SideArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
+  return /* @__PURE__ */ jsx20("div", { className: "side-nav-filter", id: "SideNavFilter", children: /* @__PURE__ */ jsx20("div", { ref, className: "side-nav", id: "SideArea", children: routes.map(({ label, image, to, permissionId, subnav }, i) => {
     if (true) {
       if (subnav && !showSubRoute(subnav)) return null;
-      return /* @__PURE__ */ jsxs14("div", { style: { display: "flex", flexDirection: "column" }, children: [
-        /* @__PURE__ */ jsx18(
+      return /* @__PURE__ */ jsxs16("div", { style: { display: "flex", flexDirection: "column" }, children: [
+        /* @__PURE__ */ jsx20(
           SideNavLink,
           {
             selected: selected === i,
@@ -1695,7 +2023,7 @@ var SideNav = (props) => {
           },
           i
         ),
-        selected === i && subnav && /* @__PURE__ */ jsx18(SideSubNav, { routes: subnav, permissions })
+        selected === i && subnav && /* @__PURE__ */ jsx20(SideSubNav, { routes: subnav, permissions })
       ] }, i);
     }
   }) }) });
@@ -1708,7 +2036,7 @@ var SideNavLink = ({
   onSelect,
   unselect
 }) => {
-  return /* @__PURE__ */ jsxs14(
+  return /* @__PURE__ */ jsxs16(
     "a",
     {
       className: selected ? "side-nav-item-container-active" : "side-nav-item-container",
@@ -1722,14 +2050,14 @@ var SideNavLink = ({
         onSelect();
       },
       children: [
-        image && /* @__PURE__ */ jsx18(
+        image && /* @__PURE__ */ jsx20(
           "img",
           {
             src: image,
             alt: "navIcon"
           }
         ),
-        /* @__PURE__ */ jsx18("span", { children: label })
+        /* @__PURE__ */ jsx20("span", { children: label })
       ]
     }
   );
@@ -1738,25 +2066,25 @@ var SideSubNav = ({
   routes,
   permissions = []
 }) => {
-  const [selected, setSelected] = useState6(-1);
+  const [selected, setSelected] = useState7(-1);
   if (!routes || routes.length === 0) return null;
-  return /* @__PURE__ */ jsx18("div", { className: "side-sub-nav", children: routes.map(({ label, to, subnav, permissionId }, i) => {
+  return /* @__PURE__ */ jsx20("div", { className: "side-sub-nav", children: routes.map(({ label, to, subnav, permissionId }, i) => {
     if (subnav) {
-      return /* @__PURE__ */ jsxs14("div", { className: selected === i ? "side-sub-sub-container-selected" : "side-sub-sub-container", children: [
-        /* @__PURE__ */ jsxs14(
+      return /* @__PURE__ */ jsxs16("div", { className: selected === i ? "side-sub-sub-container-selected" : "side-sub-sub-container", children: [
+        /* @__PURE__ */ jsxs16(
           "div",
           {
             className: "side-sub-sub-nav-heading-link",
             onClick: () => setSelected((prev) => prev === i ? -1 : i),
             children: [
-              /* @__PURE__ */ jsx18("span", { className: "side-sub-nav-heading", children: label }),
-              /* @__PURE__ */ jsx18(FaAngleRight, {})
+              /* @__PURE__ */ jsx20("span", { className: "side-sub-nav-heading", children: label }),
+              /* @__PURE__ */ jsx20(FaAngleRight, {})
             ]
           }
         ),
-        selected === i && /* @__PURE__ */ jsx18("div", { className: "side-sub-sub-links-container", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
+        selected === i && /* @__PURE__ */ jsx20("div", { className: "side-sub-sub-links-container", children: subnav.map(({ label: label2, to: to2, permissionId: permissionId2 }, y) => {
           if (true) {
-            return /* @__PURE__ */ jsx18(
+            return /* @__PURE__ */ jsx20(
               "a",
               {
                 href: to2,
@@ -1772,12 +2100,12 @@ var SideSubNav = ({
         }) })
       ] }, i);
     } else {
-      return /* @__PURE__ */ jsx18(
+      return /* @__PURE__ */ jsx20(
         "a",
         {
           href: to,
           className: "side-sub-nav-heading-link",
-          children: /* @__PURE__ */ jsx18("span", { className: "side-sub-nav-heading", children: label })
+          children: /* @__PURE__ */ jsx20("span", { className: "side-sub-nav-heading", children: label })
         },
         i
       );
@@ -1786,7 +2114,7 @@ var SideSubNav = ({
 };
 
 // src/components/ui/navigation-bar/sub-acc.tsx
-import { jsx as jsx19, jsxs as jsxs15 } from "react/jsx-runtime";
+import { jsx as jsx21, jsxs as jsxs17 } from "react/jsx-runtime";
 var SubAcc = (props) => {
   const {
     isAdmin = false,
@@ -1794,10 +2122,10 @@ var SubAcc = (props) => {
     onChangePassword = () => alert("Change password clicked - replace with your change password function"),
     onResetPassword = () => alert("Reset password clicked - replace with your reset password function")
   } = props;
-  return /* @__PURE__ */ jsxs15("ul", { className: "sub-acc", children: [
-    /* @__PURE__ */ jsx19("li", { className: "account-label", children: /* @__PURE__ */ jsx19("button", { onClick: onChangePassword, children: "Change Password" }) }),
-    isAdmin && /* @__PURE__ */ jsx19("li", { className: "account-label", children: /* @__PURE__ */ jsx19("button", { onClick: onResetPassword, children: "Reset Password" }) }),
-    /* @__PURE__ */ jsx19("li", { className: "account-label", children: /* @__PURE__ */ jsx19("button", { onClick: onSignOut, children: "Sign Out" }) })
+  return /* @__PURE__ */ jsxs17("ul", { className: "sub-acc", children: [
+    /* @__PURE__ */ jsx21("li", { className: "account-label", children: /* @__PURE__ */ jsx21("button", { onClick: onChangePassword, children: "Change Password" }) }),
+    isAdmin && /* @__PURE__ */ jsx21("li", { className: "account-label", children: /* @__PURE__ */ jsx21("button", { onClick: onResetPassword, children: "Reset Password" }) }),
+    /* @__PURE__ */ jsx21("li", { className: "account-label", children: /* @__PURE__ */ jsx21("button", { onClick: onSignOut, children: "Sign Out" }) })
   ] });
 };
 
@@ -1847,7 +2175,7 @@ var navigationIcons = {
 };
 
 // src/components/ui/navigation-bar/navigation-bar.tsx
-import { Fragment, jsx as jsx20, jsxs as jsxs16 } from "react/jsx-runtime";
+import { Fragment, jsx as jsx22, jsxs as jsxs18 } from "react/jsx-runtime";
 var NavigationBar = (props) => {
   const defaultLogo = payplusAssets.logo;
   const {
@@ -1858,9 +2186,9 @@ var NavigationBar = (props) => {
     user,
     className
   } = props;
-  const [selectedHamburger, setSelectedHamburger] = useState7(false);
-  const [, setDarkMode] = useState7(false);
-  useEffect4(() => {
+  const [selectedHamburger, setSelectedHamburger] = useState8(false);
+  const [, setDarkMode] = useState8(false);
+  useEffect5(() => {
     if (typeof window === "undefined") return;
     const listener = () => {
       if (window.innerWidth < 1024) {
@@ -1872,7 +2200,7 @@ var NavigationBar = (props) => {
       window.removeEventListener("resize", listener);
     };
   }, []);
-  useEffect4(() => {
+  useEffect5(() => {
     if (typeof document === "undefined") return;
     const bodyClassListener = () => {
       setDarkMode(document.body.classList.contains("dark"));
@@ -1882,10 +2210,10 @@ var NavigationBar = (props) => {
       document.body.removeEventListener("transitionend", bodyClassListener);
     };
   }, []);
-  return /* @__PURE__ */ jsxs16("nav", { className: `${className || ""}`, style: { zIndex: 50, width: "100vw", backgroundColor: "var(--background, #ffffff)" }, children: [
-    /* @__PURE__ */ jsxs16("div", { className: "nav-bar", children: [
-      /* @__PURE__ */ jsx20("div", { className: "logo-container", children: logo.darkMode ? /* @__PURE__ */ jsxs16(Fragment, { children: [
-        /* @__PURE__ */ jsx20(
+  return /* @__PURE__ */ jsxs18("nav", { className: `${className || ""}`, style: { zIndex: 50, width: "100vw", backgroundColor: "var(--background, #ffffff)" }, children: [
+    /* @__PURE__ */ jsxs18("div", { className: "nav-bar", children: [
+      /* @__PURE__ */ jsx22("div", { className: "logo-container", children: logo.darkMode ? /* @__PURE__ */ jsxs18(Fragment, { children: [
+        /* @__PURE__ */ jsx22(
           "img",
           {
             className: "image-on-nav",
@@ -1895,7 +2223,7 @@ var NavigationBar = (props) => {
             loading: "eager"
           }
         ),
-        /* @__PURE__ */ jsx20(
+        /* @__PURE__ */ jsx22(
           "img",
           {
             className: "image-on-nav",
@@ -1904,7 +2232,7 @@ var NavigationBar = (props) => {
             loading: "eager"
           }
         )
-      ] }) : /* @__PURE__ */ jsx20(
+      ] }) : /* @__PURE__ */ jsx22(
         "img",
         {
           className: "image-on-nav",
@@ -1913,18 +2241,18 @@ var NavigationBar = (props) => {
           loading: "eager"
         }
       ) }),
-      /* @__PURE__ */ jsx20(NavAreaUpdated, { routes, permissions }),
-      /* @__PURE__ */ jsx20("div", { className: "hamburger-container", children: /* @__PURE__ */ jsx20(
+      /* @__PURE__ */ jsx22(NavAreaUpdated, { routes, permissions }),
+      /* @__PURE__ */ jsx22("div", { className: "hamburger-container", children: /* @__PURE__ */ jsx22(
         "div",
         {
           className: selectedHamburger ? "hamburger-selected" : "hamburger",
           onClick: () => setSelectedHamburger((prev) => {
             return !prev;
           }),
-          children: /* @__PURE__ */ jsx20(FaBars, {})
+          children: /* @__PURE__ */ jsx22(FaBars, {})
         }
       ) }),
-      !user?.data.isAdmin && /* @__PURE__ */ jsx20("div", { style: {
+      !user?.data.isAdmin && /* @__PURE__ */ jsx22("div", { style: {
         width: "2rem",
         height: "2rem",
         borderRadius: "4px",
@@ -1933,9 +2261,9 @@ var NavigationBar = (props) => {
         alignItems: "center",
         justifyContent: "center"
       }, children: "\u{1F4C5}" }),
-      /* @__PURE__ */ jsxs16("div", { className: "account-wrapper", children: [
-        /* @__PURE__ */ jsxs16("div", { className: "account-area", children: [
-          /* @__PURE__ */ jsx20("div", { className: "account-dp-container", children: /* @__PURE__ */ jsx20("div", { style: {
+      /* @__PURE__ */ jsxs18("div", { className: "account-wrapper", children: [
+        /* @__PURE__ */ jsxs18("div", { className: "account-area", children: [
+          /* @__PURE__ */ jsx22("div", { className: "account-dp-container", children: /* @__PURE__ */ jsx22("div", { style: {
             width: "100%",
             height: "100%",
             display: "flex",
@@ -1944,11 +2272,11 @@ var NavigationBar = (props) => {
             color: "white",
             fontWeight: "bold"
           }, children: user?.data.name?.charAt(0) || "U" }) }),
-          /* @__PURE__ */ jsx20(FaChevronDown, { size: "0.75rem" })
+          /* @__PURE__ */ jsx22(FaChevronDown, { size: "0.75rem" })
         ] }),
-        /* @__PURE__ */ jsx20(SubAcc, { isAdmin })
+        /* @__PURE__ */ jsx22(SubAcc, { isAdmin })
       ] }),
-      /* @__PURE__ */ jsx20("div", { style: {
+      /* @__PURE__ */ jsx22("div", { style: {
         width: "2rem",
         height: "2rem",
         borderRadius: "4px",
@@ -1959,18 +2287,18 @@ var NavigationBar = (props) => {
         cursor: "pointer"
       }, children: "\u{1F319}" })
     ] }),
-    selectedHamburger && /* @__PURE__ */ jsx20(SideNav, { routes, permissions })
+    selectedHamburger && /* @__PURE__ */ jsx22(SideNav, { routes, permissions })
   ] });
 };
 
 // src/components/theme-provider.tsx
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { jsx as jsx21 } from "react/jsx-runtime";
+import { jsx as jsx23 } from "react/jsx-runtime";
 function ThemeProvider({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ jsx21(NextThemesProvider, { ...props, children });
+  return /* @__PURE__ */ jsx23(NextThemesProvider, { ...props, children });
 }
 
 // src/components/ui/mode-toggle.tsx
@@ -1980,16 +2308,16 @@ import { useTheme } from "next-themes";
 // src/components/ui/dropdown-menu.tsx
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
-import { jsx as jsx22, jsxs as jsxs17 } from "react/jsx-runtime";
+import { jsx as jsx24, jsxs as jsxs19 } from "react/jsx-runtime";
 function DropdownMenu({
   ...props
 }) {
-  return /* @__PURE__ */ jsx22(DropdownMenuPrimitive.Root, { "data-slot": "dropdown-menu", ...props });
+  return /* @__PURE__ */ jsx24(DropdownMenuPrimitive.Root, { "data-slot": "dropdown-menu", ...props });
 }
 function DropdownMenuTrigger({
   ...props
 }) {
-  return /* @__PURE__ */ jsx22(
+  return /* @__PURE__ */ jsx24(
     DropdownMenuPrimitive.Trigger,
     {
       "data-slot": "dropdown-menu-trigger",
@@ -2002,7 +2330,7 @@ function DropdownMenuContent({
   sideOffset = 4,
   ...props
 }) {
-  return /* @__PURE__ */ jsx22(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx22(
+  return /* @__PURE__ */ jsx24(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx24(
     DropdownMenuPrimitive.Content,
     {
       "data-slot": "dropdown-menu-content",
@@ -2021,7 +2349,7 @@ function DropdownMenuItem({
   variant = "default",
   ...props
 }) {
-  return /* @__PURE__ */ jsx22(
+  return /* @__PURE__ */ jsx24(
     DropdownMenuPrimitive.Item,
     {
       "data-slot": "dropdown-menu-item",
@@ -2037,25 +2365,25 @@ function DropdownMenuItem({
 }
 
 // src/components/ui/mode-toggle.tsx
-import { jsx as jsx23, jsxs as jsxs18 } from "react/jsx-runtime";
+import { jsx as jsx25, jsxs as jsxs20 } from "react/jsx-runtime";
 function ModeToggle() {
   const { setTheme } = useTheme();
-  return /* @__PURE__ */ jsxs18(DropdownMenu, { children: [
-    /* @__PURE__ */ jsx23(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs18(Button, { variant: "outline", size: "icon", children: [
-      /* @__PURE__ */ jsx23(Sun, { className: "h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" }),
-      /* @__PURE__ */ jsx23(Moon, { className: "absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" }),
-      /* @__PURE__ */ jsx23("span", { className: "sr-only", children: "Toggle theme" })
+  return /* @__PURE__ */ jsxs20(DropdownMenu, { children: [
+    /* @__PURE__ */ jsx25(DropdownMenuTrigger, { asChild: true, children: /* @__PURE__ */ jsxs20(Button, { variant: "outline", size: "icon", children: [
+      /* @__PURE__ */ jsx25(Sun, { className: "h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" }),
+      /* @__PURE__ */ jsx25(Moon, { className: "absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" }),
+      /* @__PURE__ */ jsx25("span", { className: "sr-only", children: "Toggle theme" })
     ] }) }),
-    /* @__PURE__ */ jsxs18(DropdownMenuContent, { align: "end", children: [
-      /* @__PURE__ */ jsx23(DropdownMenuItem, { onClick: () => setTheme("light"), children: "Light" }),
-      /* @__PURE__ */ jsx23(DropdownMenuItem, { onClick: () => setTheme("dark"), children: "Dark" }),
-      /* @__PURE__ */ jsx23(DropdownMenuItem, { onClick: () => setTheme("system"), children: "System" })
+    /* @__PURE__ */ jsxs20(DropdownMenuContent, { align: "end", children: [
+      /* @__PURE__ */ jsx25(DropdownMenuItem, { onClick: () => setTheme("light"), children: "Light" }),
+      /* @__PURE__ */ jsx25(DropdownMenuItem, { onClick: () => setTheme("dark"), children: "Dark" }),
+      /* @__PURE__ */ jsx25(DropdownMenuItem, { onClick: () => setTheme("system"), children: "System" })
     ] })
   ] });
 }
 
 // src/components/common/Modal/modal.tsx
-import { Fragment as Fragment2, jsx as jsx24, jsxs as jsxs19 } from "react/jsx-runtime";
+import { Fragment as Fragment2, jsx as jsx26, jsxs as jsxs21 } from "react/jsx-runtime";
 var Modal = ({
   header = "Header",
   children,
@@ -2064,18 +2392,18 @@ var Modal = ({
   ...rest
 }) => {
   const modalSize = { "modal-size": size };
-  return /* @__PURE__ */ jsx24(Fragment2, { children: show ? /* @__PURE__ */ jsx24("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ jsxs19(
+  return /* @__PURE__ */ jsx26(Fragment2, { children: show ? /* @__PURE__ */ jsx26("div", { className: cn("modal-background", "h-full"), role: "modal-bg", children: /* @__PURE__ */ jsxs21(
     "div",
     {
       className: cn("modal-container", "bg-background"),
       ...rest,
       ...modalSize,
       children: [
-        /* @__PURE__ */ jsx24(
+        /* @__PURE__ */ jsx26(
           "div",
           {
             className: cn("modal-header-container", "border border-blue-800"),
-            children: /* @__PURE__ */ jsx24(
+            children: /* @__PURE__ */ jsx26(
               "span",
               {
                 className: cn(
@@ -2087,7 +2415,7 @@ var Modal = ({
             )
           }
         ),
-        /* @__PURE__ */ jsx24("div", { className: cn("content-container"), children })
+        /* @__PURE__ */ jsx26("div", { className: cn("content-container"), children })
       ]
     }
   ) }) : null });
@@ -2375,8 +2703,10 @@ export {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Search,
   SideNav,
   SubAcc,
+  Table,
   Textarea,
   ThemeProvider,
   Toggle,
@@ -2394,6 +2724,7 @@ export {
   sampleEmployeeUser,
   sampleLogo,
   sampleUser,
-  toggleColorVariants
+  toggleColorVariants,
+  useOutsideComponentClicker
 };
 //# sourceMappingURL=index.mjs.map

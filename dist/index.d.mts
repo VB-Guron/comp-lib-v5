@@ -1,6 +1,6 @@
 import * as class_variance_authority_dist_types from 'class-variance-authority/dist/types';
 import * as React$1 from 'react';
-import { HTMLAttributes } from 'react';
+import React__default, { HTMLAttributes } from 'react';
 import { VariantProps } from 'class-variance-authority';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { Command as Command$1 } from 'cmdk';
@@ -159,6 +159,40 @@ declare const toggleColorVariants: {
 };
 declare const Toggle: (props: ToggleProps) => react_jsx_runtime.JSX.Element;
 
+interface SearchOption {
+    value: string;
+    label: string;
+}
+interface SearchProps {
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+    label?: string;
+    inputProps?: React$1.InputHTMLAttributes<HTMLInputElement>;
+    className?: string;
+    options?: SearchOption[];
+    searchUrl?: string;
+}
+declare const Search: React$1.FC<SearchProps>;
+
+interface TableProps<T> {
+    headers: string[];
+    data: T[];
+    bindings?: (keyof T | ((item: T) => React__default.ReactNode))[];
+    totalItems?: number;
+    itemsPerPage?: number;
+    currentPage?: number;
+    searchQuery?: string;
+    onPageChange?: (page: number, search: string) => void;
+    onRowClick?: (item: T) => void;
+    actionComponents?: (item: T) => React__default.ReactNode;
+    emptyMessage?: string;
+    loading?: boolean;
+    resetToFirstPage?: boolean;
+    onResetComplete?: () => void;
+}
+declare function Table<T extends Record<string, any>>({ headers, data, bindings, totalItems, itemsPerPage, currentPage, searchQuery, onPageChange, onRowClick, actionComponents, emptyMessage, loading, resetToFirstPage, onResetComplete, }: TableProps<T>): react_jsx_runtime.JSX.Element;
+
 declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues = TFieldValues>(props: react_hook_form.FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React$1.JSX.Element;
 declare const FormField: <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({ ...props }: ControllerProps<TFieldValues, TName>) => react_jsx_runtime.JSX.Element;
 declare function FormItem({ className, ...props }: React$1.ComponentProps<"div">): react_jsx_runtime.JSX.Element;
@@ -259,6 +293,12 @@ declare const SideNav: (props: SideNavProps) => react_jsx_runtime.JSX.Element;
 
 declare const SubAcc: (props: SubAccProps) => react_jsx_runtime.JSX.Element;
 
+interface UseOutsideClickProps {
+    ref: React.RefObject<HTMLElement>;
+    onClickedOutside: () => void;
+}
+declare const useOutsideComponentClicker: ({ ref, onClickedOutside }: UseOutsideClickProps) => void;
+
 declare function ThemeProvider({ children, ...props }: React$1.ComponentProps<typeof ThemeProvider$1>): react_jsx_runtime.JSX.Element;
 
 declare function ModeToggle(): react_jsx_runtime.JSX.Element;
@@ -283,4 +323,4 @@ declare const sampleEmployeeRoutes: NavRoute[];
 declare const sampleAdminPermissions: number[];
 declare const sampleEmployeePermissions: number[];
 
-export { Button, Combobox, Command, CommandGroup, CommandItem, CommandList, type CompanyLogo, Dialog, DialogContent, DialogTrigger, DropdownForm, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxFormField, GenericCheckboxGroup, Input, Label, Modal, ModeToggle, NavAreaUpdated, type NavRoute, NavigationBar, type NavigationBarProps, Popover, PopoverContent, PopoverTrigger, SideNav, SubAcc, Textarea, ThemeProvider, Toggle, ToggleForm, UpgradedFieldsetFormInput, UpgradedFieldsetFormTextarea, type User, buttonVariants, cn, comboboxColorVariants, sampleAdminPermissions, sampleAdminRoutes, sampleAdminUser, sampleEmployeePermissions, sampleEmployeeRoutes, sampleEmployeeUser, sampleLogo, sampleUser, toggleColorVariants };
+export { Button, Combobox, Command, CommandGroup, CommandItem, CommandList, type CompanyLogo, Dialog, DialogContent, DialogTrigger, DropdownForm, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxFormField, GenericCheckboxGroup, Input, Label, Modal, ModeToggle, type NavAreaProps, NavAreaUpdated, type NavRoute, NavigationBar, type NavigationBarProps, Popover, PopoverContent, PopoverTrigger, Search, SideNav, type SideNavProps, SubAcc, type SubAccProps, Table, Textarea, ThemeProvider, Toggle, ToggleForm, UpgradedFieldsetFormInput, UpgradedFieldsetFormTextarea, type User, buttonVariants, cn, comboboxColorVariants, sampleAdminPermissions, sampleAdminRoutes, sampleAdminUser, sampleEmployeePermissions, sampleEmployeeRoutes, sampleEmployeeUser, sampleLogo, sampleUser, toggleColorVariants, useOutsideComponentClicker };
