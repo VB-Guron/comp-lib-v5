@@ -60,17 +60,18 @@ export {
   sampleEmployeePermissions
 } from "./components/ui/navigation-bar/sample-data";
 
-// Assets
-export {
-  payplusAssets,
-  payplusLogo,
-  payplusLogoDark,
-  navigationIcons,
-  homeIcon,
-  fileIcon,
-  payrollIcon,
-  timekeepingIcon,
-  assetsIcon,
-  systemIcon,
-  birthdayIcon
-} from "./assets";
+// Assets - temporarily disabled to fix DTS generation
+// TODO: Find better solution for asset exports
+// export {
+//   payplusAssets,
+//   payplusLogo,
+//   payplusLogoDark,
+//   navigationIcons,
+//   homeIcon,
+//   fileIcon,
+//   payrollIcon,
+//   timekeepingIcon,
+//   assetsIcon,
+//   systemIcon,
+//   birthdayIcon
+// } from "./assets";

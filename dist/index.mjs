@@ -2383,18 +2383,9 @@ export {
   ToggleForm,
   UpgradedFieldsetFormInput,
   UpgradedFieldsetFormTextarea,
-  assets_default as assetsIcon,
-  cupcake_default as birthdayIcon,
   buttonVariants,
   cn,
   comboboxColorVariants,
-  file_default as fileIcon,
-  home_default as homeIcon,
-  navigationIcons,
-  payplusAssets,
-  payplus_logo_default as payplusLogo,
-  payplus_logo_dark_default as payplusLogoDark,
-  payroll_default as payrollIcon,
   sampleAdminPermissions,
   sampleAdminRoutes,
   sampleAdminUser,
@@ -2403,8 +2394,6 @@ export {
   sampleEmployeeUser,
   sampleLogo,
   sampleUser,
-  system_default as systemIcon,
-  timekeeping_default as timekeepingIcon,
   toggleColorVariants
 };
 //# sourceMappingURL=index.mjs.map
