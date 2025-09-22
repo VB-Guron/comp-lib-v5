@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import SideFilterStationary from "../../components/common/SideFilterStationary";
+import { useState } from "react";
+import { SideFilterStationary } from "../../components/common/SideFilterStationary";
 import { ThemeProvider } from "../../components/theme-provider";
 import { ModeToggle } from "../../components/ui/mode-toggle";
 import type { Meta, StoryObj } from "@storybook/react";
@@ -27,7 +27,7 @@ export default meta;
 type Story = StoryObj<typeof SideFilterStationary>;
 
 export const Default: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <ThemeProvider defaultTheme="light">
       <div className="w-screen h-screen bg-background flex">
         <SideFilterStationary {...args}>

@@ -15,7 +15,7 @@ export type NotificationToastProps = {
   customIconSrc?: string;
 };
 
-const NotificationToast = ({
+export const NotificationToast = ({
   show,
   header,
   details,
@@ -74,7 +74,7 @@ export const NotificationToastContext = React.createContext<
   (props: NotificationToastProps) => void
 >(() => {});
 
-const useNotificationToast = (): [
+export const useNotificationToast = (): [
   () => JSX.Element,
   (props: NotificationToastProps) => void,
 ] => {

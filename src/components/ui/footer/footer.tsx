@@ -70,9 +70,7 @@ const Footer = (props: FooterProps = {}) => {
 
   return (
     <Suspense fallback={<></>}>
-      <footer
-        className={`footer bg-[#EEEEEE50] dark:bg-[#031922] ${className}`}
-      >
+      <footer className={`bg-[#EEEEEE50] dark:bg-[#031922] ${className}`}>
         {/* About the Provider Section */}
         <div className="container" style={{ flex: "2" }}>
           <span className="dark:text-foreground">ABOUT THE PROVIDER</span>

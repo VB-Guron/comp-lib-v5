@@ -1,6 +1,6 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as React$1 from 'react';
-import React__default, { HTMLAttributes } from 'react';
+import React__default, { HTMLAttributes, InputHTMLAttributes } from 'react';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import * as class_variance_authority_dist_types from 'class-variance-authority/dist/types';
 import { VariantProps } from 'class-variance-authority';
@@ -27,12 +27,22 @@ interface ContentMarginProps extends React__default.HTMLAttributes<HTMLDivElemen
  */
 declare function ContentMargin({ children, as, className, ...props }: ContentMarginProps): react_jsx_runtime.JSX.Element;
 
+declare const FieldFlexRow: (props: React__default.DetailedHTMLProps<React__default.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => react_jsx_runtime.JSX.Element;
+
+declare const FieldFlexRowWrap: (props: React__default.DetailedHTMLProps<React__default.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => react_jsx_runtime.JSX.Element;
+
+declare const FlexiRowMatrix: (props: React__default.DetailedHTMLProps<React__default.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => react_jsx_runtime.JSX.Element;
+
+declare const FlexiRowMatrixLeftAlign: (props: React__default.DetailedHTMLProps<React__default.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => react_jsx_runtime.JSX.Element;
+
+declare const FlexRow: (props: React__default.DetailedHTMLProps<React__default.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => react_jsx_runtime.JSX.Element;
+
 declare function Avatar({ className, ...props }: React$1.ComponentProps<typeof AvatarPrimitive.Root>): react_jsx_runtime.JSX.Element;
 declare function AvatarImage({ className, ...props }: React$1.ComponentProps<typeof AvatarPrimitive.Image>): react_jsx_runtime.JSX.Element;
 declare function AvatarFallback({ className, ...props }: React$1.ComponentProps<typeof AvatarPrimitive.Fallback>): react_jsx_runtime.JSX.Element;
 
 declare const buttonVariants: (props?: ({
-    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | "yellow" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | "noPadding" | null | undefined;
 } & class_variance_authority_dist_types.ClassProp) | undefined) => string;
 interface ButtonProps extends React$1.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
@@ -108,7 +118,7 @@ declare function CommandGroup({ className, ...props }: React$1.ComponentProps<ty
 declare function CommandItem({ className, ...props }: React$1.ComponentProps<typeof Command$1.Item>): react_jsx_runtime.JSX.Element;
 
 declare const inputVariants: (props?: ({
-    variant?: "fieldset" | "default" | "ghost" | "underline" | "filled" | null | undefined;
+    variant?: "fieldset" | "default" | "ghost" | "password" | "underline" | "filled" | null | undefined;
     inputSize?: "default" | "sm" | "lg" | null | undefined;
 } & class_variance_authority_dist_types.ClassProp) | undefined) => string;
 interface InputProps extends Omit<React$1.InputHTMLAttributes<HTMLInputElement>, "size">, VariantProps<typeof inputVariants> {
@@ -193,6 +203,42 @@ interface SearchProps {
 }
 declare const Search: React$1.FC<SearchProps>;
 
+declare function SkeletonShad({ className, ...props }: React.ComponentProps<"div">): react_jsx_runtime.JSX.Element;
+
+declare const uploadVariants: (props?: ({
+    variant?: "fieldset" | "default" | null | undefined;
+    size?: "default" | "sm" | "lg" | null | undefined;
+} & class_variance_authority_dist_types.ClassProp) | undefined) => string;
+declare const uploadButtonVariants: (props?: ({
+    size?: "default" | "sm" | "lg" | null | undefined;
+} & class_variance_authority_dist_types.ClassProp) | undefined) => string;
+interface AttachmentData {
+    name: string;
+    data: string;
+    fileType: string;
+}
+interface UploadProps extends Omit<React$1.InputHTMLAttributes<HTMLInputElement>, "size" | "onError">, VariantProps<typeof uploadVariants> {
+    onChoose?: (name: string, data: string, fileExtension: string) => void;
+    onFileRemove?: () => void;
+    onOpen?: (fileName: string, data: string, fileType: string) => void;
+    attachment?: AttachmentData | null;
+    allowAllFileTypes?: boolean;
+    buttonText?: string;
+    legend?: string;
+    maxSizeInMB?: number;
+    onError?: (error: string) => void;
+    showAttachmentLabel?: boolean;
+}
+interface UploadButtonProps extends Omit<React$1.InputHTMLAttributes<HTMLInputElement>, "size" | "onError">, VariantProps<typeof uploadButtonVariants> {
+    onAdd?: (name: string, data: string, fileExtension: string) => void;
+    allowAllFileTypes?: boolean;
+    buttonText?: string;
+    maxSizeInMB?: number;
+    onError?: (error: string) => void;
+}
+declare const UploadButton: React$1.ForwardRefExoticComponent<UploadButtonProps & React$1.RefAttributes<HTMLInputElement>>;
+declare const Upload: React$1.ForwardRefExoticComponent<UploadProps & React$1.RefAttributes<HTMLInputElement>>;
+
 interface TableProps<T> {
     headers: string[];
     data: T[];
@@ -261,6 +307,17 @@ interface GenericCheckboxFormFieldProps<T extends SelectableItem> {
 }
 declare const GenericCheckboxFormField: <T extends SelectableItem>({ data, name, valueName, title, className, }: GenericCheckboxFormFieldProps<T>) => react_jsx_runtime.JSX.Element;
 
+interface UploadFormProps extends Omit<UploadProps, "name" | "onChoose" | "onFileRemove" | "attachment" | "value"> {
+    name: string;
+    legend?: string;
+    buttonText?: string;
+    allowAllFileTypes?: boolean;
+    maxSizeInMB?: number;
+    onOpen?: (fileName: string, data: string, fileType: string) => void;
+    showAttachmentLabel?: boolean;
+}
+declare function UploadForm({ name, legend, buttonText, allowAllFileTypes, maxSizeInMB, onOpen, showAttachmentLabel, variant, ...props }: UploadFormProps): react_jsx_runtime.JSX.Element;
+
 interface NavRoute {
     label: string;
     image?: string;
@@ -321,6 +378,51 @@ declare function ThemeProvider({ children, ...props }: React$1.ComponentProps<ty
 
 declare function ModeToggle(): react_jsx_runtime.JSX.Element;
 
+type ModalSize$1 = "small" | "medium" | "medium2" | "large" | "xlarge";
+interface ModalProps$1 extends HTMLAttributes<HTMLDialogElement> {
+    header?: string;
+    show?: boolean;
+    children?: React.ReactNode;
+    size?: ModalSize$1;
+}
+declare const Modal: ({ header, children, show, size, ...rest }: ModalProps$1) => react_jsx_runtime.JSX.Element;
+
+declare const LoadingOverlay: React__default.ForwardRefExoticComponent<Omit<any, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
+
+declare const LoadingOverlayContext: React__default.Context<(s: boolean) => void>;
+declare const LoadingOverlayProvider: ({ children, }: {
+    children: React__default.ReactNode;
+}) => react_jsx_runtime.JSX.Element;
+
+interface MatrixInputProps extends InputHTMLAttributes<HTMLInputElement> {
+    title: string;
+}
+declare const MatrixInput: (props: MatrixInputProps) => react_jsx_runtime.JSX.Element;
+
+type NotificationStatus = "error" | "success" | "default";
+type NotificationToastProps = {
+    status: NotificationStatus;
+    header: string;
+    details: string;
+    show?: boolean;
+    icon?: React__default.ReactNode;
+    customIconSrc?: string;
+};
+declare const NotificationToast: ({ show, header, details, status, icon, customIconSrc, }: NotificationToastProps) => react_jsx_runtime.JSX.Element;
+declare const NotificationToastContext: React__default.Context<(props: NotificationToastProps) => void>;
+declare const NotificationToastProvider: ({ children, }: {
+    children: React__default.ReactNode;
+}) => react_jsx_runtime.JSX.Element;
+declare const defaultErrorNotificationPayload: NotificationToastProps;
+
+declare const ModalDivider: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => react_jsx_runtime.JSX.Element;
+declare const LeftSideUpPart: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => react_jsx_runtime.JSX.Element;
+interface RightSideDownPartProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+    header: string;
+}
+declare const RightSideDownPart: (props: RightSideDownPartProps) => react_jsx_runtime.JSX.Element;
+declare const Divider: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => react_jsx_runtime.JSX.Element;
+
 type ModalSize = "small" | "medium" | "medium2" | "large" | "xlarge";
 interface ModalProps extends HTMLAttributes<HTMLDialogElement> {
     header?: string;
@@ -328,7 +430,27 @@ interface ModalProps extends HTMLAttributes<HTMLDialogElement> {
     children?: React.ReactNode;
     size?: ModalSize;
 }
-declare const Modal: ({ header, children, show, size, ...rest }: ModalProps) => react_jsx_runtime.JSX.Element;
+declare const ModalWithOutline: ({ header, children, show, size, ...rest }: ModalProps) => react_jsx_runtime.JSX.Element;
+
+declare const skeletonSizes: {
+    readonly small: "25%";
+    readonly medium: "50%";
+    readonly wide: "100%";
+};
+
+interface SkeletonSpanProps extends React__default.DetailedHTMLProps<React__default.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement> {
+    size?: typeof skeletonSizes.small | typeof skeletonSizes.medium | typeof skeletonSizes.wide;
+}
+declare const SkeletonSpan: (props: SkeletonSpanProps) => react_jsx_runtime.JSX.Element;
+
+declare const SideFilterStationary: (props: any) => react_jsx_runtime.JSX.Element;
+
+interface StepsMakerProps extends React__default.DetailedHTMLProps<React__default.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+    data?: string[];
+    handleStepChange?: () => void;
+    stepValue?: number;
+}
+declare const StepsMaker: (props: StepsMakerProps) => react_jsx_runtime.JSX.Element;
 
 declare function cn(...inputs: ClassValue[]): string;
 
@@ -375,4 +497,4 @@ declare const navigationIcons: {
     birthday: string;
 };
 
-export { Avatar, AvatarFallback, AvatarImage, Button, Command, CommandGroup, CommandItem, CommandList, type CompanyLogo, ContentMargin, Dialog, DialogContent, DialogTrigger, Combobox as Dropdown, GenericCheckboxFormField as FieldsetCheckboxFormField, DropdownForm as FieldsetDropdownForm, UpgradedFieldsetFormInput as FieldsetFormInput, UpgradedFieldsetFormTextarea as FieldsetFormTextarea, ToggleForm as FieldsetToggleForm, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxGroup, Input, Label, Modal, ModeToggle, type NavAreaProps, NavAreaUpdated, type NavRoute, NavigationBar, type NavigationBarProps, Popover, PopoverContent, PopoverTrigger, Search, SideNav, type SideNavProps, SubAcc, type SubAccProps, Table, Textarea, ThemeProvider, Toggle, type User, buttonVariants, cn, comboboxColorVariants, images, navigationIcons, payplusAssets, sampleAdminPermissions, sampleAdminRoutes, sampleAdminUser, sampleEmployeePermissions, sampleEmployeeRoutes, sampleEmployeeUser, sampleLogo, sampleUser, toggleColorVariants, useOutsideComponentClicker };
+export { type AttachmentData, Avatar, AvatarFallback, AvatarImage, Button, Command, CommandGroup, CommandItem, CommandList, type CompanyLogo, ContentMargin, Dialog, DialogContent, DialogTrigger, Divider, Combobox as Dropdown, GenericCheckboxFormField as FieldsetCheckboxFormField, DropdownForm as FieldsetDropdownForm, UpgradedFieldsetFormInput as FieldsetFormInput, UpgradedFieldsetFormTextarea as FieldsetFormTextarea, ToggleForm as FieldsetToggleForm, FieldFlexRow as FlexFieldRow, FieldFlexRowWrap as FlexFieldRowWrap, FlexRow, FlexiRowMatrix, FlexiRowMatrixLeftAlign, Form, FormControl, FormField, FormItem, FormMessage, GenericCheckboxGroup, Input, Label, LeftSideUpPart, LoadingOverlay, LoadingOverlayContext, LoadingOverlayProvider, MatrixInput, Modal, ModalDivider, ModalWithOutline, ModeToggle, type NavAreaProps, NavAreaUpdated, type NavRoute, NavigationBar, type NavigationBarProps, type NotificationStatus, NotificationToast, NotificationToastContext, type NotificationToastProps, NotificationToastProvider, Popover, PopoverContent, PopoverTrigger, RightSideDownPart, Search, SideFilterStationary, SideNav, type SideNavProps, SkeletonShad, SkeletonSpan, StepsMaker, SubAcc, type SubAccProps, Table, Textarea, ThemeProvider, Toggle, Upload, UploadButton, type UploadButtonProps, UploadForm, type UploadProps, type User, buttonVariants, cn, comboboxColorVariants, defaultErrorNotificationPayload, images, navigationIcons, payplusAssets, sampleAdminPermissions, sampleAdminRoutes, sampleAdminUser, sampleEmployeePermissions, sampleEmployeeRoutes, sampleEmployeeUser, sampleLogo, sampleUser, toggleColorVariants, uploadButtonVariants, uploadVariants, useOutsideComponentClicker };

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 //import ReactLoading from "react-loading";
 
 const LoadingOverlay = React.forwardRef<HTMLDivElement, any>((p, ref) => {
-  const handlePreventInteraction = useCallback((e: React.MouseEvent | React.WheelEvent | React.KeyboardEvent) => {
+  const handlePreventInteraction = useCallback((e: React.MouseEvent | React.WheelEvent | React.KeyboardEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
   }, []);

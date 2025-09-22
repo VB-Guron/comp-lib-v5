@@ -5,19 +5,19 @@
 @use "../components/common/Modal/modal.scss";
 @use "../components/ui/navigation-bar/navigation-bar.scss";
 @use "../components/common/LoadingOverlay/loadingoverlay.scss";
-@use "../components/common/NotificationToast/index.scss";
-@use "../components/common/ModalDivider/index.scss";
-@use "../components/common/ModalWithOutline/index.scss";
-@use "../components/common/SkeletonSpan/index.scss";
-@use "../components/common/SideFilterStationary/index.scss";
-@use "../components/common/StepsMaker/index.scss";
+@use "../components/common/NotificationToast/index.scss" as notification-toast;
+@use "../components/common/ModalDivider/index.scss" as modal-divider;
+@use "../components/common/ModalWithOutline/index.scss" as modal-outline;
+@use "../components/common/SkeletonSpan/index.scss" as skeleton-span;
+@use "../components/common/SideFilterStationary/index.scss" as side-filter;
+@use "../components/common/StepsMaker/index.scss" as steps-maker;
 @use "../components/ui/upload/upload.scss";
 @use "../components/layout/ContentMargin/content-margin.scss";
-@use "../components/layout/FlexFieldRow/index.scss";
-@use "../components/layout/FlexFieldRowWrap/index.scss";
-@use "../components/layout/FlexiRowMatrix/index.scss";
-@use "../components/layout/FlexiRowMatrixLeftAlign/index.scss";
-@use "../components/layout/FlexRow/index.scss";
+@use "../components/layout/FlexFieldRow/index.scss" as flex-field-row;
+@use "../components/layout/FlexFieldRowWrap/index.scss" as flex-field-row-wrap;
+@use "../components/layout/FlexiRowMatrix/index.scss" as flexi-row-matrix;
+@use "../components/layout/FlexiRowMatrixLeftAlign/index.scss" as flexi-row-matrix-left;
+@use "../components/layout/FlexRow/index.scss" as flex-row;
 
 // Add any global SCSS variables here
 $primary-color: oklch(0.2673 0.0477 228.232);

@@ -134,7 +134,7 @@ export const WithCustomIcon: Story = {
 
 // Interactive example using the context provider
 const InteractiveExample = () => {
-  const { showNotification } = useNotificationToast();
+  const [, showNotification] = useNotificationToast();
 
   const handleShowSuccess = () => {
     showNotification({

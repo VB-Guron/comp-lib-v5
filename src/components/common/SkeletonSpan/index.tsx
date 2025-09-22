@@ -10,7 +10,7 @@ export interface SkeletonSpanProps
     React.HTMLAttributes<HTMLHeadingElement>,
     HTMLHeadingElement
   > {
-  size?: skeletonSizes.small | skeletonSizes.medium | skeletonSizes.wide;
+  size?: typeof skeletonSizes.small | typeof skeletonSizes.medium | typeof skeletonSizes.wide;
 }
 
 const SkeletonSpan = (props: SkeletonSpanProps) => {

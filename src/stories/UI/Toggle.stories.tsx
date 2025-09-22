@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Toggle from "../../components/ui/toggle";
+import { Toggle } from "../../components/ui/toggle";
 import { ThemeProvider } from "../../components/theme-provider";
 import { ModeToggle } from "../../components/ui/mode-toggle";
 import type { Meta, StoryObj } from "@storybook/react";
@@ -28,7 +28,7 @@ export default meta;
 type Story = StoryObj<typeof Toggle>;
 
 export const Default: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <ThemeProvider defaultTheme="light">
       <div className="w-screen h-screen bg-background p-6 flex flex-col gap-4">
         <ModeToggle />

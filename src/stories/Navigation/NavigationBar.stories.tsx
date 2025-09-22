@@ -1,7 +1,15 @@
-import React from "react";
-import NavigationBar from "../../components/ui/navigation-bar/navigation-bar";
+import { NavigationBar } from "../../components/ui/navigation-bar/navigation-bar";
 import { ThemeProvider } from "../../components/theme-provider";
 import { ModeToggle } from "../../components/ui/mode-toggle";
+import {
+  sampleLogo,
+  sampleAdminUser,
+  sampleEmployeeUser,
+  sampleAdminRoutes,
+  sampleEmployeeRoutes,
+  sampleAdminPermissions,
+  sampleEmployeePermissions
+} from "../../components/ui/navigation-bar/sample-data";
 import type { Meta, StoryObj } from "@storybook/react";
 import "../../styles/globals.css";
 
@@ -12,7 +20,7 @@ const meta: Meta<typeof NavigationBar> = {
   parameters: {
     docs: {
       description: {
-        component: "A comprehensive navigation bar component with responsive design, permission-based routing, user account management, and dark mode support.",
+        component: "A comprehensive navigation bar component with responsive design, permission-based routing, user account management, and dark mode support. Uses real PayPlus application routes and permissions for demonstration.",
       },
     },
   },
@@ -21,39 +29,8 @@ const meta: Meta<typeof NavigationBar> = {
 export default meta;
 type Story = StoryObj<typeof NavigationBar>;
 
-// Sample data for stories
-const sampleUser = {
-  data: {
-    isAdmin: true,
-    name: "John Doe",
-    email: "john.doe@example.com",
-  },
-};
-
-const sampleRoutes = [
-  { label: "Dashboard", to: "/dashboard" },
-  { label: "Users", to: "/users", permissionId: 1 },
-  { label: "Products", to: "/products" },
-  {
-    label: "Reports",
-    to: "/reports",
-    subnav: [
-      { label: "Sales Report", to: "/reports/sales" },
-      { label: "User Report", to: "/reports/users" },
-      { label: "Analytics", to: "/reports/analytics" },
-    ]
-  },
-  { label: "Settings", to: "/settings", permissionId: 2 },
-];
-
-const sampleLogo = {
-  src: "/api/placeholder/120/40",
-  darkMode: "/api/placeholder/120/40",
-  alt: "Company Logo",
-};
-
 export const Default: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <ThemeProvider defaultTheme="light">
       <div className="w-screen h-screen bg-background">
         <NavigationBar {...args} />
@@ -70,8 +47,8 @@ export const Default: Story = {
     </ThemeProvider>
   ),
   args: {
-    routes: sampleRoutes,
-    user: sampleUser,
+    routes: sampleAdminRoutes,
+    user: sampleAdminUser,
     logo: sampleLogo,
   },
 };
@@ -81,10 +58,10 @@ export const WithPermissions: Story = {
     <ThemeProvider defaultTheme="light">
       <div className="w-screen h-screen bg-background">
         <NavigationBar
-          routes={sampleRoutes}
-          user={sampleUser}
+          routes={sampleEmployeeRoutes}
+          user={sampleEmployeeUser}
           logo={sampleLogo}
-          permissions={[1]} // Only has permission 1 (Users), not 2 (Settings)
+          permissions={sampleEmployeePermissions}
           isAdmin={false}
         />
         <div className="p-6">
@@ -92,12 +69,13 @@ export const WithPermissions: Story = {
           <div className="mt-4">
             <h3 className="text-lg font-semibold">Permission-Based Navigation</h3>
             <p className="text-muted-foreground">
-              Navigation filtered by user permissions. User has access to "Users" but not "Settings".
+              Navigation filtered by employee permissions. Employee has limited access to time entry applications only.
             </p>
             <div className="mt-2 p-3 bg-muted rounded">
               <p className="text-sm">
-                <strong>User Permissions:</strong> [1] - Can access "Users" section<br/>
-                <strong>Missing Permission:</strong> [2] - Cannot access "Settings" section
+                <strong>User Type:</strong> Employee<br/>
+                <strong>Permissions:</strong> Time entry applications (4200-4800)<br/>
+                <strong>Restricted:</strong> No access to admin maintenance, payroll, or system functions
               </p>
             </div>
           </div>
@@ -112,16 +90,10 @@ export const AdminUser: Story = {
     <ThemeProvider defaultTheme="light">
       <div className="w-screen h-screen bg-background">
         <NavigationBar
-          routes={sampleRoutes}
-          user={{
-            data: {
-              isAdmin: true,
-              name: "Admin User",
-              email: "admin@example.com",
-            },
-          }}
+          routes={sampleAdminRoutes}
+          user={sampleAdminUser}
           logo={sampleLogo}
-          permissions={[1, 2]}
+          permissions={sampleAdminPermissions}
           isAdmin={true}
         />
         <div className="p-6">
@@ -129,12 +101,13 @@ export const AdminUser: Story = {
           <div className="mt-4">
             <h3 className="text-lg font-semibold">Admin Navigation</h3>
             <p className="text-muted-foreground">
-              Navigation for an admin user with full permissions and access to all routes.
+              Navigation for an admin user with full PayPlus permissions and access to all administrative functions.
             </p>
             <div className="mt-2 p-3 bg-muted rounded">
               <p className="text-sm">
                 <strong>User Type:</strong> Administrator<br/>
-                <strong>Permissions:</strong> Full access to all sections
+                <strong>Permissions:</strong> Full access to File Maintenance, Timekeeping, Payroll, and System sections<br/>
+                <strong>Features:</strong> Multi-level dropdown menus, permission-based filtering
               </p>
             </div>
           </div>
@@ -149,14 +122,8 @@ export const RegularUser: Story = {
     <ThemeProvider defaultTheme="light">
       <div className="w-screen h-screen bg-background">
         <NavigationBar
-          routes={sampleRoutes}
-          user={{
-            data: {
-              isAdmin: false,
-              name: "Jane Smith",
-              email: "jane.smith@example.com",
-            },
-          }}
+          routes={sampleEmployeeRoutes}
+          user={sampleEmployeeUser}
           logo={sampleLogo}
           permissions={[]}
           isAdmin={false}
@@ -166,12 +133,13 @@ export const RegularUser: Story = {
           <div className="mt-4">
             <h3 className="text-lg font-semibold">Regular User Navigation</h3>
             <p className="text-muted-foreground">
-              Navigation for a regular user with limited permissions. Only shows accessible routes.
+              Navigation for an employee with no permissions. Shows basic menu structure but no functional access.
             </p>
             <div className="mt-2 p-3 bg-muted rounded">
               <p className="text-sm">
-                <strong>User Type:</strong> Regular User<br/>
-                <strong>Permissions:</strong> Limited access - no admin sections
+                <strong>User Type:</strong> Employee (No Permissions)<br/>
+                <strong>Access:</strong> Can see menu structure but cannot access restricted functions<br/>
+                <strong>Available:</strong> Only basic profile and records viewing
               </p>
             </div>
           </div>
@@ -183,29 +151,11 @@ export const RegularUser: Story = {
 
 export const WithSubNavigation: Story = {
   render: () => {
+    // Show a subset of admin routes to demonstrate multi-level navigation
     const routesWithSubnav = [
-      { label: "Home", to: "/" },
-      {
-        label: "Products",
-        to: "/products",
-        subnav: [
-          { label: "All Products", to: "/products" },
-          { label: "Categories", to: "/products/categories" },
-          { label: "Inventory", to: "/products/inventory" },
-          { label: "Pricing", to: "/products/pricing" },
-        ]
-      },
-      {
-        label: "Analytics",
-        to: "/analytics",
-        subnav: [
-          { label: "Dashboard", to: "/analytics/dashboard" },
-          { label: "Sales Report", to: "/analytics/sales" },
-          { label: "User Behavior", to: "/analytics/users" },
-          { label: "Performance", to: "/analytics/performance" },
-        ]
-      },
-      { label: "Support", to: "/support" },
+      sampleAdminRoutes[0], // Home
+      sampleAdminRoutes[1], // File Maintenance (has extensive subnavigation)
+      sampleAdminRoutes[2], // Timekeeping
     ];
 
     return (
@@ -213,19 +163,21 @@ export const WithSubNavigation: Story = {
         <div className="w-screen h-screen bg-background">
           <NavigationBar
             routes={routesWithSubnav}
-            user={sampleUser}
+            user={sampleAdminUser}
             logo={sampleLogo}
+            permissions={sampleAdminPermissions}
           />
           <div className="p-6">
             <ModeToggle />
             <div className="mt-4">
               <h3 className="text-lg font-semibold">Navigation with Submenus</h3>
               <p className="text-muted-foreground">
-                Navigation featuring dropdown submenus for "Products" and "Analytics" sections.
+                Navigation featuring complex multi-level dropdown submenus from PayPlus "File Maintenance" and "Timekeeping" sections.
               </p>
               <div className="mt-2 p-3 bg-muted rounded">
                 <p className="text-sm">
-                  <strong>Hover over:</strong> "Products" or "Analytics" to see dropdown menus
+                  <strong>Hover over:</strong> "File Maintenance" to see 3-level nested menus (HR → Employee → Settings)<br/>
+                  <strong>Features:</strong> Permission-based filtering, icon support, extensive navigation hierarchy
                 </p>
               </div>
             </div>
@@ -241,8 +193,8 @@ export const WithoutLogo: Story = {
     <ThemeProvider defaultTheme="light">
       <div className="w-screen h-screen bg-background">
         <NavigationBar
-          routes={sampleRoutes}
-          user={sampleUser}
+          routes={sampleAdminRoutes}
+          user={sampleAdminUser}
         />
         <div className="p-6">
           <ModeToggle />
@@ -263,8 +215,8 @@ export const ResponsiveDemo: Story = {
     <ThemeProvider defaultTheme="light">
       <div className="w-screen h-screen bg-background">
         <NavigationBar
-          routes={sampleRoutes}
-          user={sampleUser}
+          routes={sampleAdminRoutes}
+          user={sampleAdminUser}
           logo={sampleLogo}
         />
         <div className="p-6">
@@ -293,8 +245,8 @@ export const DarkModeDemo: Story = {
     <ThemeProvider defaultTheme="dark">
       <div className="w-screen h-screen bg-background">
         <NavigationBar
-          routes={sampleRoutes}
-          user={sampleUser}
+          routes={sampleAdminRoutes}
+          user={sampleAdminUser}
           logo={sampleLogo}
         />
         <div className="p-6">
