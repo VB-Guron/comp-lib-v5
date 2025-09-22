@@ -1,5 +1,5 @@
 .nav-bar {
-  height: 4rem; // 64px equivalent to h-16
+  height: var(--nav-height);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,8 +7,8 @@
   gap: 1rem;
   position: sticky;
   top: 0px;
-  margin: 0 calc(-1 * 1rem);
-  padding: 0 1rem;
+  margin: 0 calc(-1 * var(--content-margin-default));
+  padding: 0 var(--content-margin-default);
   z-index: 50 !important;
 
   & > * {
@@ -25,10 +25,11 @@
 .logo-container {
   width: 10rem;
   position: relative;
+  background-color: white;
 }
 
 .nav-text-preset {
-  color: var(--primary-color, #0066cc);
+  color: var(--primary-color);
   white-space: nowrap;
   padding: 0.5rem;
   text-decoration: none;
@@ -64,10 +65,10 @@
       text-decoration: none;
       min-width: 10rem;
       display: flex;
-      border-left: 0.4rem solid #999;
+      border-left: 0.4rem solid var(--gray);
 
       &:hover {
-        border-left: 0.4rem solid var(--primary-color, #0066cc);
+        border-left: 0.4rem solid var(--primary-color);
       }
 
       & > .level1-header {
@@ -78,7 +79,7 @@
         font-weight: 600;
         font-size: 0.85rem;
         cursor: pointer;
-        color: var(--primary-color, #0066cc);
+        color: var(--primary-color);
       }
 
       // Level1HeaderBut No Subnav
@@ -131,7 +132,7 @@
           }
 
           & > *:hover:first-child ~ .arrow-container > .arrow-right:after {
-            background-color: var(--primary-color, #0066cc);
+            background-color: var(--primary-color);
           }
 
           & > a {
@@ -173,7 +174,7 @@
 
               &:hover {
                 color: white;
-                background-color: var(--primary-color, #0066cc);
+                background-color: var(--primary-color);
               }
             }
 
@@ -203,7 +204,7 @@
                 color: black;
 
                 &:hover {
-                  color: var(--primary-color, #0066cc);
+                  color: var(--primary-color);
                 }
               }
             }
@@ -231,7 +232,7 @@
                 transition: margin-top 0.5s;
 
                 &:hover {
-                  color: var(--primary-color, #0066cc);
+                  color: var(--primary-color);
                   text-decoration: underline;
                   text-underline-offset: 2px;
                 }
@@ -281,7 +282,7 @@
   font-size: 1.5rem;
   justify-content: center;
   align-items: center;
-  background-color: var(--nav-color, #f8f9fa);
+  background-color: var(--nav-color);
   border-radius: 2.5px;
   cursor: pointer;
 
@@ -301,7 +302,7 @@
   gap: 0.5rem;
   align-items: center;
   cursor: pointer;
-  padding: 0.75rem 1rem;
+  padding: var(--padding-md) var(--padding-lg);
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   text-decoration: none;
@@ -335,7 +336,7 @@
   position: fixed;
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(0.5px);
-  margin: 0 calc(-1 * 1rem);
+  margin: 0 calc(-1 * var(--content-margin-default));
   z-index: 49;
   width: 100%;
   height: 100%;
@@ -361,6 +362,15 @@
   @media (max-width: 768px) {
     font-size: 0.8rem !important;
   }
+}
+
+.side-sub-sub-nav-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-sub-navs {
+  display: none;
 }
 
 .side-sub-nav-heading-link {
@@ -459,7 +469,7 @@
 
 .side-nav-item-container-active {
   @extend .side-nav-item-container;
-  background-color: var(--primary-color, #0066cc);
+  background-color: var(--primary-color);
   border-radius: 0;
 
   img {
@@ -551,10 +561,22 @@
   }
 }
 
+// Additional PayPlus styles for side navigation
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Mode toggle positioning - pushes it to the far right
+.nav-bar > :global([data-mode-toggle]),
+.nav-bar > *:last-child {
+  margin-left: auto;
+}
+
 .account-wrapper {
   position: relative;
   z-index: 55 !important;
-  border: 2px solid red;
 
   &:hover {
     cursor: pointer;
@@ -563,13 +585,13 @@
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
-      z-index: 55 !important;
+      z-index: 60 !important;
     }
 
     .account-area {
       border-bottom-color: #0e4c64;
       padding-bottom: 5px;
-      z-index: 55 !important;
+      z-index: 60 !important;
     }
   }
 }
@@ -587,6 +609,7 @@
   &:hover {
     border-bottom-color: #0e4c64;
     padding-bottom: 5px;
+    z-index: 60 !important;
   }
 }
 
@@ -604,7 +627,7 @@
 
 .sub-acc {
   display: flex;
-  background-color: var(--primary-color, #0066cc);
+  background-color: var(--primary-color);
   color: white;
   font-size: 0.85rem;
   padding: 10px 0px;
@@ -621,7 +644,7 @@
   transition:
     opacity 0.2s ease-in-out,
     transform 0.2s ease-in-out;
-  z-index: 55 !important;
+  z-index: 60 !important;
 
   .account-label {
     white-space: nowrap;
@@ -653,7 +676,7 @@
   }
 
   to {
-    height: calc(4rem / 2);
+    height: calc(var(--nav-height) / 2);
   }
 }
 
@@ -737,7 +760,7 @@
   }
 
   100% {
-    border-bottom: 3px solid var(--primary-color, #0066cc);
+    border-bottom: 3px solid var(--primary-color);
   }
 }
 

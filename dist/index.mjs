@@ -2375,9 +2375,9 @@ var NavigationBar = (props) => {
       mediaQuery.removeEventListener("change", mediaListener);
     };
   }, []);
-  return /* @__PURE__ */ jsx26(ContentMargin, { children: /* @__PURE__ */ jsxs20("nav", { className: "bg-background !z-50 w-screen", children: [
-    /* @__PURE__ */ jsxs20("div", { className: "bg-background sticky top-0 z-50 flex min-h-16 w-full items-center", children: [
-      /* @__PURE__ */ jsx26("div", { className: "relative aspect-video w-40 bg-transparent", children: /* @__PURE__ */ jsx26(
+  return /* @__PURE__ */ jsxs20("nav", { className: "bg-background !z-50 w-screen " + (className || ""), children: [
+    /* @__PURE__ */ jsxs20("div", { className: "flex min-h-16 w-screen items-center justify-between", children: [
+      /* @__PURE__ */ jsx26("div", { className: "logo-container", children: /* @__PURE__ */ jsx26(
         "img",
         {
           className: "image-on-nav",
@@ -2397,12 +2397,38 @@ var NavigationBar = (props) => {
           children: /* @__PURE__ */ jsx26(FaBars, {})
         }
       ) }),
+      !user?.data.isAdmin && /* @__PURE__ */ jsx26(
+        "div",
+        {
+          style: {
+            width: "2rem",
+            height: "2rem",
+            borderRadius: "4px",
+            backgroundColor: "rgba(0, 102, 204, 0.1)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          },
+          children: "\u{1F4C5}"
+        }
+      ),
       /* @__PURE__ */ jsxs20("div", { className: "account-wrapper", children: [
-        /* @__PURE__ */ jsxs20("div", { className: "account-area h-10 w-10", children: [
-          /* @__PURE__ */ jsx26("div", { className: "account-dp-container", children: /* @__PURE__ */ jsxs20(Avatar, { children: [
-            /* @__PURE__ */ jsx26(AvatarImage, { src: "" }),
-            /* @__PURE__ */ jsx26(AvatarFallback, { children: user?.data.name?.charAt(0) || "U" })
-          ] }) }),
+        /* @__PURE__ */ jsxs20("div", { className: "account-area", children: [
+          /* @__PURE__ */ jsx26("div", { className: "account-dp-container", children: /* @__PURE__ */ jsx26(
+            "div",
+            {
+              style: {
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "white",
+                fontWeight: "bold"
+              },
+              children: user?.data.name?.charAt(0) || "U"
+            }
+          ) }),
           /* @__PURE__ */ jsx26(FaChevronDown, { size: "0.75rem" })
         ] }),
         /* @__PURE__ */ jsx26(SubAcc, { isAdmin })
@@ -2410,7 +2436,7 @@ var NavigationBar = (props) => {
       /* @__PURE__ */ jsx26(ModeToggle, {})
     ] }),
     selectedHamburger && /* @__PURE__ */ jsx26(SideNav, { routes, permissions })
-  ] }) });
+  ] });
 };
 
 // src/components/theme-provider.tsx

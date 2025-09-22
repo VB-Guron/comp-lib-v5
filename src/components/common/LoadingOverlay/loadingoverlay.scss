@@ -1,0 +1,27 @@
+.background {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 9999;
+  background-color: rgba(102, 102, 102, 0.8);
+  padding: 0;
+  margin: 0;
+  user-select: none;
+  pointer-events: all;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.shown {
+  @extend .background;
+  display: grid;
+}
+
+.hidden {
+  @extend .background;
+  display: none;
+}

@@ -32,21 +32,14 @@ const Modal = ({
             {...modalSize}
           >
             {/* Header Container */}
-            <div
-              className={cn("modal-header-container", "border border-blue-800")}
-            >
-              <span
-                className={cn(
-                  "modal-header",
-                  "text-foreground border border-red-700 underline underline-offset-8"
-                )}
-              >
+            <div className="modal-header-container">
+              <span className={cn("modal-header", "text-foreground")}>
                 {header}
               </span>
             </div>
             {/* Content */}
-            <div className={cn("content-container")}>{children}</div>
-            {/* Footer Container */}
+            <div className="content-container">{children}</div>
+            {/* Footer Cntainer */}
           </div>
         </div>
       ) : null}

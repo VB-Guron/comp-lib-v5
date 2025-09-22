@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="20" height="20">
+<style type="text/css">
+	.st0{fill:none;stroke:#000000;stroke-width:32;stroke-miterlimit:10;}
+	.st1{display:none;fill:none;stroke:#000000;stroke-width:32;stroke-miterlimit:10;}
+</style>
+<g id="Layer_1">
+	<path class="st0" d="M325.5,245.1c5.8,5.8,9.1,13.7,9.1,21.9v168.5c0,22.1-17.9,40-40,40H108.5c-22.1,0-40-17.9-40-40V171.6
+		c0-22.1,17.9-40,40-40h93c8.2,0,16,3.2,21.8,9L325.5,245.1z"/>
+	<path class="st0" d="M201.5,131.6V236c0,15.6,12.6,28.2,28.2,28.2h104.9"/>
+</g>
+<g id="Layer_2">
+	<path class="st1" d="M404.7,381H218c-22.1,0-40-17.9-40-40V78.2c0-22.1,17.9-40,40-40h186.6c22.1,0,40,17.9,40,40V341
+		C444.7,363.1,426.7,381,404.7,381z"/>
+	<path class="st0" d="M334.6,381h70.1c22.1,0,40-17.9,40-40V78.2c0-22.1-17.9-40-40-40H218c-22.1,0-40,17.9-40,40v53.4"/>
+</g>
+</svg>

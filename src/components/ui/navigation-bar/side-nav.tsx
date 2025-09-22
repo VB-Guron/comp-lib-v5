@@ -16,14 +16,22 @@ export const SideNav = (props: SideNavProps) => {
   });
 
   const showSubRoute = (routes: NavRoute[]): boolean => {
-    return true; // Simplified for component library
+    return (
+      routes.filter((p) => {
+        if (p.subnav) return showSubRoute(p.subnav);
+
+        if (p.permissionId) return permissions.includes(p.permissionId);
+        else return true;
+      })[0] !== undefined
+    );
   };
 
   return (
     <div className="side-nav-filter" id="SideNavFilter">
       <div ref={ref} className="side-nav" id="SideArea">
         {routes.map(({ label, image, to, permissionId, subnav }, i) => {
-          if (true) { // Simplified permission check
+          if (!permissionId || permissions.find((p) => p === permissionId)) {
+            // Simplified permission check
             if (subnav && !showSubRoute(subnav)) return null;
 
             return (
@@ -66,23 +74,20 @@ const SideNavLink = ({
 }) => {
   return (
     <a
-      className={selected ? "side-nav-item-container-active" : "side-nav-item-container"}
+      className={
+        selected ? "side-nav-item-container-active" : "side-nav-item-container"
+      }
       href={to}
       onClick={(e) => {
         if (to) {
-          e.preventDefault();
-          alert(`Navigating to: ${to}`);
+          // Allow normal navigation to the URL
           return;
         }
+        e.preventDefault();
         onSelect();
       }}
     >
-      {image && (
-        <img
-          src={image}
-          alt="navIcon"
-        />
-      )}
+      {image && <img src={image} alt="navIcon" />}
       <span>{label}</span>
     </a>
   );
@@ -95,56 +100,136 @@ const SideSubNav = ({
   routes?: NavRoute[];
   permissions: number[];
 }) => {
-  const [selected, setSelected] = useState(-1);
+  const [selectedSubSideNav, setSelectedSubSideNav] = useState(-1);
 
-  if (!routes || routes.length === 0) return null;
+  const ref = useRef(null);
+  useOutsideComponentClicker({
+    ref,
+    onClickedOutside: () => {
+      setSelectedSubSideNav(() => -1);
+    },
+  });
+
+  if (!routes?.length) return null;
+
+  const showSubRoute = (routes: NavRoute[]): boolean => {
+    return (
+      routes.filter((p) => {
+        if (p.subnav) return showSubRoute(p.subnav);
+
+        if (p.permissionId) return permissions.includes(p.permissionId);
+        else return true;
+      })[0] !== undefined
+    );
+  };
 
   return (
     <div className="side-sub-nav">
       {routes.map(({ label, to, subnav, permissionId }, i) => {
         if (subnav) {
-          return (
-            <div key={i} className={selected === i ? "side-sub-sub-container-selected" : "side-sub-sub-container"}>
-              <div
-                className="side-sub-sub-nav-heading-link"
-                onClick={() => setSelected(prev => prev === i ? -1 : i)}
-              >
-                <span className="side-sub-nav-heading">{label}</span>
-                <FaAngleRight />
-              </div>
-              {selected === i && (
-                <div className="side-sub-sub-links-container">
-                  {subnav.map(({ label, to, permissionId }, y) => {
-                    if (true) { // Simplified permission check
-                      return (
-                        <a
-                          href={to}
-                          key={y}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            alert(`Navigating to: ${to}`);
-                          }}
+          if (!showSubRoute(subnav)) return null;
+
+          if (!permissionId || permissions.find((p) => p === permissionId))
+            return (
+              <div key={i}>
+                <div className="side-sub-sub-nav-container">
+                  <div className="side-sub-nav-heading">{label}</div>
+                  <div className="side-sub-navs">
+                    {subnav.map(({ label, to, subnav, permissionId }, y) => {
+                      if (!subnav) {
+                        if (
+                          !permissionId ||
+                          permissions.find((p) => p === permissionId)
+                        )
+                          return (
+                            <a
+                              href={to}
+                              key={y}
                         >
-                          {label}
-                        </a>
-                      );
-                    }
-                  })}
+                              {label}
+                            </a>
+                          );
+                      } else {
+                        if (!showSubRoute(subnav)) return null;
+
+                        if (
+                          !permissionId ||
+                          permissions.find((p) => p === permissionId) ||
+                          subnav.filter((p) => {
+                            if (p.permissionId) {
+                              if (permissions.includes(p.permissionId))
+                                return p.permissionId;
+                              else {
+                                return true;
+                              }
+                            }
+                          }).length !== 0
+                        )
+                          return (
+                            <div
+                              key={y}
+                              ref={ref}
+                              className={
+                                y === selectedSubSideNav
+                                  ? "side-sub-sub-container-selected"
+                                  : "side-sub-sub-container"
+                              }
+                              onClick={() =>
+                                setSelectedSubSideNav((prev) => {
+                                  return y === prev ? -1 : y;
+                                })
+                              }
+                            >
+                              <a
+                                href={to}
+                                className="side-sub-sub-nav-heading-link"
+                                onClick={(e) => {
+                                  if (!to) {
+                                    e.preventDefault();
+                                  }
+                                }}
+                              >
+                                <span>{label}</span>
+                                <FaAngleRight />
+                              </a>
+                              <div className="side-sub-sub-links-container">
+                                {subnav.map(
+                                  ({ label, to, permissionId }, z) => {
+                                    if (
+                                      !permissionId ||
+                                      permissions.find(
+                                        (p) => p === permissionId
+                                      )
+                                    )
+                                      return (
+                                        <a
+                                          href={to}
+                                          key={z}
+                                        >
+                                          {label}
+                                        </a>
+                                      );
+                                  }
+                                )}
+                              </div>
+                            </div>
+                          );
+                      }
+                    })}
+                  </div>
                 </div>
-              )}
-            </div>
-          );
-        } else {
-          return (
-            <a
-              href={to}
-              key={i}
-              className="side-sub-nav-heading-link"
-            >
-              <span className="side-sub-nav-heading">{label}</span>
-            </a>
-          );
+              </div>
+            );
         }
+        return (
+          <a
+            key={i}
+            className="side-sub-nav-heading-link"
+            href={to}
+          >
+            <span>{label}</span>
+          </a>
+        );
       })}
     </div>
   );

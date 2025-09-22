@@ -1,0 +1,140 @@
+// CSS Variables for theming - scoped to component
+.notification-toast-container,
+.notification-toast-shown,
+.notification-toast-hidden {
+  --notification-toast-bg: #f5f3f3;
+  --notification-toast-shadow: rgba(0, 0, 0, 0.25);
+  --notification-toast-success-color: var(--primary-color, #22c55e);
+  --notification-toast-error-color: var(--red, #ef4444);
+  --notification-toast-text-color: var(--black, #000000);
+}
+
+// Base styles shared across all states
+%notification-toast-base {
+  position: fixed;
+  top: 1rem;
+  width: min(calc(100% - 4rem), 20rem);
+  z-index: 9999;
+  padding: 1rem;
+  margin: 0;
+  border-radius: 3px;
+  display: flex;
+  background: var(--notification-toast-bg);
+  box-shadow: 0px 4px 4px var(--notification-toast-shadow);
+  gap: 1rem;
+  align-items: center;
+}
+
+.notification-toast-container {
+  @extend %notification-toast-base;
+  right: -100%;
+}
+
+.notification-toast-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+
+.notification-toast-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  flex: 1;
+}
+
+.notification-toast-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  &[data-status="success"] {
+    color: var(--notification-toast-success-color);
+  }
+
+  &[data-status="error"] {
+    color: var(--notification-toast-error-color);
+  }
+
+  &[data-status="default"] {
+    color: var(--notification-toast-text-color);
+  }
+}
+
+.notification-toast-details {
+  font-size: 0.8rem;
+  color: var(--notification-toast-text-color);
+}
+
+@keyframes notification-toast-show {
+  from {
+    right: -100%;
+  }
+
+  to {
+    right: 1rem;
+  }
+}
+
+@keyframes notification-toast-hide {
+  from {
+    right: 1rem;
+  }
+
+  to {
+    right: -100%;
+  }
+}
+
+.notification-toast-shown {
+  @extend %notification-toast-base;
+  right: -100%;
+  animation: notification-toast-show 1s linear 0s 1 forwards;
+
+  .notification-toast-icon {
+    @extend .notification-toast-icon;
+  }
+
+  .notification-toast-content {
+    @extend .notification-toast-content;
+  }
+
+  .notification-toast-header {
+    @extend .notification-toast-header;
+  }
+
+  .notification-toast-details {
+    @extend .notification-toast-details;
+  }
+}
+
+.notification-toast-hidden {
+  @extend %notification-toast-base;
+  right: 1rem; // Start from visible position
+  animation: notification-toast-hide 1s linear 100ms 1 forwards;
+
+  .notification-toast-icon {
+    @extend .notification-toast-icon;
+  }
+
+  .notification-toast-content {
+    @extend .notification-toast-content;
+  }
+
+  .notification-toast-header {
+    @extend .notification-toast-header;
+  }
+
+  .notification-toast-details {
+    @extend .notification-toast-details;
+  }
+}

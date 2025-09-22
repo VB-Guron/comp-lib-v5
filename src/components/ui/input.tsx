@@ -5,6 +5,7 @@ import { cva } from "class-variance-authority";
 import type { VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 import moment from "moment";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 const inputVariants = cva(
   // Default variant matches the original input style
@@ -18,6 +19,7 @@ const inputVariants = cva(
         underline: "border-0 border-b-2 rounded-none focus-visible:border-ring",
         ghost: "border-0 bg-transparent shadow-none",
         fieldset: "", // fieldset handled in render, not class
+        password: "pr-10", // password handled in render, extra padding for eye icon
       },
       inputSize: {
         default: "h-9 px-3 py-1 text-base md:text-sm",
@@ -190,6 +192,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
+    const [showPassword, setShowPassword] = React.useState(false);
+
     if (variant === "fieldset") {
       const displayValue = formatFieldsetValue({ type, value, formatNumber });
       return renderFieldsetInput({
@@ -203,6 +207,34 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ...props,
       });
     }
+
+    if (variant === "password") {
+      return (
+        <div className="relative flex w-full items-center">
+          <input
+            type={showPassword ? "text" : "password"}
+            data-slot="input"
+            className={cn(inputVariants({ variant, inputSize }), className)}
+            ref={ref}
+            value={value}
+            {...props}
+          />
+          <button
+            type="button"
+            className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+            onClick={() => setShowPassword(!showPassword)}
+            tabIndex={-1}
+          >
+            {showPassword ? (
+              <EyeOffIcon size={16} />
+            ) : (
+              <EyeIcon size={16} />
+            )}
+          </button>
+        </div>
+      );
+    }
+
     // Default rendering for other variants
     return (
       <input

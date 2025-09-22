@@ -1,0 +1,57 @@
+:root {
+  /* colors */
+  --nav-color: #ffffff;
+  --page-color: #ffffff;
+
+  --primary-color: #052a38;
+  --primary-color-filter: sepia(49%) saturate(1271%) hue-rotate(160deg)
+    contrast(96%);
+
+  --light-primary-color: #0e4c64;
+
+  --black: #353535;
+  --gray: lightgray;
+  --red: #a70000;
+  --lightgray: #a8a7a7;
+  --yellow: #fec046;
+  --green: #30ba7b;
+  --white: #ffffff;
+
+  /* sizes */
+  --content-margin-default: 60px;
+  --negative-content-margin-default: calc(-1 * var(--content-margin-default));
+  --nav-height: 5rem;
+  --border-radius: 2.5px;
+  --max-screen-width: 1920px;
+
+  /* paddings */
+  --padding-sm: 5px;
+  --padding-md: 7.5px;
+  --padding-lg: 10px;
+
+  /* breakpoints */
+  --bp-xxlarge: 1920px;
+  --bp-xlarge: 1440px;
+  --bp-large: 1024px;
+  --bp-medium: 768px;
+  --bp-small: 480px;
+  --bp-xsmall: 360px;
+}
+
+@media (min-width: 2040px) {
+  :root {
+    --content-margin-default: calc((100vw - 1920px) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --content-margin-default: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --content-margin-default: 10px;
+  }
+}

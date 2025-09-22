@@ -1,0 +1,71 @@
+.container {
+  position: fixed;
+  top: 1rem;
+  right: -100%;
+  width: min(calc(100% - 4rem), 20rem);
+  z-index: 9999;
+  padding: 1rem;
+  margin: 0;
+  border-radius: 3px;
+  display: flex;
+  background: #f5f3f3;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  gap: 1rem;
+  align-items: center;
+
+  &>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    &> :first-child {
+      font-size: 1.25rem;
+      font-weight: 600;
+
+      &[data-status="success"] {
+        color: var(--primary-color);
+      }
+
+      &[data-status="error"] {
+        color: var(--red);
+      }
+    }
+
+    &> :nth-child(2) {
+      font-size: 0.8rem;
+      color: var(--black);
+    }
+  }
+}
+
+@keyframes show {
+  from {
+    right: -100%;
+  }
+
+  to {
+    right: 1rem;
+  }
+}
+
+@keyframes hide {
+  from {
+    right: 1rem;
+  }
+
+  to {
+    right: -100%;
+  }
+}
+
+.shown {
+  @extend .container;
+  animation: show 1s linear 0s 1 forwards;
+}
+
+.hidden {
+  @extend .container;
+  right: 1rem;
+  animation: hide 1s linear 100ms 1 forwards;
+}

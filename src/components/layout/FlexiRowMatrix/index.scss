@@ -1,0 +1,16 @@
+.layout-flexi-matrix-title {
+  display: flex;
+}
+
+.layout-flexi-row-matrix {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: baseline;
+  position: relative;
+  top: -0.5rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}

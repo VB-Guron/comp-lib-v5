@@ -4,8 +4,24 @@
 //@use "../components/common/navbar";
 @use "../components/common/Modal/modal.scss";
 @use "../components/ui/navigation-bar/navigation-bar.scss";
+@use "../components/common/LoadingOverlay/loadingoverlay.scss";
+@use "../components/common/NotificationToast/index.scss";
+@use "../components/common/ModalDivider/index.scss";
+@use "../components/common/ModalWithOutline/index.scss";
+@use "../components/common/SkeletonSpan/index.scss";
+@use "../components/common/SideFilterStationary/index.scss";
+@use "../components/common/StepsMaker/index.scss";
+@use "../components/ui/upload/upload.scss";
+@use "../components/layout/ContentMargin/content-margin.scss";
+@use "../components/layout/FlexFieldRow/index.scss";
+@use "../components/layout/FlexFieldRowWrap/index.scss";
+@use "../components/layout/FlexiRowMatrix/index.scss";
+@use "../components/layout/FlexiRowMatrixLeftAlign/index.scss";
+@use "../components/layout/FlexRow/index.scss";
 
 // Add any global SCSS variables here
-$primary: #3b82f6;
+$primary-color: oklch(0.2673 0.0477 228.232);
+$secondary-color: #6b7280;
+$primary: oklch(0.2673 0.0477 228.232);
 $secondary: #6b7280;
 $border-radius: 0.375rem;

@@ -73,10 +73,10 @@ const NavLink = ({
       href={to}
       onClick={(e) => {
         if (to) {
-          e.preventDefault();
-          alert(`Navigating to: ${to}`);
+          // Allow normal navigation to the URL
           return;
         }
+        e.preventDefault();
         onSelect();
       }}
     >
@@ -129,10 +129,6 @@ const SubNav = ({
                             <a
                               href={to}
                               key={y}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                alert(`Navigating to: ${to}`);
-                              }}
                             >
                               <span>{label}</span>
                             </a>
@@ -175,10 +171,6 @@ const SubNav = ({
                                         <a
                                           href={to}
                                           key={z}
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            alert(`Navigating to: ${to}`);
-                                          }}
                                         >
                                           <span>{label} </span>
                                         </a>

@@ -8,7 +8,7 @@ import { SubAcc } from "./sub-acc";
 import { payplusAssets } from "../../../config/images";
 import "./navigation-bar.scss";
 import { ModeToggle } from "../mode-toggle";
-import { ContentMargin } from "../../layout/content-margin";
+import { ContentMargin } from "../../layout/ContentMargin/content-margin";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 
 export const NavigationBar = (props: NavigationBarProps) => {
@@ -104,9 +104,9 @@ export const NavigationBar = (props: NavigationBarProps) => {
 
   return (
     <ContentMargin>
-      <nav className="bg-background !z-50 w-screen">
-        <div className="bg-background sticky top-0 z-50 flex min-h-16 w-full items-center">
-          <div className="relative aspect-video w-40 bg-transparent">
+      <nav className={"!z-50 flex w-full justify-center " + (className || "")}>
+        <div className="flex min-h-16 w-screen items-center justify-between">
+          <div className="logo-container">
             <img
               className="image-on-nav"
               src={darkMode && logo.darkMode ? logo.darkMode : logo.src}
@@ -150,11 +150,11 @@ export const NavigationBar = (props: NavigationBarProps) => {
           )} */}
 
           {/* Account Area */}
-          <div className="account-wrapper">
-            <div className="account-area h-10 w-10">
+          <div className="account-wrapper !z-40">
+            <div className="account-area">
               <div className="account-dp-container">
                 <Avatar>
-                  <AvatarImage src="" />
+                  <AvatarImage src={""} />
                   <AvatarFallback>
                     {user?.data.name?.charAt(0) || "U"}
                   </AvatarFallback>
@@ -164,8 +164,11 @@ export const NavigationBar = (props: NavigationBarProps) => {
             </div>
             <SubAcc isAdmin={isAdmin} />
           </div>
-          <ModeToggle></ModeToggle>
+
+          {/* Dark Mode Toggle */}
+          <ModeToggle />
         </div>
+
         {/* Mobile Side Navigation */}
         {selectedHamburger && (
           <SideNav routes={routes} permissions={permissions} />

@@ -1,0 +1,288 @@
+// Upload Base Styles
+.upload-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Upload Default Variant
+.upload-default {
+  // Default styling for standalone upload button
+}
+
+// Upload Fieldset Variant - EXACT PayPlus Web styling
+.upload-fieldset {
+  border: solid thin lightgray;
+  border-radius: 3px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  flex: unset !important;
+  display: flex;
+  justify-content: flex-start;
+
+  // Original fieldset input styling (for future compatibility)
+  & > input {
+    border: none;
+    outline: none;
+    width: calc(100% - 20px);
+    padding: 5px 10px 7.5px 10px;
+    font-size: 1rem;
+    background-color: transparent;
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:disabled {
+      background-color: transparent;
+
+      &::-webkit-input-placeholder {
+        color: transparent;
+      }
+    }
+  }
+
+  // Original :has() selector for disabled state
+  &:has(input:disabled) {
+    background-color: transparent;
+    border: none;
+
+    & legend {
+
+      &::after {
+        content: ":";
+        padding-left: 1px;
+      }
+    }
+  }
+
+  // Alternative data-disabled for when :has() isn't available
+  &[data-disabled="true"] {
+    background-color: transparent;
+    border: none;
+
+    & > legend {
+      
+
+      &::after {
+        content: ":";
+        padding-left: 1px;
+      }
+    }
+  }
+}
+
+// Original fieldset with input-type="checkbox" styling
+.upload-fieldset:is([input-type="checkbox"]) {
+  position: relative;
+  border: none;
+  padding: 5px 0;
+
+
+  &[data-disabled="true"] {
+    & > legend {
+      &::after {
+        content: ":";
+        padding-left: 1px;
+      }
+    }
+  }
+}
+
+// Upload Size Variants
+.upload-sm {
+  font-size: 0.875rem;
+}
+
+.upload-default-size {
+  font-size: 1rem;
+}
+
+.upload-lg {
+  font-size: 1.125rem;
+}
+
+// Upload Container - EXACT PayPlus Web styling
+.upload-container {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+
+  & > span {
+    font-size: 0.85rem;
+    color: var(--lightgray);
+    padding: 0;
+    background-color: transparent;
+  }
+}
+
+// Upload Button Base - EXACT PayPlus Web styling
+.upload-button-base {
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  padding: 5px;
+  background-color: rgba(128, 128, 128, 25%);
+}
+
+// Upload Button Size Variants (keep for flexibility)
+.upload-button-sm {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+}
+
+.upload-button-default {
+  font-size: 0.75rem;
+  padding: 5px;
+  background-color: rgba(128, 128, 128, 25%);
+}
+
+.upload-button-lg {
+  font-size: 0.875rem;
+  padding: 6px 12px;
+}
+
+// Upload Button Container
+.upload-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+// Hidden File Input
+.upload-input-hidden {
+  display: none;
+}
+
+// Removable Row - EXACT PayPlus Web styling
+.upload-removable-row {
+  display: flex;
+  flex-wrap: nowrap;
+  word-break: break-all;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+  padding: 5px;
+  gap: 0.5rem;
+
+  & > a {
+    color: #052a38;
+  }
+}
+
+// Attachment Link
+.upload-attachment-link {
+  color: #052a38;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid var(--ring, #3b82f6);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+// No Attachment Text
+.upload-no-attachment {
+  color: black;
+  font-size: 0.85rem;
+}
+
+// Remove Button - EXACT PayPlus Web styling
+.upload-remove-button {
+  background-color: transparent !important;
+  border: none;
+  outline: none;
+  align-items: center;
+  padding: 0 !important;
+  width: auto;
+  justify-content: center;
+  color: #ff0000;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+// Dark mode support for upload components
+@media (prefers-color-scheme: dark) {
+  .upload-fieldset {
+    border-color: #374151;
+
+   
+    // Keep transparent background for disabled state in dark mode
+    &[data-disabled="true"] {
+      background-color: transparent;
+      border: none;
+
+      & > legend {
+       
+        &::after {
+          content: ":";
+          padding-left: 1px;
+        }
+      }
+    }
+
+    // Same for :has() selector
+    &:has(input:disabled) {
+      background-color: transparent;
+      border: none;
+
+      & legend {
+      
+
+        &::after {
+          content: ":";
+          padding-left: 1px;
+        }
+      }
+    }
+  }
+
+  // Dark mode for fieldset with input-type="checkbox"
+  .upload-fieldset:is([input-type="checkbox"]) {
+   
+
+    &[data-disabled="true"] {
+      & > legend {
+        
+
+        &::after {
+          content: ":";
+          padding-left: 1px;
+        }
+      }
+    }
+  }
+
+  .upload-container > span {
+    color: #9ca3af;
+  }
+
+  .upload-attachment-link,
+  .upload-removable-row > a {
+    color: #60a5fa;
+  }
+
+  .upload-no-attachment {
+    color: #f3f4f6;
+  }
+
+  .upload-button-base {
+    background-color: rgba(156, 163, 175, 0.25);
+
+    &:hover:not(:disabled) {
+      background-color: rgba(156, 163, 175, 0.35);
+    }
+  }
+}

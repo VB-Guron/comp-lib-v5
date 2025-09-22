@@ -1,0 +1,9 @@
+.layout-flex-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+}

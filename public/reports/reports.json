@@ -1,0 +1,1840 @@
+{
+  "approverGroups": {
+    "title": "Approver Groups",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "approverUser",
+        "headerName": "Approver",
+        "width": 10
+      }
+    ]
+  },
+  "assetItems": {
+    "title": "Asset Items",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "assetSuppliers": {
+    "title": "Asset Suppliers",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "assetCategories": {
+    "title": "Asset Categories",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "assetTypes": {
+    "title": "Asset Types",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "assignments": {
+    "title": "Assignments",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "address",
+        "headerName": "Address",
+        "width": 10
+      },
+      {
+        "property": "latitude",
+        "headerName": "Latitude",
+        "width": 10
+      },
+      {
+        "property": "longitude",
+        "headerName": "Longitude",
+        "width": 10
+      },
+      {
+        "property": "altitude",
+        "headerName": "Altitude",
+        "width": 10
+      }
+    ]
+  },
+  "banks": {
+    "title": "Banks",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "accountNumber",
+        "headerName": "Account Number",
+        "width": 10
+      },
+      {
+        "property": "address",
+        "headerName": "Address",
+        "width": 10
+      },
+      {
+        "property": "contactPerson",
+        "headerName": "Contact Person",
+        "width": 10
+      },
+      {
+        "property": "phoneNumber",
+        "headerName": "Phone Number",
+        "width": 10
+      },
+      {
+        "property": "bankType",
+        "headerName": "Bank Type",
+        "width": 10
+      }
+    ]
+  },
+  "branches": {
+    "title": "Branches",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "isAutoOT",
+        "headerName": "Auto OT",
+        "width": 10,
+        "format": "Boolean"
+      }
+    ]
+  },
+  "companies": {
+    "title": "Companies",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "address",
+        "headerName": "Address",
+        "width": 10
+      },
+      {
+        "property": "governmentInformationTypeName",
+        "headerName": "Government Info Type",
+        "width": 10
+      },
+      {
+        "property": "governmentInformationValue",
+        "headerName": "Government Info Value",
+        "width": 10
+      }
+    ]
+  },
+  "courses": {
+    "title": "Courses",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "deductions": {
+    "title": "Deductions",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "deductionScheduleName",
+        "headerName": "Schedule",
+        "width": 10
+      }
+    ]
+  },
+  "departments": {
+    "title": "Departments",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "departmentHeads": {
+    "title": "Department Heads",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employeeName",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "companyName",
+        "headerName": "Company",
+        "width": 10
+      },
+      {
+        "property": "departmentName",
+        "headerName": "department",
+        "width": 10
+      }
+    ]
+  },
+  "employeeAssignments": {
+    "title": "Department Heads",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "employeeName",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "assignmentName",
+        "headerName": "Assignement Name",
+        "width": 10
+      },
+      {
+        "property": "assignmentAddress",
+        "headerName": "Assignement Address",
+        "width": 10
+      },
+      {
+        "property": "assignDate",
+        "headerName": "Assignement Date",
+        "width": 10
+      }
+    ]
+  },
+  "executives": {
+    "title": "Executives",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employeeName",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "nonPunching",
+        "headerName": "Non Punching",
+        "width": 10
+      }
+    ]
+  },
+  "governmentInformationTypes": {
+    "title": "Government Information Types",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "holidayGroups": {
+    "title": "Holiday Groups",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "holidays": {
+    "title": "Holidays",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "holidayDate",
+        "headerName": "Date",
+        "width": 10
+      },
+      {
+        "property": "holidayTypeName",
+        "headerName": "Type",
+        "width": 10
+      },
+      {
+        "property": "checkDate",
+        "headerName": "Check Date",
+        "width": 10
+      },
+      {
+        "property": "recurring",
+        "headerName": "Recurring",
+        "width": 10
+      },
+      {
+        "property": "groupName",
+        "headerName": "Holiday Group",
+        "width": 10
+      }
+    ]
+  },
+  "incomes": {
+    "title": "Incomes",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "incomeSchedule",
+        "headerName": "Schedule",
+        "width": 10
+      },
+      {
+        "property": "incomePaytype",
+        "headerName": "Pay Type",
+        "width": 10
+      },
+      {
+        "property": "taxable",
+        "headerName": "Taxable",
+        "width": 10
+      }
+    ]
+  },
+  "leaveTypes": {
+    "title": "Leave Types",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "convertible",
+        "headerName": "Contvertible",
+        "width": 10,
+        "format": "Boolean"
+      },
+      {
+        "property": "withoutPay",
+        "headerName": "Without Pay",
+        "width": 10,
+        "format": "Boolean"
+      }
+    ]
+  },
+  "loanTypes": {
+    "title": "Loan Types",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "loanSchedule",
+        "headerName": "Schedule",
+        "width": 10
+      }
+    ]
+  },
+  "materialCategories": {
+    "title": "Material Categories",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "memos": {
+    "title": "Memos",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "memoType",
+        "headerName": "Type",
+        "width": 10
+      },
+      {
+        "property": "memoCategory",
+        "headerName": "Category",
+        "width": 10
+      }
+    ]
+  },
+  "otMeals": {
+    "title": "O.T Meals",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "skillFromName",
+        "headerName": "Skill From",
+        "width": 10
+      },
+      {
+        "property": "skillToName",
+        "headerName": "Skill To",
+        "width": 10
+      },
+      {
+        "property": "otMealDayType",
+        "headerName": "Day Type",
+        "width": 10
+      },
+      {
+        "property": "otMealTimeOfDay",
+        "headerName": "Time of Day",
+        "width": 10
+      },
+      {
+        "property": "overHours",
+        "headerName": "Over Hours",
+        "width": 10,
+        "format": "Hours"
+      },
+      {
+        "property": "amount",
+        "headerName": "Amount",
+        "width": 10,
+        "format": "Hours"
+      },
+      {
+        "property": "incomeTypeName",
+        "headerName": "Income Type",
+        "width": 10,
+        "format": "Hours"
+      }
+    ]
+  },
+  "positions": {
+    "title": "Positions",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "requiredFTE",
+        "headerName": "Required FTE",
+        "width": 10
+      },
+      {
+        "property": "adminFee",
+        "headerName": "Admin Fee",
+        "width": 10,
+        "format": "Percentage"
+      },
+      {
+        "property": "vat",
+        "headerName": "VAT",
+        "width": 10,
+        "format": "Percentage"
+      }
+    ]
+  },
+  "sections": {
+    "title": "Sections",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "shifts": {
+    "title": "Shifts",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "shiftStart",
+        "headerName": "Shift Start",
+        "width": 10
+      },
+      {
+        "property": "shiftEnd",
+        "headerName": "Shift End",
+        "width": 10
+      },
+      {
+        "property": "actualHours",
+        "headerName": "Actual Hours",
+        "width": 10,
+        "format": "Hours"
+      },
+      {
+        "property": "isRestDay",
+        "headerName": "Rest Day",
+        "width": 10
+      },
+      {
+        "property": "isFlexi",
+        "headerName": "Flexi",
+        "width": 10
+      },
+      {
+        "property": "shiftBraksStart",
+        "headerName": "Shift Break Start",
+        "width": 10
+      },
+      {
+        "property": "shiftBraksEnd",
+        "headerName": "Shift Break End",
+        "width": 10
+      },
+      {
+        "property": "shiftBraksComputeLate",
+        "headerName": "Shift Break Compute Late",
+        "width": 10
+      }
+    ]
+  },
+  "skills": {
+    "title": "Skills",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "tardiness": {
+    "title": "Tardiness",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "skillName",
+        "headerName": "Skill",
+        "width": 10
+      },
+      {
+        "property": "departmentName",
+        "headerName": "Department",
+        "width": 10
+      },
+      {
+        "property": "lowerLimit",
+        "headerName": "Lower Limit",
+        "width": 10
+      },
+      {
+        "property": "upperLimit",
+        "headerName": "Uperr Limit",
+        "width": 10
+      },
+      {
+        "property": "equivalentMinutes",
+        "headerName": "Equivalent Minutes",
+        "width": 10
+      },
+      {
+        "property": "gracePeriod",
+        "headerName": "Grace Period",
+        "width": 10
+      }
+    ]
+  },
+  "toils": {
+    "title": "Toil Entitlement",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employee",
+        "headerName": "Employee Name",
+        "width": 10
+      }
+    ]
+  },
+  "trainings": {
+    "title": "Trainings",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "units": {
+    "title": "Units",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      }
+    ]
+  },
+  "employees": {
+    "title": "Employee",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "userId",
+        "headerName": "User Id",
+        "width": 10
+      },
+      {
+        "property": "employeeId",
+        "headerName": "Employee Id",
+        "width": 10
+      },
+      {
+        "property": "code",
+        "headerName": "Code",
+        "width": 10
+      },
+      {
+        "property": "username",
+        "headerName": "Username",
+        "width": 10
+      },
+      {
+        "property": "isAdmin",
+        "headerName": "Is Admin",
+        "width": 10
+      },
+      {
+        "property": "isApiUser",
+        "headerName": "Is Api User",
+        "width": 10
+      },
+      {
+        "property": "name",
+        "headerName": "Name",
+        "width": 10
+      },
+      {
+        "property": "nickname",
+        "headerName": "Nickname",
+        "width": 10
+      },
+      {
+        "property": "birthplace",
+        "headerName": "Birthplace",
+        "width": 10
+      },
+      {
+        "property": "birthDate",
+        "headerName": "Bithdate",
+        "width": 10
+      },
+      {
+        "property": "citizenship",
+        "headerName": "Citizenship",
+        "width": 10
+      },
+      {
+        "property": "gender",
+        "headerName": "Gender",
+        "width": 10
+      },
+      {
+        "property": "civilStatus",
+        "headerName": "Civil Status",
+        "width": 10
+      },
+      {
+        "property": "presentAddress",
+        "headerName": "Present Address",
+        "width": 10
+      },
+      {
+        "property": "permanentAddress",
+        "headerName": "Permanent Address",
+        "width": 10
+      },
+      {
+        "property": "postalCode",
+        "headerName": "Postal Code",
+        "width": 10
+      },
+      {
+        "property": "province",
+        "headerName": "Province",
+        "width": 10
+      },
+      {
+        "property": "city",
+        "headerName": "City",
+        "width": 10
+      },
+      {
+        "property": "personalEmail",
+        "headerName": "Personal Email",
+        "width": 10
+      },
+      {
+        "property": "officeEmail",
+        "headerName": "Office Email",
+        "width": 10
+      },
+      {
+        "property": "phoneNumber",
+        "headerName": "Phone Number",
+        "width": 10
+      },
+      {
+        "property": "mobileNumber",
+        "headerName": "Mobile Number",
+        "width": 10
+      },
+      {
+        "property": "monthlySalary",
+        "headerName": "Monthly Salary",
+        "width": 10
+      },
+      {
+        "property": "hoursPerDay",
+        "headerName": "Hours Per Day",
+        "width": 10
+      },
+      {
+        "property": "daysPerMonth",
+        "headerName": "Days Per Month",
+        "width": 10
+      },
+      {
+        "property": "dailyRate",
+        "headerName": "Daily Rate",
+        "width": 10
+      },
+      {
+        "property": "hourlyRate",
+        "headerName": "Hourly Rate",
+        "width": 10
+      },
+      {
+        "property": "rateEffectiveDate",
+        "headerName": "Rate Effective Date",
+        "width": 10
+      },
+      {
+        "property": "currencyCode",
+        "headerName": "Currency Code",
+        "width": 10
+      },
+      {
+        "property": "currencyName",
+        "headerName": "Currency Name",
+        "width": 10
+      },
+      {
+        "property": "currencyExchangeRate",
+        "headerName": "Currency Exchange Rate",
+        "width": 10
+      },
+      {
+        "property": "paymentTypeName",
+        "headerName": "Payment Type Name",
+        "width": 10
+      },
+      {
+        "property": "paymentHasBankInformation",
+        "headerName": "Payment Has Bank Information",
+        "width": 10
+      },
+      {
+        "property": "bankCode",
+        "headerName": "Bank Code",
+        "width": 10
+      },
+      {
+        "property": "bankName",
+        "headerName": "Bank Name",
+        "width": 10
+      },
+      {
+        "property": "bankAccountNumber",
+        "headerName": "Bank Account Number",
+        "width": 10
+      },
+      {
+        "property": "bankContactPerson",
+        "headerName": "Bank Contact Person",
+        "width": 10
+      },
+      {
+        "property": "bankPhoneNumber",
+        "headerName": "Bank Phone Number",
+        "width": 10
+      },
+      {
+        "property": "bankTypeName",
+        "headerName": "Bank Type Name",
+        "width": 10
+      },
+      {
+        "property": "accountNumber",
+        "headerName": "Account Number",
+        "width": 10
+      },
+      {
+        "property": "currencyExchangeRate",
+        "headerName": "Currency Exchange Rate",
+        "width": 10
+      }
+    ]
+  },
+  "changeSchedules": {
+    "title": "Change Schedules",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employee",
+        "headerName": "Employee",
+        "width": 10
+      },
+      {
+        "property": "applicationDate",
+        "headerName": "Application Date",
+        "width": 10
+      },
+      {
+        "property": "effectiveDate",
+        "headerName": "Effective Date",
+        "width": 10
+      },
+      {
+        "property": "mondayName",
+        "headerName": "Mon Sched",
+        "width": 10
+      },
+      {
+        "property": "mondayMode",
+        "headerName": "Mon Mode",
+        "width": 10
+      },
+      {
+        "property": "mondayIsWFH",
+        "headerName": "Mon WFH",
+        "width": 10
+      },
+      {
+        "property": "tuesdayName",
+        "headerName": "Tues Sched",
+        "width": 10
+      },
+      {
+        "property": "tuesdayMode",
+        "headerName": "Tue Mode",
+        "width": 10
+      },
+      {
+        "property": "tuesdayIsWFH",
+        "headerName": "Tue WFH",
+        "width": 10
+      },
+      {
+        "property": "wednesdayName",
+        "headerName": "Wed Sched",
+        "width": 10
+      },
+      {
+        "property": "wednesdayMode",
+        "headerName": "Wed Mode",
+        "width": 10
+      },
+      {
+        "property": "wednesdayIsWFH",
+        "headerName": "Wed WFH",
+        "width": 10
+      },
+      {
+        "property": "thursdayName",
+        "headerName": "Thu Sched",
+        "width": 10
+      },
+      {
+        "property": "thursdayMode",
+        "headerName": "Thu Mode",
+        "width": 10
+      },
+      {
+        "property": "thursdayIsWFH",
+        "headerName": "Thu WFH",
+        "width": 10
+      },
+      {
+        "property": "fridayName",
+        "headerName": "Fri Sched",
+        "width": 10
+      },
+      {
+        "property": "fridayMode",
+        "headerName": "Fri Mode",
+        "width": 10
+      },
+      {
+        "property": "fridayIsWFH",
+        "headerName": "Fri WFH",
+        "width": 10
+      },
+      {
+        "property": "saturdayName",
+        "headerName": "Sat Sched",
+        "width": 10
+      },
+      {
+        "property": "saturdayMode",
+        "headerName": "Sat Mode",
+        "width": 10
+      },
+      {
+        "property": "saturdayIsWFH",
+        "headerName": "Sat WFH",
+        "width": 10
+      },
+      {
+        "property": "status",
+        "headerName": "Status",
+        "width": 10
+      }
+    ],
+    "inputs": [
+      {
+        "id": "employee",
+        "label": "Employee",
+        "isRequired": false
+      },
+      {
+        "id": "company",
+        "label": "Company",
+        "isRequired": false
+      },
+      {
+        "id": "dateFrom",
+        "label": "Date From",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "dateTo",
+        "label": "Date to",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "status",
+        "label": "Status",
+        "isRequired": false
+      }
+    ]
+  },
+  "leaves": {
+    "title": "Leaves",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employee",
+        "headerName": "Employee",
+        "width": 10
+      },
+      {
+        "property": "applicationDate",
+        "headerName": "Application Date",
+        "width": 10
+      },
+      {
+        "property": "dateFrom",
+        "headerName": "Date From",
+        "width": 10
+      },
+      {
+        "property": "dateTo",
+        "headerName": "Date To",
+        "width": 10
+      },
+      {
+        "property": "leaveTypeName",
+        "headerName": "Leave Type",
+        "width": 10
+      },
+      {
+        "property": "convertible",
+        "headerName": "Convertible",
+        "width": 10
+      },
+      {
+        "property": "withoutPay",
+        "headerName": "Without Pay",
+        "width": 10
+      },
+      {
+        "property": "isHalfDay",
+        "headerName": "Half Day",
+        "width": 10
+      },
+      {
+        "property": "hours",
+        "headerName": "Hours",
+        "width": 10,
+        "format": "Hours"
+      },
+      {
+        "property": "status",
+        "headerName": "Status",
+        "width": 10
+      }
+    ],
+    "inputs": [
+      {
+        "id": "employee",
+        "label": "Employee",
+        "isRequired": false
+      },
+      {
+        "id": "company",
+        "label": "Company",
+        "isRequired": false
+      },
+      {
+        "id": "dateFrom",
+        "label": "Date From",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "dateTo",
+        "label": "Date to",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "status",
+        "label": "Status",
+        "isRequired": false
+      }
+    ]
+  },
+  "logOverrides": {
+    "title": "Log Overrides",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employee",
+        "headerName": "Employee",
+        "width": 10
+      },
+      {
+        "property": "applicationDate",
+        "headerName": "Application Date",
+        "width": 10
+      },
+      {
+        "property": "date",
+        "headerName": "Log Date",
+        "width": 10
+      },
+      {
+        "property": "time",
+        "headerName": "Log Time",
+        "width": 10
+      },
+      {
+        "property": "isIn",
+        "headerName": "Is In",
+        "width": 10
+      },
+      {
+        "property": "status",
+        "headerName": "Status",
+        "width": 10
+      }
+    ],
+    "inputs": [
+      {
+        "id": "employee",
+        "label": "Employee",
+        "isRequired": false
+      },
+      {
+        "id": "company",
+        "label": "Company",
+        "isRequired": false
+      },
+      {
+        "id": "dateFrom",
+        "label": "Date From",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "dateTo",
+        "label": "Date to",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "status",
+        "label": "Status",
+        "isRequired": false
+      }
+    ]
+  },
+  "officialBusinesses": {
+    "title": "Official Businesses",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employee",
+        "headerName": "Employee",
+        "width": 10
+      },
+      {
+        "property": "applicationDate",
+        "headerName": "Application Date",
+        "width": 10
+      },
+      {
+        "property": "dateFrom",
+        "headerName": "Date From",
+        "width": 10
+      },
+      {
+        "property": "dateTo",
+        "headerName": "Date To",
+        "width": 10
+      },
+      {
+        "property": "timeFrom",
+        "headerName": "Time From",
+        "width": 10
+      },
+      {
+        "property": "timeTo",
+        "headerName": "Time To",
+        "width": 10
+      },
+      {
+        "property": "shiftBased",
+        "headerName": "Shift Based",
+        "width": 10
+      },
+      {
+        "property": "shiftName",
+        "headerName": "Shift",
+        "width": 10
+      },
+      {
+        "property": "status",
+        "headerName": "Status",
+        "width": 10
+      }
+    ],
+    "inputs": [
+      {
+        "id": "employee",
+        "label": "Employee",
+        "isRequired": false
+      },
+      {
+        "id": "company",
+        "label": "Company",
+        "isRequired": false
+      },
+      {
+        "id": "dateFrom",
+        "label": "Date From",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "dateTo",
+        "label": "Date to",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "status",
+        "label": "Status",
+        "isRequired": false
+      }
+    ]
+  },
+  "overtimes": {
+    "title": "Overtimes",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employee",
+        "headerName": "Employee",
+        "width": 10
+      },
+      {
+        "property": "applicationDate",
+        "headerName": "Application Date",
+        "width": 10
+      },
+      {
+        "property": "date",
+        "headerName": "Date",
+        "width": 10
+      },
+      {
+        "property": "timeFrom",
+        "headerName": "Time From",
+        "width": 10
+      },
+      {
+        "property": "timeTo",
+        "headerName": "Time To",
+        "width": 10
+      },
+      {
+        "property": "hours",
+        "headerName": "Hours",
+        "width": 10,
+        "format": "Hours"
+      },
+      {
+        "property": "overtimeType",
+        "headerName": "Type",
+        "width": 10
+      },
+      {
+        "property": "status",
+        "headerName": "Status",
+        "width": 10
+      }
+    ],
+    "inputs": [
+      {
+        "id": "employee",
+        "label": "Employee",
+        "isRequired": false
+      },
+      {
+        "id": "company",
+        "label": "Company",
+        "isRequired": false
+      },
+      {
+        "id": "dateFrom",
+        "label": "Date From",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "dateTo",
+        "label": "Date to",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "status",
+        "label": "Status",
+        "isRequired": false
+      }
+    ]
+  },
+  "onCalls": {
+    "title": "On Call",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employee",
+        "headerName": "Employee",
+        "width": 10
+      },
+      {
+        "property": "applicationDate",
+        "headerName": "Application Date",
+        "width": 10
+      },
+      {
+        "property": "date",
+        "headerName": "Date",
+        "width": 10
+      },
+      {
+        "property": "status",
+        "headerName": "Status",
+        "width": 10
+      }
+    ],
+    "inputs": [
+      {
+        "id": "employee",
+        "label": "Employee",
+        "isRequired": false
+      },
+      {
+        "id": "company",
+        "label": "Company",
+        "isRequired": false
+      },
+      {
+        "id": "dateFrom",
+        "label": "Date From",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "dateTo",
+        "label": "Date to",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "status",
+        "label": "Status",
+        "isRequired": false
+      }
+    ]
+  },
+  "workFromHomes": {
+    "title": "Work From Home",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employee",
+        "headerName": "Employee",
+        "width": 10
+      },
+      {
+        "property": "applicationDate",
+        "headerName": "Application Date",
+        "width": 10
+      },
+      {
+        "property": "datefrom",
+        "headerName": "Date From",
+        "width": 10
+      },
+      {
+        "property": "dateTo",
+        "headerName": "Date To",
+        "width": 10
+      },
+      {
+        "property": "status",
+        "headerName": "Status",
+        "width": 10
+      }
+    ],
+    "inputs": [
+      {
+        "id": "employee",
+        "label": "Employee",
+        "isRequired": false
+      },
+      {
+        "id": "company",
+        "label": "Company",
+        "isRequired": false
+      },
+      {
+        "id": "dateFrom",
+        "label": "Date From",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "dateTo",
+        "label": "Date to",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "status",
+        "label": "Status",
+        "isRequired": false
+      }
+    ]
+  },
+  "timeRecords": {
+    "title": "Time Records",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "employee",
+        "headerName": "Employee",
+        "width": 10
+      },
+      {
+        "property": "logTime",
+        "headerName": "Log Time",
+        "width": 10
+      },
+      {
+        "property": "isIn",
+        "headerName": "Is In",
+        "width": 10,
+        "format": "Boolean"
+      },
+      {
+        "property": "terminal",
+        "headerName": "Terminal",
+        "width": 10
+      },
+      {
+        "property": "recordDate",
+        "headerName": "Record Date",
+        "width": 10
+      }
+    ],
+    "inputs": [
+      {
+        "id": "employee",
+        "label": "Employee",
+        "isRequired": false
+      },
+      {
+        "id": "company",
+        "label": "Company",
+        "isRequired": false
+      },
+      {
+        "id": "dateFrom",
+        "label": "Date From",
+        "isRequired": false,
+        "form": "date"
+      },
+      {
+        "id": "dateTo",
+        "label": "Date to",
+        "isRequired": false,
+        "form": "date"
+      }
+    ]
+  },
+  "payrollTransaction": {
+    "title": "Payroll Transaction Register",
+    "orientation": "landscape",
+    "bindings": [
+      {
+        "property": "paymentType",
+        "headerName": "Payment Type",
+        "width": 10
+      },
+      {
+        "property": "company",
+        "headerName": "Company ID",
+        "width": 10
+      },
+      {
+        "property": "department",
+        "headerName": "Department ID",
+        "width": 10
+      },
+      {
+        "property": "employee",
+        "headerName": "Employee",
+        "width": 10
+      },
+      {
+        "property": "monthlyRate",
+        "headerName": "Monthly Rate",
+        "width": 10
+      },
+      {
+        "property": "positionId",
+        "headerName": "Position ID",
+        "width": 10
+      },
+      {
+        "property": "payFrom",
+        "headerName": "Pay From",
+        "width": 10
+      },
+      {
+        "property": "payTo",
+        "headerName": "Pay To",
+        "width": 10
+      },
+      {
+        "property": "basicHours",
+        "headerName": "Basic Hours",
+        "width": 10
+      },
+      {
+        "property": "basicPay",
+        "headerName": "Basic Pay",
+        "width": 10
+      },
+      {
+        "property": "lateHours",
+        "headerName": "Late Hours",
+        "width": 10
+      },
+      {
+        "property": "absentHours",
+        "headerName": "Absent Hours",
+        "width": 10
+      },
+      {
+        "property": "undertimeHours",
+        "headerName": "Undertime Hours",
+        "width": 10
+      },
+      {
+        "property": "grossPay",
+        "headerName": "Gross Pay",
+        "width": 10
+      },
+      {
+        "property": "tax",
+        "headerName": "Tax",
+        "width": 10
+      },
+      {
+        "property": "philHealthEmployer",
+        "headerName": "PhilHealth Employer",
+        "width": 10
+      },
+      {
+        "property": "philHealthEmployee",
+        "headerName": "PhilHealth Employee",
+        "width": 10
+      },
+      {
+        "property": "sssEmployer",
+        "headerName": "SSS Employer",
+        "width": 10
+      },
+      {
+        "property": "sssEmployee",
+        "headerName": "SSS Employee",
+        "width": 10
+      },
+      {
+        "property": "ecc",
+        "headerName": "ECC",
+        "width": 10
+      },
+      {
+        "property": "pibEmployer",
+        "headerName": "PIB Employer",
+        "width": 10
+      },
+      {
+        "property": "pibEmployee",
+        "headerName": "PIB Employee",
+        "width": 10
+      },
+      {
+        "property": "providentEmployer",
+        "headerName": "Provident Employer",
+        "width": 10
+      },
+      {
+        "property": "providentEmployee",
+        "headerName": "Provident Employee",
+        "width": 10
+      },
+      {
+        "property": "netPay",
+        "headerName": "Net Pay",
+        "width": 10
+      },
+      {
+        "property": "overtimePay",
+        "headerName": "Overtime Pay",
+        "width": 10
+      },
+      {
+        "property": "leavePay",
+        "headerName": "Leave Pay",
+        "width": 10
+      },
+      {
+        "property": "absentPay",
+        "headerName": "Absent Pay",
+        "width": 10
+      },
+      {
+        "property": "loanPay",
+        "headerName": "Loan Pay",
+        "width": 10
+      },
+      {
+        "property": "otherIncomePay",
+        "headerName": "Other Income Pay",
+        "width": 10
+      },
+      {
+        "property": "otherDeductionPay",
+        "headerName": "Other Deduction Pay",
+        "width": 10
+      },
+      {
+        "property": "nonTaxableIncome",
+        "headerName": "Non-Taxable Income",
+        "width": 10
+      },
+      {
+        "property": "hourlyRate",
+        "headerName": "Hourly Rate",
+        "width": 10
+      },
+      {
+        "property": "nonTaxableBonus",
+        "headerName": "Non-Taxable Bonus",
+        "width": 10
+      },
+      {
+        "property": "taxableBonus",
+        "headerName": "Taxable Bonus",
+        "width": 10
+      },
+      {
+        "property": "undertimePay",
+        "headerName": "Undertime Pay",
+        "width": 10
+      },
+      {
+        "property": "latePay",
+        "headerName": "Late Pay",
+        "width": 10
+      }
+    ],
+    "inputs": [
+      {
+        "id": "company",
+        "label": "Company",
+        "isRequired": true
+      },
+      {
+        "id": "department",
+        "label": "Department",
+        "isRequired": false
+      },
+      {
+        "id": "employee",
+        "label": "Employee",
+        "isRequired": false
+      }
+    ]
+  }
+}
